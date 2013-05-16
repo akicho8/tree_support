@@ -5,109 +5,175 @@
 
   使い方は parent, nodes, to_s_tree メソッドを持つオブジェクトを TreeSupport.tree に渡すだけ
 
-  : require "tree_support"
-  :
-  : class Node
-  :   attr_accessor :parent, :nodes # 親と子たち(TreeSupport.treeを使うには必須)
-  :
-  :   attr_accessor :name
-  :
-  :   def initialize(name)
-  :     @name = name
-  :     @nodes = []
-  :   end
-  :
-  :   # TreeSupport.tree で表示する文字列。定義してなければ to_s を呼ぶ
-  :   def to_s_tree
-  :     @name
-  :   end
-  :
-  :   # 木を簡単につくるため
-  :   def add(name, &block)
-  :     tap do
-  :       node = self.class.new(name)
-  :       node.parent = self
-  :       @nodes << node
-  :       if block_given?
-  :         node.instance_eval(&block)
-  :       end
-  :     end
-  :   end
-  : end
-  :
-  : root = TreeSupport::Node.new("<root>").tap do |n|
-  :   n.instance_eval do
-  :     add "交戦" do
-  :       add "攻撃" do
-  :         add "剣を振る"
-  :         add "攻撃魔法" do
-  :           add "召喚A"
-  :           add "召喚B"
-  :         end
-  :         add "縦で剣をはじく"
-  :       end
-  :       add "防御"
-  :     end
-  :     add "撤退" do
-  :       add "足止めする" do
-  :         add "トラップをしかける"
-  :         add "弓矢を放つ"
-  :       end
-  :       add "逃走する"
-  :     end
-  :     add "休憩" do
-  :       add "立ち止まる"
-  :       add "回復する" do
-  :         add "回復魔法"
-  :         add "回復薬を飲む"
-  :       end
-  :     end
-  :   end
-  : end
+** テキスト化
 
-  TreeSupport.tree に渡すオブジェクトは は parent.nodes と to_s_tree に応答できれば何でもいい
+   : require "tree_support"
+   :
+   : class Node
+   :   attr_accessor :parent, :nodes # 親と子たち(TreeSupport.treeを使うにはpublicで参照できるようにしておく)
+   :
+   :   attr_accessor :name
+   :
+   :   def initialize(name)
+   :     @name = name
+   :     @nodes = []
+   :   end
+   :
+   :   # TreeSupport.tree で表示する文字列。定義してなければ to_s を呼ぶ
+   :   def to_s_tree
+   :     @name
+   :   end
+   :
+   :   # 木を簡単につくるため
+   :   def add(name, &block)
+   :     tap do
+   :       node = self.class.new(name)
+   :       node.parent = self
+   :       @nodes << node
+   :       if block_given?
+   :         node.instance_eval(&block)
+   :       end
+   :     end
+   :   end
+   : end
+   :
+   : root = Node.new("<root>").tap do |n|
+   :   n.instance_eval do
+   :     add "交戦" do
+   :       add "攻撃" do
+   :         add "剣を振る"
+   :         add "攻撃魔法" do
+   :           add "召喚A"
+   :           add "召喚B"
+   :         end
+   :         add "縦で剣をはじく"
+   :       end
+   :       add "防御"
+   :     end
+   :     add "撤退" do
+   :       add "足止めする" do
+   :         add "トラップをしかける"
+   :         add "弓矢を放つ"
+   :       end
+   :       add "逃走する"
+   :     end
+   :     add "休憩" do
+   :       add "立ち止まる"
+   :       add "回復する" do
+   :         add "回復魔法"
+   :         add "回復薬を飲む"
+   :       end
+   :     end
+   :   end
+   : end
 
-  : puts TreeSupport.tree(root)
-  : # >> <root>
-  : # >> ├─交戦
-  : # >> │   ├─攻撃
-  : # >> │   │   ├─剣を振る
-  : # >> │   │   ├─攻撃魔法
-  : # >> │   │   │   ├─召喚A
-  : # >> │   │   │   └─召喚B
-  : # >> │   │   └─縦で剣をはじく
-  : # >> │   └─防御
-  : # >> ├─撤退
-  : # >> │   ├─足止めする
-  : # >> │   │   ├─トラップをしかける
-  : # >> │   │   └─弓矢を放つ
-  : # >> │   └─逃走する
-  : # >> └─休憩
-  : # >>     ├─立ち止まる
-  : # >>     └─回復する
-  : # >>         ├─回復魔法
-  : # >>         └─回復薬を飲む
+   TreeSupport.tree に渡すオブジェクトは は parent.nodes と to_s_tree に応答できれば何でもいい
 
-  オブジェクト自体に tree メソッドを持たせたければ TreeSupport::Model を include する
+   : puts TreeSupport.tree(root)
+   : # >> <root>
+   : # >> ├─交戦
+   : # >> │   ├─攻撃
+   : # >> │   │   ├─剣を振る
+   : # >> │   │   ├─攻撃魔法
+   : # >> │   │   │   ├─召喚A
+   : # >> │   │   │   └─召喚B
+   : # >> │   │   └─縦で剣をはじく
+   : # >> │   └─防御
+   : # >> ├─撤退
+   : # >> │   ├─足止めする
+   : # >> │   │   ├─トラップをしかける
+   : # >> │   │   └─弓矢を放つ
+   : # >> │   └─逃走する
+   : # >> └─休憩
+   : # >>     ├─立ち止まる
+   : # >>     └─回復する
+   : # >>         ├─回復魔法
+   : # >>         └─回復薬を飲む
 
-  : Node.send(:include, TreeSupport::Model)
-  : puts root.tree
-  : # >> <root>
-  : # >> ├─交戦
-  : # >> │   ├─攻撃
-  : # >> │   │   ├─剣を振る
-  : # >> │   │   ├─攻撃魔法
-  : # >> │   │   │   ├─召喚A
-  : # >> │   │   │   └─召喚B
-  : # >> │   │   └─縦で剣をはじく
-  : # >> │   └─防御
-  : # >> ├─撤退
-  : # >> │   ├─足止めする
-  : # >> │   │   ├─トラップをしかける
-  : # >> │   │   └─弓矢を放つ
-  : # >> │   └─逃走する
-  : # >> └─休憩
-  : # >>     ├─立ち止まる
-  : # >>     └─回復する
-  : # >>         ├─回復魔法
-  : # >>         └─回復薬を飲む
+   オブジェクト自体に tree メソッドを持たせたければ TreeSupport::Model を include する
+
+   : Node.send(:include, TreeSupport::Model)
+   : puts root.tree
+   : # >> <root>
+   : # >> ├─交戦
+   : # >> │   ├─攻撃
+   : # >> │   │   ├─剣を振る
+   : # >> │   │   ├─攻撃魔法
+   : # >> │   │   │   ├─召喚A
+   : # >> │   │   │   └─召喚B
+   : # >> │   │   └─縦で剣をはじく
+   : # >> │   └─防御
+   : # >> ├─撤退
+   : # >> │   ├─足止めする
+   : # >> │   │   ├─トラップをしかける
+   : # >> │   │   └─弓矢を放つ
+   : # >> │   └─逃走する
+   : # >> └─休憩
+   : # >>     ├─立ち止まる
+   : # >>     └─回復する
+   : # >>         ├─回復魔法
+   : # >>         └─回復薬を飲む
+
+** 画像化
+
+   以下のようなグラフ画像を作るには？
+
+   [[https://raw.github.com/akicho8/tree_support/master/tree.png]]
+
+   gv = TreeSupport.graphviz(root)
+
+   これで GraphvizR のオブジェクトが返ってくるので dot 文字列にするには to_dot を呼ぶ
+
+   : puts gv.to_dot
+   : # >> digraph n70146110700700 {
+   : # >>   graph [charset = "UTF-8", rankdir = "LR"];
+   : # >>   n70146110700700 [label = "<root>"];
+   : # >>   n70146110700700 -> {n70146110698600; n70146110691220; n70146110689500;};
+   : # >>   n70146110698600 [label = "交戦"];
+   : # >>   n70146110698600 -> {n70146110698320; n70146110691720;};
+   : # >>   n70146110698320 [label = "攻撃"];
+   : # >>   n70146110698320 -> {n70146110697900; n70146110697240; n70146110692060;};
+   : # >>   n70146110697900 [label = "剣を振る"];
+   : # >>   n70146110697240 [label = "攻撃魔法"];
+   : # >>   n70146110697240 -> {n70146110695080; n70146110694480;};
+   : # >>   n70146110695080 [label = "召喚A"];
+   : # >>   n70146110694480 [label = "召喚B"];
+   : # >>   n70146110692060 [label = "縦で剣をはじく"];
+   : # >>   n70146110691720 [label = "防御"];
+   : # >>   n70146110691220 [label = "撤退"];
+   : # >>   n70146110691220 -> {n70146110690400; n70146110689620;};
+   : # >>   n70146110690400 [label = "足止めする"];
+   : # >>   n70146110690400 -> {n70146110690220; n70146110689820;};
+   : # >>   n70146110690220 [label = "トラップをしかける"];
+   : # >>   n70146110689820 [label = "弓矢を放つ"];
+   : # >>   n70146110689620 [label = "逃走する"];
+   : # >>   n70146110689500 [label = "休憩"];
+   : # >>   n70146110689500 -> {n70146110688500; n70146110687660;};
+   : # >>   n70146110688500 [label = "立ち止まる"];
+   : # >>   n70146110687660 [label = "回復する"];
+   : # >>   n70146110687660 -> {n70146110686920; n70146110686220;};
+   : # >>   n70146110686920 [label = "回復魔法"];
+   : # >>   n70146110686220 [label = "回復薬を飲む"];
+   : # >> }
+
+   画像にするには output を使う。(※gvオブジェクト以下は TreeSupport の機能ではなくて GraphvizR の機能)
+
+   : gv.output("tree.png")
+
+   [[https://raw.github.com/akicho8/tree_support/master/tree.png]]
+
+   特定のノードだけ色を替えたいときは以下のようにブロックで graphviz の属性をハッシュで返す。(※ppみたいに咄嗟に確認できることが重要なので、ここにあんまり力を入れちゃいけない)
+
+   : gv = TreeSupport.graphviz(root){|node|
+   :   if node.name.include?("攻")
+   :     {:fillcolor => "lightblue", :style => "filled"}
+   :   elsif node.name.include?("回復")
+   :     {:fillcolor => "lightpink", :style => "filled"}
+   :   end
+   : }
+   : gv.output("tree_color.png")
+
+   #+BEGIN_EXAMPLE
+   #+ATTR_HTML: alt="色つき" width="50%"
+   [[file:https://raw.github.com/akicho8/tree_support/master/tree_color.png]]
+   #+END_EXAMPLE   

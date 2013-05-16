@@ -3,7 +3,7 @@ $:.push File.expand_path("../lib", __FILE__)
 
 Gem::Specification.new do |s|
   s.name         = "tree_support"
-  s.version      = "0.0.1"
+  s.version      = "0.0.2"
   s.author       = "akicho8"
   s.email        = "akicho8@gmail.com"
   s.homepage     = "https://github.com/akicho8/tree_support"
@@ -18,5 +18,6 @@ Gem::Specification.new do |s|
   s.rdoc_options = ["--line-numbers", "--inline-source", "--charset=UTF-8", "--diagram", "--image-format=jpg"]
 
   s.add_development_dependency "rspec"
-  s.add_dependency "yard"
+  s.add_development_dependency "yard"
+  s.add_dependency "GraphvizR"
 end

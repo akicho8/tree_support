@@ -1,13 +1,18 @@
 PATH
   remote: .
   specs:
-    tree_support (0.0.1)
-      yard
+    tree_support (0.0.2)
+      GraphvizR
 
 GEM
   remote: https://rubygems.org/
   specs:
+    GraphvizR (0.5.1)
+      hoe (>= 1.2.0)
     diff-lcs (1.2.2)
+    hoe (3.6.0)
+      rake (>= 0.8, < 11.0)
+    rake (10.0.4)
     rspec (2.13.0)
       rspec-core (~> 2.13.0)
       rspec-expectations (~> 2.13.0)
@@ -24,3 +29,4 @@ PLATFORMS
 DEPENDENCIES
   rspec
   tree_support!
+  yard

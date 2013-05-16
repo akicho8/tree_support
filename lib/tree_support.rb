@@ -1,12 +1,18 @@
 # -*- coding: utf-8 -*-
+
 require "kconv"
+require "graphviz_r"
 
 module TreeSupport
   def self.tree(*args, &block)
-    Dump.tree(*args, &block)
+    Inspector.tree(*args, &block)
   end
 
-  class Dump
+  def self.graphviz(*args, &block)
+    GraphvizBuilder.build(*args, &block)
+  end
+
+  class Inspector
     def self.tree(object, *args, &block)
       new(*args, &block).tree(object)
     end
@@ -90,11 +96,59 @@ module TreeSupport
 
   module Model
     def tree(options = {}, &block)
-      Dump.tree(self, options, &block)
+      Inspector.tree(self, options, &block)
     end
   end
 
-  # シンプルなノード(別に継承する必要はない)
+  class GraphvizBuilder
+    def self.build(object, *args, &block)
+      new(*args, &block).build(object)
+    end
+
+    def initialize(options = {}, &block)
+      @options = {
+      }.merge(options)
+      @block = block
+    end
+
+    def build(object)
+      gv = GraphvizR.new(node_code(object))
+      gv.graph[:charset => "UTF-8", :rankdir => "LR"]
+      visit(gv, object)
+      gv
+    end
+
+    private
+
+    def visit(gv, object)
+      gv[node_code(object)][:label => node_name(object)]
+      unless object.nodes.empty?
+        gv[node_code(object)] >> object.nodes.collect{|node|gv[node_code(node)]}
+        object.nodes.each{|node|visit(gv, node)}
+      end
+      if @block
+        if attrs = @block.call(object)
+          unless attrs.empty?
+            gv[node_code(object)][attrs]
+          end
+        end
+      end
+    end
+
+    def node_code(object)
+      "n#{object.object_id}"
+    end
+
+    def node_name(object)
+      if object.respond_to?(:to_s_tree)
+        object.to_s_tree
+      else
+        object.to_s
+      end
+    end
+  end
+
+  # シンプルなノード(すぐにコードを書きたいときに使う)
   class Node
     include Model
 
@@ -156,4 +210,17 @@ if $0 == __FILE__
 
   puts root.tree
   puts TreeSupport.tree(root)
+
+  gv = TreeSupport.graphviz(root)
+  puts gv.to_dot
+  gv.output("_output1.png")
+
+  gv = TreeSupport.graphviz(root){|node|
+    if node.name.include?("攻")
+      {:fillcolor => "lightblue", :style => "filled"}
+    elsif node.name.include?("回復")
+      {:fillcolor => "lightpink", :style => "filled"}
+    end
+  }
+  gv.output("_output2.png")
 end
