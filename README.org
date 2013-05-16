@@ -116,10 +116,6 @@
 
 ** 画像化
 
-   以下のようなグラフ画像を作るには？
-
-   [[https://raw.github.com/akicho8/tree_support/master/tree.png]]
-
    gv = TreeSupport.graphviz(root)
 
    これで GraphvizR のオブジェクトが返ってくるので dot 文字列にするには to_dot を呼ぶ
@@ -173,7 +169,4 @@
    : }
    : gv.output("tree_color.png")
 
-   #+BEGIN_EXAMPLE
-   #+ATTR_HTML: alt="色つき" width="50%"
-   [[file:https://raw.github.com/akicho8/tree_support/master/tree_color.png]]
-   #+END_EXAMPLE   
+   [[https://raw.github.com/akicho8/tree_support/master/tree_color.png]]
