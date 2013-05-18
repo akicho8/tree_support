@@ -1,4 +1,21 @@
 # -*- coding: utf-8 -*-
+# 木構造可視化ライブラリ
+#
+#   root = TreeSupport::Node.new("ROOT").tap do |n|
+#     n.instance_eval do
+#       add "A" do
+#         add "B" do
+#           add "C"
+#         end
+#       end
+#     end
+#   end
+#
+#   puts TreeSupport.tree(root)
+#   > ROOT
+#   > └─A
+#   >     └─B
+#   >         └─C
 
 require "kconv"
 require "graphviz_r"
@@ -10,6 +27,21 @@ module TreeSupport
 
   def self.graphviz(*args, &block)
     GraphvizBuilder.build(*args, &block)
+  end
+
+  def self.gp(*args, &block)
+    # require "tempfile"
+    # require "pathname"
+    # require "securerandom"
+    # Dir.mktmpdir do |dir|
+    #   filename = "#{dir}/#{SecureRandom.hex}.png"
+    #   graphviz(*args, &block).output(filename)
+    #   `open #{filename}`
+    # end
+
+    filename = "_output.png"
+    graphviz(*args, &block).output(filename)
+    `open #{filename}`
   end
 
   class Inspector
@@ -223,4 +255,6 @@ if $0 == __FILE__
     end
   }
   gv.output("_output2.png")
+
+  TreeSupport.gp(root)
 end

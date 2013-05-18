@@ -170,3 +170,9 @@
    : gv.output("tree_color.png")
 
    [[https://raw.github.com/akicho8/tree_support/master/tree_color.png]]
+
+   デバッグ用にすぐ確認したいときは
+
+   : TreeSupport.gp(root)
+
+   とすれば画像が見れる
