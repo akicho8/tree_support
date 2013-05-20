@@ -94,7 +94,7 @@ module TreeSupport
       }.join
 
       if @block
-        label = @block.call(object, locals[:depth])
+        label = @block.call(object, locals)
       else
         if locals[:depth].empty? && @options[:root_label] # ルートかつ代替ラベルがあれば変更
           label = @options[:root_label]
@@ -239,6 +239,8 @@ if $0 == __FILE__
 
   puts root.tree
   puts TreeSupport.tree(root)
+
+  puts TreeSupport.tree(root){|node, locals|node.object_id}
 
   gv = TreeSupport.graphviz(root)
   puts gv.to_dot
