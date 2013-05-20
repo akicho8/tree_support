@@ -67,7 +67,7 @@ module TreeSupport
     # 木構造の可視化
     #
     #   必要なメソッド
-    #     parent.nodes
+    #     parent.children
     #     to_s_tree
     #
     def tree(object, locals = {})
@@ -76,7 +76,7 @@ module TreeSupport
       }.merge(locals)
 
       if locals[:depth].size > @options[:skip]
-        if object == object.parent.nodes.last
+        if object == object.parent.children.last
           prefix_char = @options[:edge_char]
         else
           prefix_char = @options[:connect_char]
@@ -115,11 +115,11 @@ module TreeSupport
 
       flag = false
       if object.parent
-        flag = (object != object.parent.nodes.last)
+        flag = (object != object.parent.children.last)
       end
 
       locals[:depth].push(flag)
-      buffer << object.nodes.collect{|node|tree(node, locals)}.join
+      buffer << object.children.collect{|node|tree(node, locals)}.join
       locals[:depth].pop
 
       buffer
@@ -154,9 +154,9 @@ module TreeSupport
 
     def visit(gv, object)
       gv[node_code(object)][:label => node_name(object)]
-      unless object.nodes.empty?
-        gv[node_code(object)] >> object.nodes.collect{|node|gv[node_code(node)]}
-        object.nodes.each{|node|visit(gv, node)}
+      unless object.children.empty?
+        gv[node_code(object)] >> object.children.collect{|node|gv[node_code(node)]}
+        object.children.each{|node|visit(gv, node)}
       end
       if @block
         if attrs = @block.call(object)
@@ -184,11 +184,11 @@ module TreeSupport
   class Node
     include Model
 
-    attr_accessor :name, :parent, :nodes
+    attr_accessor :name, :parent, :children
 
     def initialize(name)
       @name = name
-      @nodes = []
+      @children = []
     end
 
     def to_s_tree
@@ -200,7 +200,7 @@ module TreeSupport
       tap do
         node = self.class.new(name)
         node.parent = self
-        @nodes << node
+        @children << node
         if block_given?
           node.instance_eval(&block)
         end

@@ -3,13 +3,13 @@ require "bundler/setup"
 require "tree_support"
 
 class Node
-  attr_accessor :parent, :nodes # 親と子たち(TreeSupport.treeを使うには必須)
+  attr_accessor :parent, :children # 親と子たち(TreeSupport.treeを使うには必須)
 
   attr_accessor :name
 
   def initialize(name)
     @name = name
-    @nodes = []
+    @children = []
   end
 
   # TreeSupport.tree で表示する文字列。定義してなければ to_s を呼ぶ
@@ -22,7 +22,7 @@ class Node
     tap do
       node = self.class.new(name)
       node.parent = self
-      @nodes << node
+      @children << node
       if block_given?
         node.instance_eval(&block)
       end
@@ -60,7 +60,7 @@ root = Node.new("<root>").tap do |n|
   end
 end
 
-# TreeSupport.tree に渡すオブジェクトは は parent.nodes と to_s_tree に応答できれば何でもいい
+# TreeSupport.tree に渡すオブジェクトは は parent.children と to_s_tree に応答できれば何でもいい
 puts TreeSupport.tree(root)
 
 # オブジェクト自体に tree メソッドを持たせたければ

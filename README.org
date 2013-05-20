@@ -3,20 +3,20 @@
 
 * 木構造の可視化汎用ライブラリ
 
-  使い方は parent, nodes, to_s_tree メソッドを持つオブジェクトを TreeSupport.tree に渡すだけ
+  使い方は parent, children, to_s_tree メソッドを持つオブジェクトを TreeSupport.tree に渡すだけ
 
 ** テキスト化
 
    : require "tree_support"
    :
    : class Node
-   :   attr_accessor :parent, :nodes # 親と子たち(TreeSupport.treeを使うにはpublicで参照できるようにしておく)
+   :   attr_accessor :parent, :children # 親と子たち(TreeSupport.treeを使うにはpublicで参照できるようにしておく)
    :
    :   attr_accessor :name
    :
    :   def initialize(name)
    :     @name = name
-   :     @nodes = []
+   :     @children = []
    :   end
    :
    :   # TreeSupport.tree で表示する文字列。定義してなければ to_s を呼ぶ
@@ -29,7 +29,7 @@
    :     tap do
    :       node = self.class.new(name)
    :       node.parent = self
-   :       @nodes << node
+   :       @children << node
    :       if block_given?
    :         node.instance_eval(&block)
    :       end
@@ -67,7 +67,7 @@
    :   end
    : end
 
-   TreeSupport.tree に渡すオブジェクトは は parent.nodes と to_s_tree に応答できれば何でもいい
+   TreeSupport.tree に渡すオブジェクトは は parent.children と to_s_tree に応答できれば何でもいい
 
    : puts TreeSupport.tree(root)
    : # >> <root>
@@ -116,7 +116,7 @@
 
 ** 画像化
 
-   gv = TreeSupport.graphviz(root)
+   : gv = TreeSupport.graphviz(root)
 
    これで GraphvizR のオブジェクトが返ってくるので dot 文字列にするには to_dot を呼ぶ
 
@@ -175,4 +175,7 @@
 
    : TreeSupport.gp(root)
 
-   とすれば画像が見れる
+   とすれば画像が見れる。これは以下のショートカットに相当する。
+
+   : TreeSupport.graphviz(root).output("_output.png")
+   : `open _output.png`

@@ -20,4 +20,8 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rspec"
   s.add_development_dependency "yard"
   s.add_dependency "GraphvizR"
+
+  # yardがデフォルトプラグインとして読み込もうとしているため
+  s.add_development_dependency "yard-rspec"
+  s.add_development_dependency "yard-rubicle"
 end
