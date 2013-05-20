@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+#
 # acts_as_tree_rails3 を使ったモデルの可視化
 #
 require "../lib/tree_support"
@@ -6,7 +7,6 @@ require "../lib/tree_support"
 gem "activerecord", "3.2.13"
 require "active_record"
 require "acts_as_tree_rails3"
-require "pp"
 
 ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
 ActiveRecord::Migration.verbose = false
@@ -62,3 +62,22 @@ root = Node.create!(:name => "<root>").tap do |n|
 end
 
 puts TreeSupport.tree(root)
+# >> <root>
+# >> ├─交戦
+# >> │   ├─攻撃
+# >> │   │   ├─剣を振る
+# >> │   │   ├─攻撃魔法
+# >> │   │   │   ├─召喚A
+# >> │   │   │   └─召喚B
+# >> │   │   └─縦で剣をはじく
+# >> │   └─防御
+# >> ├─撤退
+# >> │   ├─足止めする
+# >> │   │   ├─トラップをしかける
+# >> │   │   └─弓矢を放つ
+# >> │   └─逃走する
+# >> └─休憩
+# >>     ├─立ち止まる
+# >>     └─回復する
+# >>         ├─回復魔法
+# >>         └─回復薬を飲む

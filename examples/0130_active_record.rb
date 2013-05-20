@@ -1,33 +1,39 @@
 # -*- coding: utf-8 -*-
 #
-# ノードの例
+# ActiveRecord のみを使った木構造の可視化
 #
+
 require "../lib/tree_support"
 
-class Node
-  attr_accessor :parent, :children # 親と子たち(TreeSupport.treeを使うには必須)
+gem "activerecord", "3.2.13"
+require "active_record"
+require "pp"
 
-  attr_accessor :name
+ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
+ActiveRecord::Migration.verbose = false
 
-  def initialize(name)
-    @name = name
-    @children = []
+ActiveRecord::Schema.define do
+  create_table :nodes do |t|
+    t.belongs_to :parent
+    t.string :name
   end
+end
 
-  # 木を簡単につくるため
+class Node < ActiveRecord::Base
+  belongs_to :parent, :class_name => "Node", :foreign_key => "parent_id"
+  has_many :children, :class_name => "Node", :foreign_key => "parent_id", :order => :id
+
   def add(name, &block)
     tap do
-      node = self.class.new(name)
-      node.parent = self
-      @children << node
+      child = children.create!(:name => name)
       if block_given?
-        node.instance_eval(&block)
+        child.instance_eval(&block)
       end
     end
   end
 end
 
-root = Node.new("<root>").tap do |n|
+root = Node.create!(:name => "<root>").tap do |n|
   n.instance_eval do
     add "交戦" do
       add "攻撃" do
@@ -57,31 +63,7 @@ root = Node.new("<root>").tap do |n|
   end
 end
 
-# TreeSupport.tree に渡すオブジェクトは は parent.children と to_s_tree に応答できれば何でもいい
 puts TreeSupport.tree(root)
-
-# オブジェクト自体に tree メソッドを持たせたければ
-Node.send(:include, TreeSupport::Model)
-puts root.tree
-# >> <root>
-# >> ├─交戦
-# >> │   ├─攻撃
-# >> │   │   ├─剣を振る
-# >> │   │   ├─攻撃魔法
-# >> │   │   │   ├─召喚A
-# >> │   │   │   └─召喚B
-# >> │   │   └─縦で剣をはじく
-# >> │   └─防御
-# >> ├─撤退
-# >> │   ├─足止めする
-# >> │   │   ├─トラップをしかける
-# >> │   │   └─弓矢を放つ
-# >> │   └─逃走する
-# >> └─休憩
-# >>     ├─立ち止まる
-# >>     └─回復する
-# >>         ├─回復魔法
-# >>         └─回復薬を飲む
 # >> <root>
 # >> ├─交戦
 # >> │   ├─攻撃
