@@ -44,6 +44,16 @@ module TreeSupport
     `open #{filename}`
   end
 
+  def self.node_name(object)
+    if object.respond_to?(:to_s_tree)
+      object.to_s_tree
+    elsif object.respond_to?(:name)
+      object.name
+    else
+      object.to_s
+    end
+  end
+
   class Inspector
     def self.tree(object, *args, &block)
       new(*args, &block).tree(object)
@@ -98,7 +108,7 @@ module TreeSupport
         if locals[:depth].empty? && @options[:root_label] # ルートかつ代替ラベルがあれば変更
           label = @options[:root_label]
         else
-          label = object.respond_to?(:to_s_tree) ? object.to_s_tree : object.to_s
+          label = TreeSupport.node_name(object)
         end
       end
 
@@ -153,7 +163,7 @@ module TreeSupport
     private
 
     def visit(gv, object)
-      gv[node_code(object)][:label => node_name(object)]
+      gv[node_code(object)][:label => TreeSupport.node_name(object)]
       unless object.children.empty?
         gv[node_code(object)] >> object.children.collect{|node|gv[node_code(node)]}
         object.children.each{|node|visit(gv, node)}
@@ -169,14 +179,6 @@ module TreeSupport
 
     def node_code(object)
       "n#{object.object_id}"
-    end
-
-    def node_name(object)
-      if object.respond_to?(:to_s_tree)
-        object.to_s_tree
-      else
-        object.to_s
-      end
     end
   end
 
