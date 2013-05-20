@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-require "bundler/setup"
-require "tree_support"
+# ノードの例
+require_relative "../lib/tree_support"
 
 class Node
   attr_accessor :parent, :children # 親と子たち(TreeSupport.treeを使うには必須)
@@ -10,11 +10,6 @@ class Node
   def initialize(name)
     @name = name
     @children = []
-  end
-
-  # TreeSupport.tree で表示する文字列。定義してなければ to_s を呼ぶ
-  def to_s_tree
-    @name
   end
 
   # 木を簡単につくるため

@@ -30,15 +30,6 @@ module TreeSupport
   end
 
   def self.gp(*args, &block)
-    # require "tempfile"
-    # require "pathname"
-    # require "securerandom"
-    # Dir.mktmpdir do |dir|
-    #   filename = "#{dir}/#{SecureRandom.hex}.png"
-    #   graphviz(*args, &block).output(filename)
-    #   `open #{filename}`
-    # end
-
     filename = "_output.png"
     graphviz(*args, &block).output(filename)
     `open #{filename}`
@@ -209,38 +200,42 @@ module TreeSupport
       end
     end
   end
-end
 
-if $0 == __FILE__
-  root = TreeSupport::Node.new("<root>").tap do |n|
-    n.instance_eval do
-      add "交戦" do
-        add "攻撃" do
-          add "剣を振る"
-          add "攻撃魔法" do
-            add "召喚A"
-            add "召喚B"
+  def self.example
+    TreeSupport::Node.new("<root>").tap do |n|
+      n.instance_eval do
+        add "交戦" do
+          add "攻撃" do
+            add "剣を振る"
+            add "攻撃魔法" do
+              add "召喚A"
+              add "召喚B"
+            end
+            add "縦で剣をはじく"
           end
-          add "縦で剣をはじく"
+          add "防御"
         end
-        add "防御"
-      end
-      add "撤退" do
-        add "足止めする" do
-          add "トラップをしかける"
-          add "弓矢を放つ"
+        add "撤退" do
+          add "足止めする" do
+            add "トラップをしかける"
+            add "弓矢を放つ"
+          end
+          add "逃走する"
         end
-        add "逃走する"
-      end
-      add "休憩" do
-        add "立ち止まる"
-        add "回復する" do
-          add "回復魔法"
-          add "回復薬を飲む"
+        add "休憩" do
+          add "立ち止まる"
+          add "回復する" do
+            add "回復魔法"
+            add "回復薬を飲む"
+          end
         end
       end
     end
   end
+end
+
+if $0 == __FILE__
+  root = TreeSupport.example
 
   puts root.tree
   puts TreeSupport.tree(root)

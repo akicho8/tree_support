@@ -3,7 +3,7 @@
 
 * 木構造の可視化汎用ライブラリ
 
-  使い方は parent, children, to_s_tree メソッドを持つオブジェクトを TreeSupport.tree に渡すだけ
+  使い方は parent, children メソッドを持つオブジェクトを TreeSupport.tree に渡すだけ
 
 ** テキスト化
 
@@ -17,11 +17,6 @@
    :   def initialize(name)
    :     @name = name
    :     @children = []
-   :   end
-   :
-   :   # TreeSupport.tree で表示する文字列。定義してなければ to_s を呼ぶ
-   :   def to_s_tree
-   :     @name
    :   end
    :
    :   # 木を簡単につくるため
@@ -67,7 +62,7 @@
    :   end
    : end
 
-   TreeSupport.tree に渡すオブジェクトは は parent.children と to_s_tree に応答できれば何でもいい
+   TreeSupport.tree に渡すオブジェクトは は parent.children に応答できれば何でもいい
 
    : puts TreeSupport.tree(root)
    : # >> <root>
@@ -179,3 +174,7 @@
 
    : TreeSupport.graphviz(root).output("_output.png")
    : `open _output.png`
+
+** おまけ
+
+   TreeSupport.example には簡単なサンプルの木が入っている
