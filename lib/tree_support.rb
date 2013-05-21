@@ -53,7 +53,7 @@ module TreeSupport
     def initialize(options = {}, &block)
       @options = {
         # オプション相当
-        :skip             => 0,     # 何レベルスキップするか？(1にするとrootを表示しない)
+        :skip_depth       => 0,     # 何レベルスキップするか？(1にするとrootを表示しない)
         :root_label       => nil,   # ルートを表示する場合に有効な代替ラベル
         :tab_space        => 4,     # 途中からのインデント幅
         :connect_char     => "├",
@@ -76,7 +76,7 @@ module TreeSupport
         :depth => [],
       }.merge(locals)
 
-      if locals[:depth].size > @options[:skip]
+      if locals[:depth].size > @options[:skip_depth]
         if object == object.parent.children.last
           prefix_char = @options[:edge_char]
         else
@@ -87,7 +87,7 @@ module TreeSupport
       end
 
       indents = locals[:depth].each.with_index.collect{|flag, index|
-        if index > @options[:skip]
+        if index > @options[:skip_depth]
           tab = flag ? @options[:tab_visible_char] : ""
           tab.toeuc.ljust(@options[:tab_space]).toutf8
         end
@@ -104,11 +104,11 @@ module TreeSupport
       end
 
       branch_char = nil
-      if locals[:depth].size > @options[:skip]
+      if locals[:depth].size > @options[:skip_depth]
         branch_char = @options[:branch_char]
       end
 
-      if locals[:depth].size >= @options[:skip]
+      if locals[:depth].size >= @options[:skip_depth]
         buffer = "#{indents}#{prefix_char}#{branch_char}#{label}#{@options[:debug] ? locals[:depth].inspect : ""}\n"
       else
         buffer = ""
@@ -233,6 +233,8 @@ if $0 == __FILE__
 
   puts root.tree
   puts TreeSupport.tree(root)
+
+  puts TreeSupport.tree(root, :skip_depth => 1)
 
   puts TreeSupport.tree(root){|node, locals|node.object_id}
 
