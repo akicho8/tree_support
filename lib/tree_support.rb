@@ -146,7 +146,7 @@ module TreeSupport
 
     def build(object)
       gv = GraphvizR.new(node_code(object))
-      gv.graph[:charset => "UTF-8", :rankdir => "LR"]
+      gv.graph[:charset => "UTF-8", :rankdir => "LR", :concentrate => "true"]
       visit(gv, object)
       gv
     end
@@ -154,17 +154,15 @@ module TreeSupport
     private
 
     def visit(gv, object)
-      gv[node_code(object)][:label => TreeSupport.node_name(object)]
+      attrs = {}
+      if @block
+        attrs = @block.call(object) || {}
+      end
+      attrs[:label] ||= TreeSupport.node_name(object)
+      gv[node_code(object)][attrs]
       unless object.children.empty?
         gv[node_code(object)] >> object.children.collect{|node|gv[node_code(node)]}
         object.children.each{|node|visit(gv, node)}
-      end
-      if @block
-        if attrs = @block.call(object)
-          unless attrs.empty?
-            gv[node_code(object)][attrs]
-          end
-        end
       end
     end
 
@@ -182,10 +180,6 @@ module TreeSupport
     def initialize(name)
       @name = name
       @children = []
-    end
-
-    def to_s_tree
-      @name
     end
 
     # Builder pattern (?)
@@ -254,6 +248,11 @@ if $0 == __FILE__
     end
   }
   gv.output("_output2.png")
+
+  gv = TreeSupport.graphviz(root){|node|
+    {:label => node.name.chars.first}
+  }
+  gv.output("_output3.png")
 
   TreeSupport.gp(root)
 end
