@@ -48,7 +48,7 @@
 :
 :   def add(*args, &block)
 :     tap do
-:       @children << self.class.new(*args, &block).tap{|v|v.parent = self}
+:       children << self.class.new(*args, &block).tap{|v|v.parent = self}
 :     end
 :   end
 : end
@@ -251,7 +251,7 @@
 
 *** ルートは表示したくない
 
-: puts TreeSupport.tree(root, :skip_depth => 1)
+: puts TreeSupport.tree(root, :drop => 1)
 : # >> 交戦
 : # >> ├─攻撃
 : # >> │   ├─剣を振る
@@ -273,6 +273,6 @@
 
 **** 画像版も同様
 
-: TreeSupport.graphviz(root).output("skip_depth.png", :skip_depth => 1)
+: TreeSupport.graphviz(root).output("drop.png", :drop => 1)
 
-    [[https://raw.github.com/akicho8/tree_support/master/images/skip_depth.png]]
+    [[https://raw.github.com/akicho8/tree_support/master/images/drop.png]]

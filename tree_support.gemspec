@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
+require 'tree_support/version'
 
 Gem::Specification.new do |s|
   s.name         = "tree_support"
-  s.version      = "0.0.2"
+  s.version      = TreeSupport::VERSION
   s.author       = "akicho8"
   s.email        = "akicho8@gmail.com"
   s.homepage     = "https://github.com/akicho8/tree_support"

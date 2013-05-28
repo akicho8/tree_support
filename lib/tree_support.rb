@@ -50,7 +50,7 @@ module TreeSupport
 
     def initialize(options = {}, &block)
       @options = {
-        :skip_depth       => 0,     # 何レベルスキップするか？(1にするとrootを表示しない)
+        :drop       => 0,     # 何レベルスキップするか？(1にするとrootを表示しない)
         :root_label       => nil,   # ルートを表示する場合に有効な代替ラベル
         :tab_space        => 4,     # 途中からのインデント幅
         :connect_char     => "├",
@@ -73,7 +73,7 @@ module TreeSupport
         :depth => [],
       }.merge(locals)
 
-      if locals[:depth].size > @options[:skip_depth]
+      if locals[:depth].size > @options[:drop]
         if object == object.parent.children.last
           prefix_char = @options[:edge_char]
         else
@@ -84,7 +84,7 @@ module TreeSupport
       end
 
       indents = locals[:depth].each.with_index.collect{|flag, index|
-        if index > @options[:skip_depth]
+        if index > @options[:drop]
           tab = flag ? @options[:tab_visible_char] : ""
           tab.toeuc.ljust(@options[:tab_space]).toutf8
         end
@@ -101,11 +101,11 @@ module TreeSupport
       end
 
       branch_char = nil
-      if locals[:depth].size > @options[:skip_depth]
+      if locals[:depth].size > @options[:drop]
         branch_char = @options[:branch_char]
       end
 
-      if locals[:depth].size >= @options[:skip_depth]
+      if locals[:depth].size >= @options[:drop]
         buffer = "#{indents}#{prefix_char}#{branch_char}#{label}#{@options[:debug] ? locals[:depth].inspect : ""}\n"
       else
         buffer = ""
@@ -137,7 +137,7 @@ module TreeSupport
 
     def initialize(options = {}, &block)
       @options = {
-        :skip_depth => 0,
+        :drop => 0,
       }.merge(options)
       @block = block
     end
@@ -152,7 +152,7 @@ module TreeSupport
     private
 
     def visit(gv, object, depth = 0)
-      if depth >= @options[:skip_depth]
+      if depth >= @options[:drop]
         attrs = {}
         if @block
           attrs = @block.call(object) || {}
@@ -229,7 +229,7 @@ if $0 == __FILE__
   puts root.tree
   puts TreeSupport.tree(root)
 
-  puts TreeSupport.tree(root, :skip_depth => 1)
+  puts TreeSupport.tree(root, :drop => 1)
 
   puts TreeSupport.tree(root){|node, locals|node.object_id}
 
@@ -253,6 +253,6 @@ if $0 == __FILE__
 
   TreeSupport.graph_open(root)
 
-  gv = TreeSupport.graphviz(root, :skip_depth => 1)
+  gv = TreeSupport.graphviz(root, :drop => 1)
   gv.output("_output4.png")
 end
