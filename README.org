@@ -7,7 +7,7 @@
 
    1. 表示するオブジェクトは parent, children メソッドを持っていること
    2. テキスト化ならそれを TreeSupport.tree に渡す
-   3. 画像化なら TreeSupport.gp に渡す
+   3. 画像化なら TreeSupport.graph_open に渡す
 
 : require "tree_support"
 : puts TreeSupport.tree(TreeSupport.example)
@@ -236,7 +236,7 @@
 
 *** デバッグ時にすぐ画像変換したものを確認するには？
 
-: TreeSupport.gp(root)
+: TreeSupport.graph_open(root)
 
    次のショートカットに相当
 

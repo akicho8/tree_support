@@ -27,7 +27,7 @@ module TreeSupport
     GraphvizBuilder.build(*args, &block)
   end
 
-  def self.gp(*args, &block)
+  def self.graph_open(*args, &block)
     filename = "_output.png"
     graphviz(*args, &block).output(filename)
     `open #{filename}`
@@ -251,7 +251,7 @@ if $0 == __FILE__
   }
   gv.output("_output3.png")
 
-  TreeSupport.gp(root)
+  TreeSupport.graph_open(root)
 
   gv = TreeSupport.graphviz(root, :skip_depth => 1)
   gv.output("_output4.png")
