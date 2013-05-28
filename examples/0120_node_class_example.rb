@@ -5,11 +5,9 @@
 require "../lib/tree_support"
 
 class Node
-  attr_accessor :parent, :children # 親と子たち(TreeSupport.treeを使うには必須)
+  attr_accessor :name, :parent, :children
 
-  attr_accessor :name
-
-  def initialize(name, &block)
+  def initialize(name = nil, &block)
     @name = name
     @children = []
     if block_given?
@@ -20,12 +18,7 @@ class Node
   # 木を簡単につくるため
   def add(*args, &block)
     tap do
-      node = self.class.new(*args)
-      node.parent = self
-      @children << node
-      if block_given?
-        node.instance_eval(&block)
-      end
+      @children << self.class.new(*args, &block).tap{|v|v.parent = self}
     end
   end
 end
