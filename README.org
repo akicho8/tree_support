@@ -243,11 +243,55 @@
 : TreeSupport.graphviz(root).output("_output.png")
 : `open _output.png`
 
+*** ノードを自分で作るのが面倒
+
+    TreeSupport::Node をそのまま使えばいい。
+
+: TreeSupport::Node.new("<root>") do
+:   add "交戦" do
+:     add "攻撃" do
+:       add "剣を振る"
+:       add "攻撃魔法" do
+:         add "召喚A"
+:         add "召喚B"
+:       end
+:     end
+:   end
+: end
+
 *** 木を作るのが面倒
 
 : TreeSupport.example
 
    に簡単なサンプルの木が入ってる
+
+*** 葉を辿るには？
+
+    TreeSupport::Treeable を include していれば each_node が使える
+
+: root = TreeSupport.example
+: root.class.ancestors # => [TreeSupport::Node, TreeSupport::Model, Enumerable, TreeSupport::Treeable, Object, Kernel, BasicObject]
+: root.each_node.with_index{|n, i|p [i, n.name]}
+:
+: # >> [0, "<root>"]
+: # >> [1, "交戦"]
+: # >> [2, "攻撃"]
+: # >> [3, "剣を振る"]
+: # >> [4, "攻撃魔法"]
+: # >> [5, "召喚A"]
+: # >> [6, "召喚B"]
+: # >> [7, "縦で剣をはじく"]
+: # >> [8, "防御"]
+: # >> [9, "撤退"]
+: # >> [10, "足止めする"]
+: # >> [11, "トラップをしかける"]
+: # >> [12, "弓矢を放つ"]
+: # >> [13, "逃走する"]
+: # >> [14, "休憩"]
+: # >> [15, "立ち止まる"]
+: # >> [16, "回復する"]
+: # >> [17, "回復魔法"]
+: # >> [18, "回復薬を飲む"]
 
 *** ルートは表示したくない
 

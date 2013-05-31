@@ -17,6 +17,7 @@
 
 require "kconv"
 require "graphviz_r"
+require "active_support/concern"
 
 module TreeSupport
   def self.tree(*args, &block)
@@ -171,8 +172,34 @@ module TreeSupport
     end
   end
 
-  # シンプルなノード(すぐにコードを書きたいときに使う)
+  # 便利メソッド集
+  module Treeable
+    extend ActiveSupport::Concern
+
+    included do
+      include Enumerable
+    end
+
+    module ClassMethods
+      def each_node(root, &block)
+        return enum_for(__method__, root) unless block_given?
+        yield root
+        root.each{|v|each_node(v, &block)}
+      end
+    end
+
+    def each(&block)
+      children.each(&block)
+    end
+
+    def each_node(&block)
+      self.class.each_node(self, &block)
+    end
+  end
+
+  # シンプルなノード(木構造の情報だけが欲しいときアプリ側でわざわざ作るのも面倒なので)
   class Node
+    include Treeable
     include Model
 
     attr_accessor :name, :parent, :children
@@ -225,6 +252,7 @@ end
 
 if $0 == __FILE__
   root = TreeSupport.example
+  p root.each_node.collect.with_index{|n, i|[n.name, i]}
 
   puts root.tree
   puts TreeSupport.tree(root)
