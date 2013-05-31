@@ -3,11 +3,9 @@
 
 * 木構造の可視化汎用ライブラリ
 
-** 3行でわかる使い方
+** 1行でわかる使い方
 
-   1. 表示するオブジェクトは parent, children メソッドを持っていること
-   2. テキスト化ならそれを TreeSupport.tree に渡す
-   3. 画像化なら TreeSupport.graph_open に渡す
+   parent, children メソッドを持っているオブジェクトを TreeSupport.tree に渡すだけ
 
 : require "tree_support"
 : puts TreeSupport.tree(TreeSupport.example)
@@ -33,7 +31,7 @@
 
 ** 詳しい使い方
 
-*** ノードの準備
+*** こんな感じのノードクラスを準備
 
 : class Node
 :   attr_accessor :name, :parent, :children
@@ -53,7 +51,7 @@
 :   end
 : end
 
-*** 木の作成
+*** 木を作成
 
 : root = Node.new("<root>") do
 :   add "交戦" do
@@ -83,11 +81,8 @@
 :   end
 : end
 
-*** テキスト表示
+*** 可視化
 
-   TreeSupport.tree に渡すオブジェクトは parent.children の構造になっていれば何でもいい
-
-: require "tree_support"
 : puts TreeSupport.tree(root)
 : # >> <root>
 : # >> ├─交戦
@@ -109,7 +104,7 @@
 : # >>         ├─回復魔法
 : # >>         └─回復薬を飲む
 
-*** TreeSupport.tree を書くのも面倒
+*** TreeSupport.tree を書くのが面倒
 
    TreeSupport::Model を include する
 
@@ -168,7 +163,7 @@
 
 : gv = TreeSupport.graphviz(root)
 
-*** 画像化するには？
+*** それを画像化するには？
 
 : gv.output("tree.png")
 
@@ -234,7 +229,7 @@
 : # >>   n70146110686220 [label = "回復薬を飲む"];
 : # >> }
 
-*** デバッグ時にすぐ画像変換したものを確認するには？
+*** デバッグ時などですぐ画像変換したものを確認するには？
 
 : TreeSupport.graph_open(root)
 
@@ -243,7 +238,7 @@
 : TreeSupport.graphviz(root).output("_output.png")
 : `open _output.png`
 
-*** ノードを自分で作るのが面倒
+*** ノードクラスを自分で作るのが面倒
 
     TreeSupport::Node をそのまま使えばいい。
 
@@ -263,7 +258,7 @@
 
 : TreeSupport.example
 
-   に簡単なサンプルの木が入ってる
+    に簡単なサンプルの木が入ってる
 
 *** 葉を辿るには？
 
