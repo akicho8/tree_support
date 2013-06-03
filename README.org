@@ -3,6 +3,8 @@
 
 * 木構造の可視化汎用ライブラリ
 
+  [[https://travis-ci.org/akicho8/tree_support.png]]
+
 ** 1行でわかる使い方
 
    parent, children メソッドを持っているオブジェクトを TreeSupport.tree に渡すだけ

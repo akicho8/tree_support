@@ -18,11 +18,14 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.rdoc_options = ["--line-numbers", "--inline-source", "--charset=UTF-8", "--diagram", "--image-format=jpg"]
 
+  s.add_development_dependency "rake"
   s.add_development_dependency "rspec"
   s.add_development_dependency "yard"
-  s.add_dependency "GraphvizR"
 
   # yardがデフォルトプラグインとして読み込もうとしているため
   s.add_development_dependency "yard-rspec"
   s.add_development_dependency "yard-rubicle"
+
+  s.add_dependency "GraphvizR"
+  s.add_dependency "activesupport"
 end
