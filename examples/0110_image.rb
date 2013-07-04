@@ -4,4 +4,4 @@
 #
 require "../lib/tree_support"
 root = TreeSupport.example
-TreeSupport.graphviz(root).save("_tree", :png)
+TreeSupport.graphviz(root).output("_tree.png")

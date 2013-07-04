@@ -16,8 +16,14 @@
 #   >         └─C
 
 require "kconv"
+
 require "gviz"
 require "active_support/concern"
+
+# for GvizEx#output
+require "pathname"
+require "delegate"
+require "fileutils"
 
 module TreeSupport
   def self.tree(*args, &block)
@@ -29,7 +35,7 @@ module TreeSupport
   end
 
   def self.graph_open(*args, &block)
-    graphviz(*args, &block).save("_output", :png)
+    graphviz(*args, &block).output("_output.png")
     `open _output.png`
   end
 
@@ -131,6 +137,14 @@ module TreeSupport
   end
 
   class GraphvizBuilder
+    class GvizEx < SimpleDelegator
+      def output(filename)
+        filename = Pathname.new(filename).expand_path
+        FileUtils.makedirs(filename.dirname)
+        save("#{filename.dirname}/#{filename.basename(".*")}", filename.extname.delete(".").to_sym)
+      end
+    end
+
     def self.build(object, *args, &block)
       new(*args, &block).build(object)
     end
@@ -143,7 +157,7 @@ module TreeSupport
     end
 
     def build(object)
-      gv = Gviz.new
+      gv = GvizEx.new(Gviz.new)
       gv.global(:rankdir => "LR", :concentrate => "true")
       visit(gv, object)
       gv
@@ -260,7 +274,7 @@ if $0 == __FILE__
 
   gv = TreeSupport.graphviz(root)
   puts gv
-  gv.save("_output1", :png)
+  gv.output("_output1.png")
 
   gv = TreeSupport.graphviz(root){|node|
     if node.name.include?("攻")
@@ -269,15 +283,15 @@ if $0 == __FILE__
       {:fillcolor => "lightpink", :style => "filled"}
     end
   }
-  gv.save("_output2", :png)
+  gv.output("_output2.png")
 
   gv = TreeSupport.graphviz(root){|node|
     {:label => node.name.chars.first}
   }
-  gv.save("_output3", :png)
+  gv.output("_output3.png")
 
   TreeSupport.graph_open(root)
 
   gv = TreeSupport.graphviz(root, :drop => 1)
-  gv.save("_output4", :png)
+  gv.output("_output4.png")
 end
