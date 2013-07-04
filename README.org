@@ -237,7 +237,7 @@
 
    次のショートカットに相当
 
-: TreeSupport.graphviz(root).output("_output.png")
+: TreeSupport.graphviz(root).save("_output", :png)
 : `open _output.png`
 
 *** ノードクラスを自分で作るのが面倒

@@ -16,7 +16,7 @@
 #   >         └─C
 
 require "kconv"
-require "graphviz_r"
+require "gviz"
 require "active_support/concern"
 
 module TreeSupport
@@ -29,9 +29,8 @@ module TreeSupport
   end
 
   def self.graph_open(*args, &block)
-    filename = "_output.png"
-    graphviz(*args, &block).output(filename)
-    `open #{filename}`
+    graphviz(*args, &block).save("_output", :png)
+    `open _output.png`
   end
 
   def self.node_name(object)
@@ -144,8 +143,8 @@ module TreeSupport
     end
 
     def build(object)
-      gv = GraphvizR.new(node_code(object))
-      gv.graph[:charset => "UTF-8", :rankdir => "LR", :concentrate => "true"]
+      gv = Gviz.new
+      gv.global(:rankdir => "LR", :concentrate => "true")
       visit(gv, object)
       gv
     end
@@ -159,16 +158,14 @@ module TreeSupport
           attrs = @block.call(object) || {}
         end
         attrs[:label] ||= TreeSupport.node_name(object)
-        gv[node_code(object)][attrs]
-        unless object.children.empty?
-          gv[node_code(object)] >> object.children.collect{|node|gv[node_code(node)]}
-        end
+        gv.node(node_code(object), attrs)
+        gv.route node_code(object) => object.children.collect{|node|node_code(node)}
       end
       object.children.each{|node|visit(gv, node, depth.next)}
     end
 
     def node_code(object)
-      "n#{object.object_id}"
+      "n#{object.object_id}".to_sym
     end
   end
 
@@ -262,8 +259,8 @@ if $0 == __FILE__
   puts TreeSupport.tree(root){|node, locals|node.object_id}
 
   gv = TreeSupport.graphviz(root)
-  puts gv.to_dot
-  gv.output("_output1.png")
+  puts gv
+  gv.save("_output1", :png)
 
   gv = TreeSupport.graphviz(root){|node|
     if node.name.include?("攻")
@@ -272,15 +269,15 @@ if $0 == __FILE__
       {:fillcolor => "lightpink", :style => "filled"}
     end
   }
-  gv.output("_output2.png")
+  gv.save("_output2", :png)
 
   gv = TreeSupport.graphviz(root){|node|
     {:label => node.name.chars.first}
   }
-  gv.output("_output3.png")
+  gv.save("_output3", :png)
 
   TreeSupport.graph_open(root)
 
   gv = TreeSupport.graphviz(root, :drop => 1)
-  gv.output("_output4.png")
+  gv.save("_output4", :png)
 end

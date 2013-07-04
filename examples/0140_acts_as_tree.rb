@@ -4,12 +4,11 @@
 #
 require "../lib/tree_support"
 
-gem "activerecord", "3.2.13"
 require "active_record"
-require "acts_as_tree_rails3"
+require "acts_as_tree"
 
 ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
-ActiveRecord::Migration.verbose = false
+ActiveRecord::Migration.verbose = false # !> assigned but unused variable - order_option
 
 ActiveRecord::Schema.define do
   create_table :nodes do |t|
@@ -19,9 +18,10 @@ ActiveRecord::Schema.define do
 end
 
 class Node < ActiveRecord::Base
-  acts_as_tree
+  include ActsAsTree
+  acts_as_tree order: "name"
 
-  def add(name, &block)
+  def add(name, &block) # !> character class has duplicated range: /[^\d\w:-]/
     tap do
       child = children.create!(:name => name)
       if block_given?
@@ -55,11 +55,14 @@ root = Node.create!(:name => "<root>").tap do |n|
       add "立ち止まる"
       add "回復する" do
         add "回復魔法"
-        add "回復薬を飲む"
+        add "回復薬を飲む" # !> loading in progress, circular require considered harmful - /usr/local/var/rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/acts_as_tree-1.4.0/lib/acts_as_tree.rb
       end
     end
   end
 end
+
+# Node.extend(ActsAsTree::Presentation)
+# puts Node.tree_view(:name)
 
 puts TreeSupport.tree(root)
 # >> <root>
@@ -71,13 +74,13 @@ puts TreeSupport.tree(root)
 # >> │   │   │   └─召喚B
 # >> │   │   └─縦で剣をはじく
 # >> │   └─防御
-# >> ├─撤退
-# >> │   ├─足止めする
-# >> │   │   ├─トラップをしかける
-# >> │   │   └─弓矢を放つ
-# >> │   └─逃走する
-# >> └─休憩
-# >>     ├─立ち止まる
-# >>     └─回復する
-# >>         ├─回復魔法
-# >>         └─回復薬を飲む
+# >> ├─休憩
+# >> │   ├─回復する
+# >> │   │   ├─回復薬を飲む
+# >> │   │   └─回復魔法
+# >> │   └─立ち止まる
+# >> └─撤退
+# >>     ├─足止めする
+# >>     │   ├─トラップをしかける
+# >>     │   └─弓矢を放つ
+# >>     └─逃走する

@@ -27,5 +27,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "yard-rubicle"
 
   s.add_dependency "activesupport"
-  s.add_dependency "GraphvizR"
+  s.add_dependency "gviz"
 end
