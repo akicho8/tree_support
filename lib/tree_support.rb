@@ -143,6 +143,10 @@ module TreeSupport
         FileUtils.makedirs(filename.dirname)
         save("#{filename.dirname}/#{filename.basename(".*")}", filename.extname.delete(".").to_sym)
       end
+
+      def to_dot
+        to_s
+      end
     end
 
     def self.build(object, *args, &block)
@@ -273,7 +277,7 @@ if $0 == __FILE__
   puts TreeSupport.tree(root){|node, locals|node.object_id}
 
   gv = TreeSupport.graphviz(root)
-  puts gv
+  puts gv.to_dot
   gv.output("_output1.png")
 
   gv = TreeSupport.graphviz(root){|node|
