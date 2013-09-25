@@ -1,5 +1,6 @@
-# -*- coding: utf-8 -*-
-$:.push File.expand_path("../lib", __FILE__)
+# coding: utf-8
+lib = File.expand_path('../lib', __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'tree_support/version'
 
 Gem::Specification.new do |s|
@@ -21,10 +22,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rake"
   s.add_development_dependency "rspec"
   s.add_development_dependency "yard"
-
-  # yardがデフォルトプラグインとして読み込もうとしているため
-  s.add_development_dependency "yard-rspec"
-  s.add_development_dependency "yard-rubicle"
 
   s.add_dependency "activesupport"
   s.add_dependency "gviz"

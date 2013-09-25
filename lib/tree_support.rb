@@ -25,6 +25,8 @@ require "pathname"
 require "delegate"
 require "fileutils"
 
+require "tree_support/version"
+
 module TreeSupport
   def self.tree(*args, &block)
     Inspector.tree(*args, &block)
@@ -56,7 +58,7 @@ module TreeSupport
 
     def initialize(options = {}, &block)
       @options = {
-        :drop       => 0,     # 何レベルスキップするか？(1にするとrootを表示しない)
+        :drop             => 0,     # 何レベルスキップするか？(1にするとrootを表示しない)
         :root_label       => nil,   # ルートを表示する場合に有効な代替ラベル
         :tab_space        => 4,     # 途中からのインデント幅
         :connect_char     => "├",
