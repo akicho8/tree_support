@@ -3,7 +3,8 @@
 # ActiveRecord のみを使った木構造の可視化
 #
 
-require "../lib/tree_support"
+$LOAD_PATH.unshift("../lib")
+require "tree_support"
 
 require "active_record"
 require "pp"
@@ -19,8 +20,8 @@ ActiveRecord::Schema.define do
 end
 
 class Node < ActiveRecord::Base
-  belongs_to :parent, :class_name => "Node", :foreign_key => "parent_id"
-  has_many :children, -> { order(:id) }, :class_name => "Node", :foreign_key => "parent_id"
+  belongs_to :parent, :class_name => name, :foreign_key => "parent_id"
+  has_many :children, -> { order(:id) }, :class_name => name, :foreign_key => "parent_id"
 
   def add(name, &block)
     tap do

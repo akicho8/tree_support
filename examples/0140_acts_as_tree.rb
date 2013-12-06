@@ -2,13 +2,14 @@
 #
 # acts_as_tree_rails3 を使ったモデルの可視化
 #
-require "../lib/tree_support"
+$LOAD_PATH.unshift("../lib")
+require "tree_support"
 
 require "active_record"
 require "acts_as_tree"
 
 ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
-ActiveRecord::Migration.verbose = false # !> assigned but unused variable - order_option
+ActiveRecord::Migration.verbose = false
 
 ActiveRecord::Schema.define do
   create_table :nodes do |t|
@@ -21,7 +22,7 @@ class Node < ActiveRecord::Base
   include ActsAsTree
   acts_as_tree order: "name"
 
-  def add(name, &block) # !> character class has duplicated range: /[^\d\w:-]/
+  def add(name, &block)
     tap do
       child = children.create!(:name => name)
       if block_given?
@@ -55,7 +56,7 @@ root = Node.create!(:name => "<root>").tap do |n|
       add "立ち止まる"
       add "回復する" do
         add "回復魔法"
-        add "回復薬を飲む" # !> loading in progress, circular require considered harmful - /usr/local/var/rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/acts_as_tree-1.4.0/lib/acts_as_tree.rb
+        add "回復薬を飲む"
       end
     end
   end

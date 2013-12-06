@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 #
-# ノードの例
+# 自作ノードの例
 #
-require "../lib/tree_support"
+$LOAD_PATH.unshift("../lib")
+require "tree_support"
 
 class Node
   attr_accessor :name, :parent, :children

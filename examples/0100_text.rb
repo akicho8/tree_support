@@ -2,7 +2,8 @@
 #
 # 一番簡単なサンプル
 #
-require "../lib/tree_support"
+$LOAD_PATH.unshift("../lib")
+require "tree_support"
 root = TreeSupport.example
 puts TreeSupport.tree(root)
 # >> <root>

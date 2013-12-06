@@ -2,6 +2,7 @@
 #
 # 画像変換
 #
-require "../lib/tree_support"
+$LOAD_PATH.unshift("../lib")
+require "tree_support"
 root = TreeSupport.example
 TreeSupport.graphviz(root).output("_tree.png")
