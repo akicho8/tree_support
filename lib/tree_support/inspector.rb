@@ -97,4 +97,10 @@ module TreeSupport
       buffer
     end
   end
+
+  module Stringify
+    def to_s_tree(*args, &block)
+      Inspector.tree(self, *args, &block)
+    end
+  end
 end

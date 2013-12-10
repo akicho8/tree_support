@@ -2,7 +2,7 @@
 require "active_support/concern"
 
 module TreeSupport
-  module Model
+  module Treeable
     extend ActiveSupport::Concern
 
     included do
@@ -39,10 +39,6 @@ module TreeSupport
 
     def self_and_siblings
       parent ? parent.children : []
-    end
-
-    def to_s_tree(options = {}, &block)
-      Inspector.tree(self, options, &block)
     end
   end
 end
