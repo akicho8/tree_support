@@ -108,9 +108,9 @@
 
 *** TreeSupport.tree を書くのが面倒
 
-   TreeSupport::Model を include する
+   TreeSupport::Treeable を include する
 
-  : Node.send(:include, TreeSupport::Model)
+  : Node.send(:include, TreeSupport::Treeable)
   : puts root.to_s_tree
   : # >> <root>
   : # >> ├─交戦
@@ -264,7 +264,7 @@
 
 *** 葉を辿るには？
 
-    TreeSupport::Model を include していれば each_node が使える
+    TreeSupport::Treeable を include していれば each_node が使える
 
   : root = TreeSupport.example
   : root.each_node.with_index{|n, i|p [i, n.name]}

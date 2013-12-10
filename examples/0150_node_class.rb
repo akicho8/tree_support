@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 #
-# Model モジュールが入っていると each_node が使える
+# Treeable モジュールが入っていると each_node が使える
 #
 $LOAD_PATH.unshift("../lib")
 require "tree_support"
 
 root = TreeSupport.example
-root.class.ancestors                  # => [TreeSupport::Node, TreeSupport::Model, Enumerable, TreeSupport::Model, Object, Kernel, BasicObject]
+root.class.ancestors                  # => [TreeSupport::Node, TreeSupport::Treeable, Enumerable, TreeSupport::Treeable, Object, Kernel, BasicObject]
 root.each_node.with_index{|n, i|p [i, n.name]}
 
 # >> [0, "<root>"]

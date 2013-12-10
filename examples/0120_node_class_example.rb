@@ -55,9 +55,8 @@ end
 # TreeSupport.tree に渡すオブジェクトは は parent.children と name に応答できさえすればいい
 puts TreeSupport.tree(root)
 
-# オブジェクトに to_s_tree メソッドをつけたり、木をあれこれ操作するための便利メソッドが必要なら
-Node.send(:include, TreeSupport::Model)
-root.ancestors.collect(&:name)  # => ["<root>"]
+# オブジェクトに文字列化するメソッドを入れるには？
+Node.send(:include, TreeSupport::Stringify)
 puts root.to_s_tree
 # >> <root>
 # >> ├─交戦

@@ -2,7 +2,8 @@
 module TreeSupport
   # シンプルなノード(木構造の情報だけが欲しいときアプリ側でわざわざ作るのも面倒なので)
   class Node
-    include Model
+    include Treeable
+    include Stringify
 
     attr_accessor :params, :parent, :children
     alias name params
