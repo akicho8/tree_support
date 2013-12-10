@@ -108,9 +108,9 @@
 
 *** TreeSupport.tree を書くのが面倒
 
-   TreeSupport::Treeable を include する
+   TreeSupport::Stringify を include する
 
-  : Node.send(:include, TreeSupport::Treeable)
+  : Node.send(:include, TreeSupport::Stringify)
   : puts root.to_s_tree
   : # >> <root>
   : # >> ├─交戦
