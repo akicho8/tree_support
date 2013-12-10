@@ -16,7 +16,7 @@
 #   >         └─C
 
 require "tree_support/version"
-require "tree_support/treeable"
+require "tree_support/model"
 require "tree_support/inspector"
 require "tree_support/graphviz_builder"
 require "tree_support/node"

@@ -8,8 +8,8 @@ module TreeSupport
   end
 
   def self.node_name(object)
-    if object.respond_to?(:to_s_tree)
-      object.to_s_tree
+    if object.respond_to?(:to_s_tree_name)
+      object.to_s_tree_name
     elsif object.respond_to?(:name)
       object.name
     else
@@ -40,7 +40,7 @@ module TreeSupport
     #
     #   必要なメソッド
     #     parent.children
-    #     to_s_tree
+    #     name
     #
     def tree(object, locals = {})
       locals = {
@@ -95,12 +95,6 @@ module TreeSupport
       locals[:depth].pop
 
       buffer
-    end
-  end
-
-  module Model
-    def tree(options = {}, &block)
-      Inspector.tree(self, options, &block)
     end
   end
 end

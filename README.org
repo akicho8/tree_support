@@ -111,7 +111,7 @@
    TreeSupport::Model を include する
 
   : Node.send(:include, TreeSupport::Model)
-  : puts root.tree
+  : puts root.to_s_tree
   : # >> <root>
   : # >> ├─交戦
   : # >> │   ├─攻撃
@@ -134,7 +134,7 @@
 
 *** ノードのラベルを変更するには？
 
-   to_s_tree, name, to_s の順に探すので優先度を考えてメソッドを定義する
+   to_s_tree_name, name, to_s の順に探すので優先度を考えてメソッドを定義する
 
 *** メソッドを定義することなくラベルを変更するには？
 
@@ -264,10 +264,9 @@
 
 *** 葉を辿るには？
 
-    TreeSupport::Treeable を include していれば each_node が使える
+    TreeSupport::Model を include していれば each_node が使える
 
   : root = TreeSupport.example
-  : root.class.ancestors # => [TreeSupport::Node, TreeSupport::Model, Enumerable, TreeSupport::Treeable, Object, Kernel, BasicObject]
   : root.each_node.with_index{|n, i|p [i, n.name]}
   : 
   : # >> [0, "<root>"]

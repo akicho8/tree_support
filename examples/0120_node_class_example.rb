@@ -52,12 +52,13 @@ root = Node.new("<root>") do
   end
 end
 
-# TreeSupport.tree に渡すオブジェクトは は parent.children と to_s_tree に応答できれば何でもいい
+# TreeSupport.tree に渡すオブジェクトは は parent.children と name に応答できさえすればいい
 puts TreeSupport.tree(root)
 
-# オブジェクト自体に tree メソッドを持たせたければ
+# オブジェクトに to_s_tree メソッドをつけたり、木をあれこれ操作するための便利メソッドが必要なら
 Node.send(:include, TreeSupport::Model)
-puts root.tree
+root.ancestors.collect(&:name)  # => ["<root>"]
+puts root.to_s_tree
 # >> <root>
 # >> ├─交戦
 # >> │   ├─攻撃

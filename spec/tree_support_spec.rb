@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 require "spec_helper"
 
-describe do
-  it do
+describe TreeSupport do
+  it "tree" do
     expected = <<-EOT
 <root>
 ├─交戦
@@ -24,8 +24,37 @@ describe do
         ├─回復魔法
         └─回復薬を飲む
 EOT
+    TreeSupport.example.to_s_tree.should == expected
+  end
 
-    TreeSupport.example.tree.should == expected
-    TreeSupport.tree(TreeSupport.example).should == expected
+  describe do
+    before do
+      @tree = TreeSupport::Node.new("<root>") do
+        add "a" do
+          add "a1"
+          add "a2"
+          add "a3" do
+            add "x"
+          end
+        end
+      end
+      @node = @tree.each_node.find{|e|e.name == "a2"}
+    end
+
+    it "ancestors" do
+      @node.ancestors.collect(&:name).should == ["a2", "a", "<root>"]
+    end
+
+    it "root" do
+      @node.root.name.should == "<root>"
+    end
+
+    it "siblings" do
+      @node.siblings.collect(&:name).should == ["a1", "a3"]
+    end
+
+    it "self_and_siblings" do
+      @node.self_and_siblings.collect(&:name).should == ["a1", "a2", "a3"]
+    end
   end
 end
