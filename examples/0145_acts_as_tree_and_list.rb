@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# acts_as_tree を使った例
+# acts_as_tree で兄妹の順序を acts_as_list で保持する例
 #
 $LOAD_PATH.unshift("../lib")
 require "tree_support"
@@ -10,6 +10,8 @@ require "active_record"
 require "acts_as_tree"
 ActiveRecord::Base.send(:include, ActsAsTree)
 
+require "acts_as_list"
+
 ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
 ActiveRecord::Migration.verbose = false
 
@@ -17,12 +19,13 @@ ActiveRecord::Schema.define do
   create_table :nodes do |t|
     t.belongs_to :parent
     t.string :name
+    t.integer :position
   end
 end
 
 class Node < ActiveRecord::Base
-  include ActsAsTree
-  acts_as_tree :order => "name"
+  acts_as_tree :order => "position"
+  acts_as_list :scope => :parent
 
   def add(name, &block)
     tap do
@@ -67,7 +70,7 @@ end
 # Node.extend(ActsAsTree::Presentation)
 # puts Node.tree_view(:name)
 
-puts TreeSupport.tree(root)
+puts TreeSupport.tree(root){|e|"#{e.name}(#{e.position})"}
 # ~> 	from -:10:in `<main>'
 # ~> 	from /usr/local/var/rbenv/versions/2.0.0-p247/lib/ruby/site_ruby/2.0.0/rubygems/core_ext/kernel_require.rb:144:in `require'
 # ~> 	from /usr/local/var/rbenv/versions/2.0.0-p247/lib/ruby/site_ruby/2.0.0/rubygems/core_ext/kernel_require.rb:135:in `rescue in require'
@@ -78,22 +81,22 @@ puts TreeSupport.tree(root)
 # ~> 	from /usr/local/var/rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/acts_as_tree-1.4.0/lib/acts_as_tree/active_record/acts/tree.rb:1:in `<top (required)>'
 # ~> 	from /usr/local/var/rbenv/versions/2.0.0-p247/lib/ruby/site_ruby/2.0.0/rubygems/core_ext/kernel_require.rb:73:in `require'
 # ~> 	from /usr/local/var/rbenv/versions/2.0.0-p247/lib/ruby/site_ruby/2.0.0/rubygems/core_ext/kernel_require.rb:73:in `require'
-# >> <root>
-# >> ├─交戦
-# >> │   ├─攻撃
-# >> │   │   ├─剣を振る
-# >> │   │   ├─攻撃魔法
-# >> │   │   │   ├─召喚A
-# >> │   │   │   └─召喚B
-# >> │   │   └─縦で剣をはじく
-# >> │   └─防御
-# >> ├─休憩
-# >> │   ├─回復する
-# >> │   │   ├─回復薬を飲む
-# >> │   │   └─回復魔法
-# >> │   └─立ち止まる
-# >> └─撤退
-# >>     ├─足止めする
-# >>     │   ├─トラップをしかける
-# >>     │   └─弓矢を放つ
-# >>     └─逃走する
+# >> <root>(1)
+# >> ├─交戦(1)
+# >> │   ├─攻撃(1)
+# >> │   │   ├─剣を振る(1)
+# >> │   │   ├─攻撃魔法(2)
+# >> │   │   │   ├─召喚A(1)
+# >> │   │   │   └─召喚B(2)
+# >> │   │   └─縦で剣をはじく(3)
+# >> │   └─防御(2)
+# >> ├─撤退(2)
+# >> │   ├─足止めする(1)
+# >> │   │   ├─トラップをしかける(1)
+# >> │   │   └─弓矢を放つ(2)
+# >> │   └─逃走する(2)
+# >> └─休憩(3)
+# >>     ├─立ち止まる(1)
+# >>     └─回復する(2)
+# >>         ├─回復魔法(1)
+# >>         └─回復薬を飲む(2)

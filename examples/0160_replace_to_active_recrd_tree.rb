@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# TreeSupport::Node の木を ActiveRecord の木に変換する例
+# TreeSupport::Node の木を ActiveRecord の木に置き換えるイディオム
 #
 $LOAD_PATH.unshift("../lib")
 require "tree_support"
