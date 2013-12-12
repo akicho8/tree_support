@@ -4,7 +4,6 @@
 #
 $LOAD_PATH.unshift("../lib")
 require "tree_support"
-require "stringio"
 
 def generate(node)
   s = ""
