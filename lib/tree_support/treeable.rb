@@ -40,5 +40,13 @@ module TreeSupport
     def self_and_siblings
       parent ? parent.children : []
     end
+
+    def root?
+      !parent
+    end
+
+    def leaf?
+      !children.exists?
+    end
   end
 end

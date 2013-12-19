@@ -21,6 +21,11 @@ require "tree_support/inspector"
 require "tree_support/graphviz_builder"
 require "tree_support/node"
 
+if defined?(Rails)
+  require "tree_support/acts_as_tree"
+  require "tree_support/railtie"
+end
+
 if $0 == __FILE__
   root = TreeSupport.example
   p root.each_node.collect.with_index{|n, i|[n.name, i]}
