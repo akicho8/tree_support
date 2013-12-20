@@ -46,7 +46,7 @@ module TreeSupport
     end
 
     def leaf?
-      !children.exists?
+      children.size.zero?
     end
   end
 end

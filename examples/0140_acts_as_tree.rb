@@ -3,12 +3,13 @@
 # acts_as_tree を使った例
 #
 $LOAD_PATH.unshift("../lib")
-require "tree_support"
 
+require "rails"
 require "active_record"
-
+require "tree_support"
 require "acts_as_tree"
-ActiveRecord::Base.send(:include, ActsAsTree)
+
+Class.new(Rails::Application){config.eager_load = false}.initialize!
 
 ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
 ActiveRecord::Migration.verbose = false
@@ -21,7 +22,6 @@ ActiveRecord::Schema.define do
 end
 
 class Node < ActiveRecord::Base
-  include ActsAsTree
   acts_as_tree :order => "name"
 
   def add(name, &block)
@@ -64,8 +64,8 @@ root = Node.create!(:name => "<root>").tap do |n|
   end
 end
 
-# Node.extend(ActsAsTree::Presentation)
-# puts Node.tree_view(:name)
+Node.extend(ActsAsTree::Presentation)
+Node.tree_view(:name)
 
 puts TreeSupport.tree(root)
 # ~> 	from -:10:in `<main>'
@@ -78,6 +78,28 @@ puts TreeSupport.tree(root)
 # ~> 	from /usr/local/var/rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/acts_as_tree-1.4.0/lib/acts_as_tree/active_record/acts/tree.rb:1:in `<top (required)>'
 # ~> 	from /usr/local/var/rbenv/versions/2.0.0-p247/lib/ruby/site_ruby/2.0.0/rubygems/core_ext/kernel_require.rb:73:in `require'
 # ~> 	from /usr/local/var/rbenv/versions/2.0.0-p247/lib/ruby/site_ruby/2.0.0/rubygems/core_ext/kernel_require.rb:73:in `require'
+# ~> lib/rational.rb is deprecated
+# ~> /usr/local/var/rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/tzinfo-1.1.0/lib/tzinfo/ruby_data_source.rb:62: warning: assigned but unused variable - info
+# >> root
+# >>  |_ <root>
+# >>  |    |_ 交戦
+# >>  |        |_ 攻撃
+# >>  |            |_ 剣を振る
+# >>  |            |_ 攻撃魔法
+# >>  |                |_ 召喚A
+# >>  |                |_ 召喚B
+# >>  |            |_ 縦で剣をはじく
+# >>  |        |_ 防御
+# >>  |    |_ 休憩
+# >>  |        |_ 回復する
+# >>  |            |_ 回復薬を飲む
+# >>  |            |_ 回復魔法
+# >>  |        |_ 立ち止まる
+# >>  |    |_ 撤退
+# >>  |        |_ 足止めする
+# >>  |            |_ トラップをしかける
+# >>  |            |_ 弓矢を放つ
+# >>  |        |_ 逃走する
 # >> <root>
 # >> ├─交戦
 # >> │   ├─攻撃
