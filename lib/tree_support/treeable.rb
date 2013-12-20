@@ -9,20 +9,22 @@ module TreeSupport
       include Enumerable
     end
 
-    module ClassMethods
-      def each_node(root, &block)
-        return enum_for(__method__, root) unless block_given?
-        yield root
-        root.each{|v|each_node(v, &block)}
-      end
-    end
-
     def each(&block)
       children.each(&block)
     end
 
     def each_node(&block)
-      self.class.each_node(self, &block)
+      return enum_for(__method__) unless block_given?
+      yield self
+      each{|node|node.each_node(&block)}
+    end
+
+    def descendants(&block)
+      return enum_for(__method__) unless block_given?
+      each do |node|
+        yield node
+        node.descendants(&block)
+      end
     end
 
     def ancestors

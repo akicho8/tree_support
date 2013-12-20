@@ -3,39 +3,50 @@ require "spec_helper"
 
 describe TreeSupport::Treeable do
   before do
-    @tree = TreeSupport::Node.new("<root>") do
+    @root = TreeSupport::Node.new("<root>") do
       add "a" do
         add "a1"
-        add "a2"
-        add "a3" do
+        add "a2" do
           add "x"
         end
+        add "a3"
       end
     end
-    @node = @tree.each_node.find{|e|e.name == "a2"}
+    @a2 = @root.each_node.find{|e|e.name == "a2"}
+    @leaf = @root.each_node.find{|e|e.name == "x"}
   end
 
   it "ancestors" do
-    @node.ancestors.collect(&:name).should == ["a2", "a", "<root>"]
+    @a2.ancestors.collect(&:name).should == ["a2", "a", "<root>"]
+  end
+
+  it "descendants" do
+    @root.descendants.collect(&:name).should == ["a", "a1", "a2", "x", "a3"]
+  end
+
+  it "each_node" do
+    @root.each_node.collect(&:name).should == ["<root>", "a", "a1", "a2", "x", "a3"]
   end
 
   it "root" do
-    @node.root.name.should == "<root>"
+    @a2.root.name.should == "<root>"
   end
 
   it "siblings" do
-    @node.siblings.collect(&:name).should == ["a1", "a3"]
+    @a2.siblings.collect(&:name).should == ["a1", "a3"]
   end
 
   it "self_and_siblings" do
-    @node.self_and_siblings.collect(&:name).should == ["a1", "a2", "a3"]
+    @a2.self_and_siblings.collect(&:name).should == ["a1", "a2", "a3"]
   end
 
   it "root?" do
-    @node.root?.should == false
+    @root.root?.should == true
+    @leaf.root?.should == false
   end
 
   it "leaf?" do
-    @node.leaf?.should == true
+    @root.leaf?.should == false
+    @leaf.leaf?.should == true
   end
 end
