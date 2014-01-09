@@ -24,7 +24,8 @@ module TreeSupport
 
     def initialize(options = {}, &block)
       @options = {
-        :drop             => 0,     # 何レベルスキップするか？(1にするとrootを表示しない)
+        :take             => 4096,  # 深さNまで(巨大すぎて木が表示できないとき用)
+        :drop             => 0,     # 深さNから(1にするとルートを非表示にできる)
         :root_label       => nil,   # ルートを表示する場合に有効な代替ラベル
         :tab_space        => 4,     # 途中からのインデント幅
         :connect_char     => "├",
@@ -74,15 +75,16 @@ module TreeSupport
         end
       end
 
+      buffer = ""
       branch_char = nil
+
       if locals[:depth].size > @options[:drop]
         branch_char = @options[:branch_char]
       end
-
-      if locals[:depth].size >= @options[:drop]
-        buffer = "#{indents}#{prefix_char}#{branch_char}#{label}#{@options[:debug] ? locals[:depth].inspect : ""}\n"
-      else
-        buffer = ""
+      if locals[:depth].size < @options[:take]
+        if locals[:depth].size >= @options[:drop]
+          buffer = "#{indents}#{prefix_char}#{branch_char}#{label}#{@options[:debug] ? locals[:depth].inspect : ""}\n"
+        end
       end
 
       flag = false
@@ -91,7 +93,9 @@ module TreeSupport
       end
 
       locals[:depth].push(flag)
-      buffer << object.children.collect{|node|tree(node, locals)}.join
+      if locals[:depth].size < @options[:take]
+        buffer << object.children.collect{|node|tree(node, locals)}.join
+      end
       locals[:depth].pop
 
       buffer
@@ -103,4 +107,12 @@ module TreeSupport
       Inspector.tree(self, *args, &block)
     end
   end
+end
+
+if $0 == __FILE__
+  $LOAD_PATH << ".."
+  require "tree_support"
+  puts TreeSupport.example.to_s_tree(:take => 0)
+  puts TreeSupport.example.to_s_tree(:take => 1)
+  puts TreeSupport.example.to_s_tree(:take => 2)
 end

@@ -311,8 +311,46 @@
   : # >>     ├─回復魔法
   : # >>     └─回復薬を飲む
 
-**** 画像版も同様
+*** 木が大きすぎるので深さ3まででいい
 
-  : TreeSupport.graphviz(root).output("drop.png", :drop => 1)
+  : puts TreeSupport.tree(root, :take => 3)
+  : # >> <root>
+  : # >> ├─交戦
+  : # >> │   ├─攻撃
+  : # >> │   └─防御
+  : # >> ├─撤退
+  : # >> │   ├─足止めする
+  : # >> │   └─逃走する
+  : # >> └─休憩
+  : # >>     ├─立ち止まる
+  : # >>     └─回復する
+
+*** 両方組み合わせると
+
+  : puts TreeSupport.tree(root, :take => 3, :drop => 1)
+  : # >> 交戦
+  : # >> ├─攻撃
+  : # >> └─防御
+  : # >> 撤退
+  : # >> ├─足止めする
+  : # >> └─逃走する
+  : # >> 休憩
+  : # >> ├─立ち止まる
+  : # >> └─回復する
+
+*** 画像版も同様のオプションがある
+
+  : gv = TreeSupport.graphviz(root, :drop => 1)
+  : gv.output("drop.png")
 
     [[https://raw.github.com/akicho8/tree_support/master/images/drop.png]]
+
+  : gv = TreeSupport.graphviz(root, :take => 3)
+  : gv.output("take.png")
+
+    [[https://raw.github.com/akicho8/tree_support/master/images/take.png]]
+
+  : gv = TreeSupport.graphviz(root, :take => 3, :drop => 1)
+  : gv.output("take_drop.png")
+
+    [[https://raw.github.com/akicho8/tree_support/master/images/take_drop.png]]

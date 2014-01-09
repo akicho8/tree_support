@@ -35,6 +35,7 @@ module TreeSupport
 
     def initialize(options = {}, &block)
       @options = {
+        :take => 4096,
         :drop => 0,
       }.merge(options)
       @block = block
@@ -50,16 +51,20 @@ module TreeSupport
     private
 
     def visit(gv, object, depth = 0)
-      if depth >= @options[:drop]
-        attrs = {}
-        if @block
-          attrs = @block.call(object) || {}
+      if depth < @options[:take]
+        if @options[:drop] <= depth
+          attrs = {}
+          if @block
+            attrs = @block.call(object) || {}
+          end
+          attrs[:label] ||= TreeSupport.node_name(object)
+          gv.node(node_code(object), attrs)
+          if depth.next < @options[:take]
+            gv.route node_code(object) => object.children.collect{|node|node_code(node)}
+          end
         end
-        attrs[:label] ||= TreeSupport.node_name(object)
-        gv.node(node_code(object), attrs)
-        gv.route node_code(object) => object.children.collect{|node|node_code(node)}
+        object.children.each{|node|visit(gv, node, depth.next)}
       end
-      object.children.each{|node|visit(gv, node, depth.next)}
     end
 
     def node_code(object)

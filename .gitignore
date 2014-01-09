@@ -1,3 +1,5 @@
 _*
 !.travis.yml
 Gemfile.lock
+/demo.rb
+*.dot
