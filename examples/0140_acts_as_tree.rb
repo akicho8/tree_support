@@ -68,18 +68,45 @@ Node.extend(ActsAsTree::Presentation)
 Node.tree_view(:name)
 
 puts TreeSupport.tree(root)
-# ~> 	from -:10:in `<main>'
-# ~> 	from /usr/local/var/rbenv/versions/2.0.0-p247/lib/ruby/site_ruby/2.0.0/rubygems/core_ext/kernel_require.rb:144:in `require'
-# ~> 	from /usr/local/var/rbenv/versions/2.0.0-p247/lib/ruby/site_ruby/2.0.0/rubygems/core_ext/kernel_require.rb:135:in `rescue in require'
-# ~> 	from /usr/local/var/rbenv/versions/2.0.0-p247/lib/ruby/site_ruby/2.0.0/rubygems/core_ext/kernel_require.rb:135:in `require'
-# ~> 	from /usr/local/var/rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/acts_as_tree-1.4.0/lib/acts_as_tree.rb:214:in `<top (required)>'
-# ~> 	from /usr/local/var/rbenv/versions/2.0.0-p247/lib/ruby/site_ruby/2.0.0/rubygems/core_ext/kernel_require.rb:73:in `require'
-# ~> 	from /usr/local/var/rbenv/versions/2.0.0-p247/lib/ruby/site_ruby/2.0.0/rubygems/core_ext/kernel_require.rb:73:in `require'
-# ~> 	from /usr/local/var/rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/acts_as_tree-1.4.0/lib/acts_as_tree/active_record/acts/tree.rb:1:in `<top (required)>'
-# ~> 	from /usr/local/var/rbenv/versions/2.0.0-p247/lib/ruby/site_ruby/2.0.0/rubygems/core_ext/kernel_require.rb:73:in `require'
-# ~> 	from /usr/local/var/rbenv/versions/2.0.0-p247/lib/ruby/site_ruby/2.0.0/rubygems/core_ext/kernel_require.rb:73:in `require'
-# ~> lib/rational.rb is deprecated
-# ~> /usr/local/var/rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/tzinfo-1.1.0/lib/tzinfo/ruby_data_source.rb:62: warning: assigned but unused variable - info
+# ~> 	from -:10:in  `<main>'
+# ~> 	from /usr/local/var/rbenv/versions/2.1.0/lib/ruby/2.1.0/rubygems/core_ext/kernel_require.rb:144:in  `require'
+# ~> 	from /usr/local/var/rbenv/versions/2.1.0/lib/ruby/2.1.0/rubygems/core_ext/kernel_require.rb:135:in  `rescue in require'
+# ~> 	from /usr/local/var/rbenv/versions/2.1.0/lib/ruby/2.1.0/rubygems/core_ext/kernel_require.rb:135:in  `require'
+# ~> 	from /usr/local/var/rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/acts_as_tree-1.5.0/lib/acts_as_tree.rb:230:in  `<top (required)>'
+# ~> 	from /usr/local/var/rbenv/versions/2.1.0/lib/ruby/2.1.0/rubygems/core_ext/kernel_require.rb:73:in  `require'
+# ~> 	from /usr/local/var/rbenv/versions/2.1.0/lib/ruby/2.1.0/rubygems/core_ext/kernel_require.rb:73:in  `require'
+# ~> 	from /usr/local/var/rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/acts_as_tree-1.5.0/lib/acts_as_tree/active_record/acts/tree.rb:1:in  `<top (required)>'
+# ~> 	from /usr/local/var/rbenv/versions/2.1.0/lib/ruby/2.1.0/rubygems/core_ext/kernel_require.rb:73:in  `require'
+# ~> 	from /usr/local/var/rbenv/versions/2.1.0/lib/ruby/2.1.0/rubygems/core_ext/kernel_require.rb:73:in  `require'
+# ~> /usr/local/var/rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/railties-4.0.2/lib/rails/application.rb:184: warning: File.exists? is a deprecated name, use File.exist? instead
+# ~> /usr/local/var/rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/railties-4.0.2/lib/rails/paths.rb:206: warning: File.exists? is a deprecated name, use File.exist? instead
+# ~> /usr/local/var/rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/railties-4.0.2/lib/rails/paths.rb:206: warning: File.exists? is a deprecated name, use File.exist? instead
+# ~> /usr/local/var/rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/railties-4.0.2/lib/rails/paths.rb:206: warning: File.exists? is a deprecated name, use File.exist? instead
+# ~> /usr/local/var/rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/railties-4.0.2/lib/rails/paths.rb:206: warning: File.exists? is a deprecated name, use File.exist? instead
+# ~> /usr/local/var/rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/railties-4.0.2/lib/rails/paths.rb:206: warning: File.exists? is a deprecated name, use File.exist? instead
+# ~> /usr/local/var/rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/railties-4.0.2/lib/rails/paths.rb:206: warning: File.exists? is a deprecated name, use File.exist? instead
+# ~> /usr/local/var/rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/railties-4.0.2/lib/rails/paths.rb:206: warning: File.exists? is a deprecated name, use File.exist? instead
+# ~> /usr/local/var/rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/railties-4.0.2/lib/rails/paths.rb:206: warning: File.exists? is a deprecated name, use File.exist? instead
+# ~> /usr/local/var/rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/railties-4.0.2/lib/rails/paths.rb:206: warning: File.exists? is a deprecated name, use File.exist? instead
+# ~> /usr/local/var/rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/railties-4.0.2/lib/rails/paths.rb:206: warning: File.exists? is a deprecated name, use File.exist? instead
+# ~> /usr/local/var/rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/railties-4.0.2/lib/rails/paths.rb:206: warning: File.exists? is a deprecated name, use File.exist? instead
+# ~> /usr/local/var/rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/railties-4.0.2/lib/rails/paths.rb:206: warning: File.exists? is a deprecated name, use File.exist? instead
+# ~> /usr/local/var/rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/railties-4.0.2/lib/rails/paths.rb:206: warning: File.exists? is a deprecated name, use File.exist? instead
+# ~> /usr/local/var/rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/railties-4.0.2/lib/rails/paths.rb:206: warning: File.exists? is a deprecated name, use File.exist? instead
+# ~> /usr/local/var/rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/railties-4.0.2/lib/rails/paths.rb:206: warning: File.exists? is a deprecated name, use File.exist? instead
+# ~> /usr/local/var/rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/railties-4.0.2/lib/rails/paths.rb:206: warning: File.exists? is a deprecated name, use File.exist? instead
+# ~> /usr/local/var/rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/railties-4.0.2/lib/rails/paths.rb:206: warning: File.exists? is a deprecated name, use File.exist? instead
+# ~> /usr/local/var/rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/railties-4.0.2/lib/rails/paths.rb:206: warning: File.exists? is a deprecated name, use File.exist? instead
+# ~> /usr/local/var/rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/railties-4.0.2/lib/rails/paths.rb:206: warning: File.exists? is a deprecated name, use File.exist? instead
+# ~> /usr/local/var/rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/railties-4.0.2/lib/rails/paths.rb:206: warning: File.exists? is a deprecated name, use File.exist? instead
+# ~> /usr/local/var/rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/railties-4.0.2/lib/rails/paths.rb:206: warning: File.exists? is a deprecated name, use File.exist? instead
+# ~> /usr/local/var/rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/railties-4.0.2/lib/rails/paths.rb:206: warning: File.exists? is a deprecated name, use File.exist? instead
+# ~> /usr/local/var/rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/activesupport-4.0.2/lib/active_support/file_update_checker.rb:95: warning: File.exists? is a deprecated name, use File.exist? instead
+# ~> /usr/local/var/rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/activesupport-4.0.2/lib/active_support/file_update_checker.rb:95: warning: File.exists? is a deprecated name, use File.exist? instead
+# ~> /usr/local/var/rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/activesupport-4.0.2/lib/active_support/file_update_checker.rb:95: warning: File.exists? is a deprecated name, use File.exist? instead
+# ~> /usr/local/var/rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/activesupport-4.0.2/lib/active_support/file_update_checker.rb:95: warning: File.exists? is a deprecated name, use File.exist? instead
+# ~> /usr/local/var/rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/activesupport-4.0.2/lib/active_support/file_update_checker.rb:95: warning: File.exists? is a deprecated name, use File.exist? instead
+# ~> /usr/local/var/rbenv/versions/2.1.0/lib/ruby/gems/2.1.0/gems/activesupport-4.0.2/lib/active_support/file_update_checker.rb:95: warning: File.exists? is a deprecated name, use File.exist? instead
 # >> root
 # >>  |_ <root>
 # >>  |    |_ 交戦

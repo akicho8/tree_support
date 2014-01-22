@@ -354,3 +354,28 @@
   : gv.output("take_drop.png")
 
     [[https://raw.github.com/akicho8/tree_support/master/images/take_drop.png]]
+
+*** acts_as_tree 相当を使う
+
+    Migration
+
+  : create_table :nodes do |t|
+  :   t.belongs_to :parent
+  : end
+
+    Model
+
+  : class Node < ActiveRecord::Base
+  :   acts_as_tree
+  : end
+
+    amerine/acts_as_tree https://github.com/amerine/acts_as_tree との違い
+
+    - シンプル
+    - Node#ancestors は自分を含む
+    - 安全に全削除する Node.safe_destroy_all を追加 (acts_as_list との組み合わせでは Node.destroy_all で事故る)
+    - Node.roots は scope で定義
+
+** 心配ごと
+
+   - Gviz が標準クラスを拡張しているので Rails (ActiveSupport) 等と組み合わせたときの将来の干渉が心配
