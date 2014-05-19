@@ -21,7 +21,7 @@ ActiveRecord::Schema.define do
 end
 
 class Node < ActiveRecord::Base
-  acts_as_tree :order => "name"
+  acts_as_tree scope: -> { order(:name).where.not(:name => "休憩") }
 
   def add(name, &block)
     tap do
@@ -33,7 +33,7 @@ class Node < ActiveRecord::Base
   end
 end
 
-root = Node.create!(:name => "<root>").tap do |n|
+Node.create!(:name => "<root>").tap do |n|
   n.instance_eval do
     add "交戦" do
       add "攻撃" do
@@ -63,7 +63,7 @@ root = Node.create!(:name => "<root>").tap do |n|
   end
 end
 
-puts root.to_s_tree
+puts Node.root.to_s_tree
 # >> <root>
 # >> ├─交戦
 # >> │   ├─攻撃
@@ -73,11 +73,6 @@ puts root.to_s_tree
 # >> │   │   │   └─召喚B
 # >> │   │   └─縦で剣をはじく
 # >> │   └─防御
-# >> ├─休憩
-# >> │   ├─回復する
-# >> │   │   ├─回復薬を飲む
-# >> │   │   └─回復魔法
-# >> │   └─立ち止まる
 # >> └─撤退
 # >>     ├─足止めする
 # >>     │   ├─トラップをしかける

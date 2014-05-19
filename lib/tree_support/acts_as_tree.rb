@@ -3,7 +3,9 @@
 # acts_as_tree の代替品
 #
 #   class Node < ActiveRecord::Base
-#     acts_as_tree
+#     acts_as_tree                                                 # default
+#     acts_as_tree scope: -> { order(:name) }                      # スコープを自分で指定
+#     acts_as_tree scope: -> { order(:id).where(:active => true) } # whereも指定可
 #   end
 #
 require "active_support/concern"
@@ -21,7 +23,7 @@ module TreeSupport
 
         class_attribute :acts_as_tree_configuration
         self.acts_as_tree_configuration = {
-          :order => :id,
+          scope: -> { order(:id) },
         }.merge(options)
 
         if block_given?
@@ -42,10 +44,11 @@ module TreeSupport
       include Stringify
 
       included do
-        belongs_to :parent, :class_name => name, :foreign_key => :parent_id
-        has_many :children, -> { order(acts_as_tree_configuration[:order]) }, :class_name => name, :foreign_key => :parent_id, :dependent => :destroy, :inverse_of => :parent
+        scope :tree_default_scope, acts_as_tree_configuration[:scope]
 
-        scope :roots, -> { where(:parent_id => nil).order(acts_as_tree_configuration[:order]) }
+        belongs_to :parent, -> { tree_default_scope }, :class_name => name, :foreign_key => :parent_id
+        has_many :children, -> { tree_default_scope }, :class_name => name, :foreign_key => :parent_id, :dependent => :destroy, :inverse_of => :parent
+        scope :roots, -> { tree_default_scope.where(:parent_id => nil) }
       end
 
       module ClassMethods
