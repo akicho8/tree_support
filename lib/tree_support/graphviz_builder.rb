@@ -26,7 +26,10 @@ module TreeSupport
         save("#{filename.dirname}/#{filename.basename(".*")}", filename.extname.delete(".").to_sym)
       end
 
-      alias to_dot to_s
+      # alias to_dot to_s はできない
+      def to_dot
+        to_s
+      end
     end
 
     def self.build(object, *args, &block)
