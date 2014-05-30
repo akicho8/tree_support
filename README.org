@@ -134,7 +134,7 @@
 
 *** ノードのラベルを変更するには？
 
-   to_s_tree_name, name, to_s の順に探すので優先度を考えてメソッドを定義する
+    TreeSupport.name_methods で定義している to_s_tree_name, name, subject, title, to_s の順に探すので優先度を考えてメソッドを定義する
 
 *** メソッドを定義することなくラベルを変更するには？
 

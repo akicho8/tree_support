@@ -1,20 +1,18 @@
 # -*- coding: utf-8 -*-
 require "kconv"
 require "active_support/concern"
+require "active_support/core_ext/module/attribute_accessors" # mattr_accessor
 
 module TreeSupport
+  mattr_accessor :name_methods
+  self.name_methods = [:to_s_tree_name, :name, :subject, :title]
+
   def self.tree(*args, &block)
     Inspector.tree(*args, &block)
   end
 
   def self.node_name(object)
-    if object.respond_to?(:to_s_tree_name)
-      object.to_s_tree_name
-    elsif object.respond_to?(:name)
-      object.name
-    else
-      object.to_s
-    end
+    object.send(name_methods.find{|e|object.respond_to?(e)} || :to_s)
   end
 
   class Inspector
