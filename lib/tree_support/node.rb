@@ -5,11 +5,15 @@ module TreeSupport
     include Treeable
     include Stringify
 
-    attr_accessor :params, :parent, :children
-    alias name params
+    attr_accessor :attributes, :parent, :children
 
-    def initialize(params = nil, &block)
-      @params = params
+    alias name attributes
+    alias key attributes
+
+    delegate :[], :[]=, :to_h, :to => :attributes
+
+    def initialize(attributes = nil, &block)
+      @attributes = attributes
       @children = []
       if block_given?
         instance_eval(&block)

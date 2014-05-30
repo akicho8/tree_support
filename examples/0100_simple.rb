@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 #
-# 一番簡単なサンプル
+# TreeSupport::Node を使った一番シンプルな表示例
 #
 $LOAD_PATH.unshift("../lib")
 require "tree_support"
-root = TreeSupport.example
-puts TreeSupport.tree(root)
+puts TreeSupport.tree(TreeSupport.example)
 # >> <root>
 # >> ├─交戦
 # >> │   ├─攻撃

@@ -6,6 +6,8 @@ require "pathname"
 require "delegate"
 require "fileutils"
 
+require "active_support/core_ext/module/delegation"
+
 module TreeSupport
   def self.graphviz(*args, &block)
     GraphvizBuilder.build(*args, &block)
@@ -19,14 +21,12 @@ module TreeSupport
   class GraphvizBuilder
     class GvizEx < SimpleDelegator
       def output(filename)
-        filename = Pathname.new(filename).expand_path
+        filename = Pathname(filename).expand_path
         FileUtils.makedirs(filename.dirname)
         save("#{filename.dirname}/#{filename.basename(".*")}", filename.extname.delete(".").to_sym)
       end
 
-      def to_dot
-        to_s
-      end
+      alias to_dot to_s
     end
 
     def self.build(object, *args, &block)
