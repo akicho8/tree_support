@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-require "spec_helper"
+require "test_helper"
 
 require "rails"
 require "tree_support/acts_as_tree"
@@ -8,8 +8,8 @@ require "active_record"
 
 Class.new(Rails::Application){config.eager_load = true}.initialize!
 
-describe TreeSupport::ActsAsTree do
-  before do
+class TestActsAsTree < Test::Unit::TestCase
+  setup do
     ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
     ActiveRecord::Migration.verbose = false
 
@@ -33,7 +33,7 @@ describe TreeSupport::ActsAsTree do
       end
     end
 
-    @node = Node.create!(:name => "<root>").tap do |n|
+    @node = Node.create!(:name => "*root*").tap do |n|
       n.instance_eval do
         add "交戦" do
           add "攻撃" do
@@ -64,20 +64,20 @@ describe TreeSupport::ActsAsTree do
     end
   end
 
-  it "roots" do
-    Node.roots.should == [@node]
+  test "roots" do
+    assert_equal [@node], Node.roots
   end
 
-  it "root" do
-    Node.root.should == @node
+  test "root" do
+    assert_equal @node, Node.root 
   end
 
-  it "to_s_tree" do
+  test "to_s_tree" do
     @node.to_s_tree
   end
 
-  it "safe_destroy_all" do
+  test "safe_destroy_all" do
     Node.safe_destroy_all
-    Node.count.should == 0
+    assert_equal 0, Node.count
   end
 end

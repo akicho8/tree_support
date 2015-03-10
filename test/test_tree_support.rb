@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-require "spec_helper"
+require "test_helper"
 
-describe TreeSupport do
-  it "tree" do
+class TestTreeSupport < Test::Unit::TestCase
+  test "tree" do
     expected = <<-EOT
-<root>
+*root*
 ├─交戦
 │   ├─攻撃
 │   │   ├─剣を振る
@@ -24,6 +24,6 @@ describe TreeSupport do
         ├─回復魔法
         └─回復薬を飲む
 EOT
-    TreeSupport.example.to_s_tree.should == expected
+    assert_equal expected, TreeSupport.example.to_s_tree
   end
 end

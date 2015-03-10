@@ -2,7 +2,7 @@
 #
 # TreeSupport::Node の木を ActiveRecord の木に置き換えるイディオム
 #
-$LOAD_PATH.unshift("../lib")
+require "bundler/setup"
 require "tree_support"
 require "active_record"
 
@@ -29,7 +29,7 @@ root = Node.create!(:name => TreeSupport.example.name)
 TreeSupport.example.children.each {|node| f.(root, node)}
 
 puts TreeSupport.tree(root)
-# >> <root>
+# >> *root*
 # >> ├─交戦
 # >> │   ├─攻撃
 # >> │   │   ├─剣を振る

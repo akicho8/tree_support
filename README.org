@@ -11,7 +11,7 @@
 
   : require "tree_support"
   : puts TreeSupport.tree(TreeSupport.example)
-  : # >> <root>
+  : # >> (root)
   : # >> ├─交戦
   : # >> │   ├─攻撃
   : # >> │   │   ├─剣を振る
@@ -55,7 +55,7 @@
 
 *** 木を作成
 
-  : root = Node.new("<root>") do
+  : root = Node.new("*root*") do
   :   add "交戦" do
   :     add "攻撃" do
   :       add "剣を振る"
@@ -86,7 +86,7 @@
 *** 可視化
 
   : puts TreeSupport.tree(root)
-  : # >> <root>
+  : # >> (root)
   : # >> ├─交戦
   : # >> │   ├─攻撃
   : # >> │   │   ├─剣を振る
@@ -112,7 +112,7 @@
 
   : Node.send(:include, TreeSupport::Stringify)
   : puts root.to_s_tree
-  : # >> <root>
+  : # >> (root)
   : # >> ├─交戦
   : # >> │   ├─攻撃
   : # >> │   │   ├─剣を振る
@@ -202,7 +202,7 @@
   : puts gv.to_dot
   : # >> digraph n70146110700700 {
   : # >>   graph [charset = "UTF-8", rankdir = "LR"];
-  : # >>   n70146110700700 [label = "<root>"];
+  : # >>   n70146110700700 [label = "*root*"];
   : # >>   n70146110700700 -> {n70146110698600; n70146110691220; n70146110689500;};
   : # >>   n70146110698600 [label = "交戦"];
   : # >>   n70146110698600 -> {n70146110698320; n70146110691720;};
@@ -244,7 +244,7 @@
 
     TreeSupport::Node をそのまま使えばいい。
 
-  : TreeSupport::Node.new("<root>") do
+  : TreeSupport::Node.new("*root*") do
   :   add "交戦" do
   :     add "攻撃" do
   :       add "剣を振る"
@@ -269,7 +269,7 @@
   : root = TreeSupport.example
   : root.each_node.with_index{|n, i|p [i, n.name]}
   : 
-  : # >> [0, "<root>"]
+  : # >> [0, "*root*"]
   : # >> [1, "交戦"]
   : # >> [2, "攻撃"]
   : # >> [3, "剣を振る"]
@@ -314,7 +314,7 @@
 *** 木が大きすぎるので深さ3まででいい
 
   : puts TreeSupport.tree(root, :take => 3)
-  : # >> <root>
+  : # >> (root)
   : # >> ├─交戦
   : # >> │   ├─攻撃
   : # >> │   └─防御

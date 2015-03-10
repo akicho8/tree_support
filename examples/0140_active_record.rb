@@ -2,10 +2,8 @@
 #
 # ActiveRecord のみを使った木構造の可視化
 #
-
-$LOAD_PATH.unshift("../lib")
+require "bundler/setup"
 require "tree_support"
-
 require "active_record"
 require "pp"
 
@@ -33,7 +31,7 @@ class Node < ActiveRecord::Base
   end
 end
 
-root = Node.create!(:name => "<root>").tap do |n|
+root = Node.create!(:name => "*root*").tap do |n|
   n.instance_eval do
     add "交戦" do
       add "攻撃" do
@@ -64,7 +62,7 @@ root = Node.create!(:name => "<root>").tap do |n|
 end
 
 puts TreeSupport.tree(root)
-# >> <root>
+# >> *root*
 # >> ├─交戦
 # >> │   ├─攻撃
 # >> │   │   ├─剣を振る

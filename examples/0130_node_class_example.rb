@@ -2,7 +2,7 @@
 #
 # 自作ノードの例
 #
-$LOAD_PATH.unshift("../lib")
+require "bundler/setup"
 require "tree_support"
 
 class Node
@@ -24,7 +24,7 @@ class Node
   end
 end
 
-root = Node.new("<root>") do
+root = Node.new("*root*") do
   add "交戦" do
     add "攻撃" do
       add "剣を振る"
@@ -56,9 +56,9 @@ end
 puts TreeSupport.tree(root)
 
 # オブジェクトに文字列化するメソッドを入れるには？
-Node.send(:include, TreeSupport::Stringify)
+Node.include(TreeSupport::Stringify)
 puts root.to_s_tree
-# >> <root>
+# >> *root*
 # >> ├─交戦
 # >> │   ├─攻撃
 # >> │   │   ├─剣を振る
@@ -77,7 +77,7 @@ puts root.to_s_tree
 # >>     └─回復する
 # >>         ├─回復魔法
 # >>         └─回復薬を飲む
-# >> <root>
+# >> *root*
 # >> ├─交戦
 # >> │   ├─攻撃
 # >> │   │   ├─剣を振る

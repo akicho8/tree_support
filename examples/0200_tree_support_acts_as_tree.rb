@@ -2,13 +2,13 @@
 #
 # TreeSupport::ActsAsTree を使った例
 #
-$LOAD_PATH.unshift("../lib")
+require "bundler/setup"
 
 require "rails"
 require "active_record"
 require "tree_support"
 
-Class.new(Rails::Application){config.eager_load = false}.initialize!
+Class.new(Rails::Application){config.eager_load = false}.initialize! # Railtie を読ませるため
 
 ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
 ActiveRecord::Migration.verbose = false
@@ -33,7 +33,7 @@ class Node < ActiveRecord::Base
   end
 end
 
-Node.create!(:name => "<root>").tap do |n|
+Node.create!(:name => "*root*").tap do |n|
   n.instance_eval do
     add "交戦" do
       add "攻撃" do
@@ -64,7 +64,7 @@ Node.create!(:name => "<root>").tap do |n|
 end
 
 puts Node.root.to_s_tree
-# >> <root>
+# >> *root*
 # >> ├─交戦
 # >> │   ├─攻撃
 # >> │   │   ├─剣を振る

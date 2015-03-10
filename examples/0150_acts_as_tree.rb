@@ -2,14 +2,14 @@
 #
 # acts_as_tree を使った例
 #
-$LOAD_PATH.unshift("../lib")
-
-require "rails"
-require "active_record"
+require "bundler/setup"
 require "tree_support"
-require "acts_as_tree"
+require "active_record"
 
-Class.new(Rails::Application){config.eager_load = false}.initialize!
+begin
+  require "acts_as_tree"
+  ActiveRecord::Base.include(ActsAsTree)
+end
 
 ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
 ActiveRecord::Migration.verbose = false
@@ -34,7 +34,7 @@ class Node < ActiveRecord::Base
   end
 end
 
-root = Node.create!(:name => "<root>").tap do |n|
+root = Node.create!(:name => "*root*").tap do |n|
   n.instance_eval do
     add "交戦" do
       add "攻撃" do
@@ -64,22 +64,18 @@ root = Node.create!(:name => "<root>").tap do |n|
   end
 end
 
-Node.extend(ActsAsTree::Presentation)
+Node.extend(ActsAsTree::TreeView)
 Node.tree_view(:name)
 
-puts TreeSupport.tree(root)
+# puts TreeSupport.tree(root)
 # ~> 	from -:10:in  `<main>'
-# ~> 	from /usr/local/var/rbenv/versions/2.1.1/lib/ruby/2.1.0/rubygems/core_ext/kernel_require.rb:144:in  `require'
-# ~> 	from /usr/local/var/rbenv/versions/2.1.1/lib/ruby/2.1.0/rubygems/core_ext/kernel_require.rb:135:in  `rescue in require'
-# ~> 	from /usr/local/var/rbenv/versions/2.1.1/lib/ruby/2.1.0/rubygems/core_ext/kernel_require.rb:135:in  `require'
-# ~> 	from /usr/local/var/rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/acts_as_tree-1.6.0/lib/acts_as_tree.rb:250:in  `<top (required)>'
-# ~> 	from /usr/local/var/rbenv/versions/2.1.1/lib/ruby/2.1.0/rubygems/core_ext/kernel_require.rb:73:in  `require'
-# ~> 	from /usr/local/var/rbenv/versions/2.1.1/lib/ruby/2.1.0/rubygems/core_ext/kernel_require.rb:73:in  `require'
-# ~> 	from /usr/local/var/rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/acts_as_tree-1.6.0/lib/acts_as_tree/active_record/acts/tree.rb:1:in  `<top (required)>'
-# ~> 	from /usr/local/var/rbenv/versions/2.1.1/lib/ruby/2.1.0/rubygems/core_ext/kernel_require.rb:73:in  `require'
-# ~> 	from /usr/local/var/rbenv/versions/2.1.1/lib/ruby/2.1.0/rubygems/core_ext/kernel_require.rb:73:in  `require'
+# ~> 	from -:10:in  `require'
+# ~> 	from /usr/local/var/rbenv/versions/2.2.1/lib/ruby/gems/2.2.0/gems/acts_as_tree-2.1.0/lib/acts_as_tree.rb:305:in  `<top (required)>'
+# ~> 	from /usr/local/var/rbenv/versions/2.2.1/lib/ruby/gems/2.2.0/gems/acts_as_tree-2.1.0/lib/acts_as_tree.rb:305:in  `require'
+# ~> 	from /usr/local/var/rbenv/versions/2.2.1/lib/ruby/gems/2.2.0/gems/acts_as_tree-2.1.0/lib/acts_as_tree/active_record/acts/tree.rb:1:in  `<top (required)>'
+# ~> 	from /usr/local/var/rbenv/versions/2.2.1/lib/ruby/gems/2.2.0/gems/acts_as_tree-2.1.0/lib/acts_as_tree/active_record/acts/tree.rb:1:in  `require'
 # >> root
-# >>  |_ <root>
+# >>  |_ *root*
 # >>  |    |_ 交戦
 # >>  |        |_ 攻撃
 # >>  |            |_ 剣を振る
@@ -98,22 +94,3 @@ puts TreeSupport.tree(root)
 # >>  |            |_ トラップをしかける
 # >>  |            |_ 弓矢を放つ
 # >>  |        |_ 逃走する
-# >> <root>
-# >> ├─交戦
-# >> │   ├─攻撃
-# >> │   │   ├─剣を振る
-# >> │   │   ├─攻撃魔法
-# >> │   │   │   ├─召喚A
-# >> │   │   │   └─召喚B
-# >> │   │   └─縦で剣をはじく
-# >> │   └─防御
-# >> ├─休憩
-# >> │   ├─回復する
-# >> │   │   ├─回復薬を飲む
-# >> │   │   └─回復魔法
-# >> │   └─立ち止まる
-# >> └─撤退
-# >>     ├─足止めする
-# >>     │   ├─トラップをしかける
-# >>     │   └─弓矢を放つ
-# >>     └─逃走する

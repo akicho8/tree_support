@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
-# TreeSupport::Node の木から元のコードを生成する例
+# TreeSupport::Node の木から元のコードを生成する荒技
 #
-$LOAD_PATH.unshift("../lib")
+require "bundler/setup"
 require "tree_support"
 
 def generate(node)
@@ -22,7 +22,7 @@ code = generate(TreeSupport.example)
 puts code
 
 puts TreeSupport.tree(eval(code))
-# >> TreeSupport::Node.new("<root>") do
+# >> TreeSupport::Node.new("*root*") do
 # >> add "交戦" do
 # >> add "攻撃" do
 # >> add "剣を振る"
@@ -49,7 +49,7 @@ puts TreeSupport.tree(eval(code))
 # >> end
 # >> end
 # >> end
-# >> <root>
+# >> *root*
 # >> ├─交戦
 # >> │   ├─攻撃
 # >> │   │   ├─剣を振る

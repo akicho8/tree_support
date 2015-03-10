@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+require 'active_support/core_ext/module/delegation' # Defines Module#delegate.
+
 module TreeSupport
   # シンプルなノード(木構造の情報だけが欲しいときアプリ側でわざわざ作るのも面倒なので)
   class Node
@@ -28,7 +30,7 @@ module TreeSupport
   end
 
   def self.example
-    Node.new("<root>") do
+    Node.new("*root*") do
       add "交戦" do
         add "攻撃" do
           add "剣を振る"

@@ -2,10 +2,10 @@
 #
 # TreeSupport::Node を使った一番シンプルな表示例
 #
-$LOAD_PATH.unshift("../lib")
+require "bundler/setup"
 require "tree_support"
 puts TreeSupport.tree(TreeSupport.example)
-# >> <root>
+# >> *root*
 # >> ├─交戦
 # >> │   ├─攻撃
 # >> │   │   ├─剣を振る

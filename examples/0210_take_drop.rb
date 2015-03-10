@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-$LOAD_PATH.unshift("../lib")
+require "bundler/setup"
 require "tree_support"
 puts "--------------------------------------------------------------------------------"
 puts TreeSupport.example.to_s_tree(:drop => 3)
@@ -18,7 +18,7 @@ puts TreeSupport.example.to_s_tree(:take => 3, :drop => 1)
 # >> 回復魔法
 # >> 回復薬を飲む
 # >> --------------------------------------------------------------------------------
-# >> <root>
+# >> *root*
 # >> ├─交戦
 # >> │   ├─攻撃
 # >> │   └─防御

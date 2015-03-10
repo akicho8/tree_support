@@ -2,7 +2,7 @@
 #
 # TreeSupport::Node は汎用的に使える
 #
-$LOAD_PATH.unshift("../lib")
+require "bundler/setup"
 require "tree_support"
 
 node = TreeSupport::Node.new("foo")

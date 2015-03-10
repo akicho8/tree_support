@@ -15,13 +15,15 @@
 #   >     └─B
 #   >         └─C
 
-require "tree_support/version"
 require "tree_support/treeable"
 require "tree_support/inspector"
-require "tree_support/graphviz_builder"
 require "tree_support/node"
+require "tree_support/acts_as_tree" if defined?(ActiveRecord)
+require "tree_support/railtie" if defined?(Rails)
 
-if defined?(Rails)
-  require "tree_support/acts_as_tree"
-  require "tree_support/railtie"
+# gviz は Object を触るため使わないときは入れないようにする
+begin
+  require "gviz"
+  require "tree_support/graphviz_builder"
+rescue LoadError
 end

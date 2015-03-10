@@ -2,14 +2,14 @@
 #
 # Treeable モジュールが入っていると each_node が使える
 #
-$LOAD_PATH.unshift("../lib")
+require "bundler/setup"
 require "tree_support"
 
 root = TreeSupport.example
 root.class.ancestors                  # => [TreeSupport::Node, TreeSupport::Stringify, Enumerable, TreeSupport::Treeable, Object, Kernel, BasicObject]
-root.each_node.with_index{|n, i|p [i, n.name]}
+root.each_node.with_index {|n, i| p [i, n.name] }
 
-# >> [0, "<root>"]
+# >> [0, "*root*"]
 # >> [1, "交戦"]
 # >> [2, "攻撃"]
 # >> [3, "剣を振る"]

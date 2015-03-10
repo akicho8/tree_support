@@ -1,0 +1,10 @@
+source "https://rubygems.org"
+
+gem "tree_support", :path => ".."
+gem "rails"
+gem "activerecord"
+gem "sqlite3"
+gem "gviz"
+gem "acts_as_tree"
+gem "acts_as_list"
+gem "byebug"

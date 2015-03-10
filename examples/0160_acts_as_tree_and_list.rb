@@ -2,15 +2,19 @@
 #
 # acts_as_tree で兄妹の順序を acts_as_list で保持する例
 #
-$LOAD_PATH.unshift("../lib")
+require "bundler/setup"
 require "tree_support"
-
 require "active_record"
 
-require "acts_as_tree"
-ActiveRecord::Base.send(:include, ActsAsTree)
+begin
+  require "acts_as_tree"
+  ActiveRecord::Base.include(ActsAsTree)
+end
 
-require "acts_as_list"
+begin
+  require "acts_as_list"
+  ActiveRecord::Base.include(ActiveRecord::Acts::List)
+end
 
 ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
 ActiveRecord::Migration.verbose = false
@@ -37,7 +41,7 @@ class Node < ActiveRecord::Base
   end
 end
 
-root = Node.create!(:name => "<root>").tap do |n|
+root = Node.create!(:name => "*root*").tap do |n|
   n.instance_eval do
     add "交戦" do
       add "攻撃" do
@@ -67,23 +71,17 @@ root = Node.create!(:name => "<root>").tap do |n|
   end
 end
 
-# Node.extend(ActsAsTree::Presentation)
-# puts Node.tree_view(:name)
+# Node.extend(ActsAsTree::TreeView)
+# Node.tree_view(:name)
 
 puts TreeSupport.tree(root){|e|"#{e.name}(#{e.position})"}
 # ~> 	from -:10:in  `<main>'
-# ~> 	from /usr/local/var/rbenv/versions/2.1.1/lib/ruby/2.1.0/rubygems/core_ext/kernel_require.rb:144:in  `require'
-# ~> 	from /usr/local/var/rbenv/versions/2.1.1/lib/ruby/2.1.0/rubygems/core_ext/kernel_require.rb:135:in  `rescue in require'
-# ~> 	from /usr/local/var/rbenv/versions/2.1.1/lib/ruby/2.1.0/rubygems/core_ext/kernel_require.rb:135:in  `require'
-# ~> 	from /usr/local/var/rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/acts_as_tree-1.6.0/lib/acts_as_tree.rb:250:in  `<top (required)>'
-# ~> 	from /usr/local/var/rbenv/versions/2.1.1/lib/ruby/2.1.0/rubygems/core_ext/kernel_require.rb:73:in  `require'
-# ~> 	from /usr/local/var/rbenv/versions/2.1.1/lib/ruby/2.1.0/rubygems/core_ext/kernel_require.rb:73:in  `require'
-# ~> 	from /usr/local/var/rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/acts_as_tree-1.6.0/lib/acts_as_tree/active_record/acts/tree.rb:1:in  `<top (required)>'
-# ~> 	from /usr/local/var/rbenv/versions/2.1.1/lib/ruby/2.1.0/rubygems/core_ext/kernel_require.rb:73:in  `require'
-# ~> 	from /usr/local/var/rbenv/versions/2.1.1/lib/ruby/2.1.0/rubygems/core_ext/kernel_require.rb:73:in  `require'
-# ~> lib/rational.rb is deprecated
-# ~> /usr/local/var/rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/tzinfo-1.1.0/lib/tzinfo/ruby_data_source.rb:62: warning: assigned but unused variable - info
-# >> <root>(1)
+# ~> 	from -:10:in  `require'
+# ~> 	from /usr/local/var/rbenv/versions/2.2.1/lib/ruby/gems/2.2.0/gems/acts_as_tree-2.1.0/lib/acts_as_tree.rb:305:in  `<top (required)>'
+# ~> 	from /usr/local/var/rbenv/versions/2.2.1/lib/ruby/gems/2.2.0/gems/acts_as_tree-2.1.0/lib/acts_as_tree.rb:305:in  `require'
+# ~> 	from /usr/local/var/rbenv/versions/2.2.1/lib/ruby/gems/2.2.0/gems/acts_as_tree-2.1.0/lib/acts_as_tree/active_record/acts/tree.rb:1:in  `<top (required)>'
+# ~> 	from /usr/local/var/rbenv/versions/2.2.1/lib/ruby/gems/2.2.0/gems/acts_as_tree-2.1.0/lib/acts_as_tree/active_record/acts/tree.rb:1:in  `require'
+# >> *root*(1)
 # >> ├─交戦(1)
 # >> │   ├─攻撃(1)
 # >> │   │   ├─剣を振る(1)
