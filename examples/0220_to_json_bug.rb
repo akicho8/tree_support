@@ -27,5 +27,9 @@ class Node < ActiveRecord::Base
 end
 
 Node.create!(:name => "*root*")
+# 普通にやると動かないので
 Node.first.to_json              # => "[]"
+# attributes 経由にするか
+Node.first.attributes.to_json   # => "{\"id\":1,\"parent_id\":null,\"name\":\"*root*\"}"
+# いっそのこと xml にする
 Node.first.to_xml               # => "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<node>\n  <id type=\"integer\">1</id>\n  <parent-id type=\"integer\" nil=\"true\"/>\n  <name>*root*</name>\n</node>\n"
