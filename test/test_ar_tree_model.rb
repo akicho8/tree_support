@@ -2,13 +2,13 @@
 require "test_helper"
 
 require "rails"
-require "tree_support/acts_as_tree"
+require "tree_support/ar_tree_model"
 require "tree_support/railtie"
 require "active_record"
 
 Class.new(Rails::Application){config.eager_load = true}.initialize!
 
-class TestActsAsTree < Test::Unit::TestCase
+class TestArTreeModel < Test::Unit::TestCase
   setup do
     ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
     ActiveRecord::Migration.verbose = false
@@ -21,7 +21,7 @@ class TestActsAsTree < Test::Unit::TestCase
     end
 
     class Node < ActiveRecord::Base
-      acts_as_tree :order => "name"
+      ar_tree_model :order => "name"
 
       def add(name, &block)
         tap do
@@ -69,7 +69,7 @@ class TestActsAsTree < Test::Unit::TestCase
   end
 
   test "root" do
-    assert_equal @node, Node.root 
+    assert_equal @node, Node.root
   end
 
   test "to_s_tree" do

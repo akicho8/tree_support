@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# TreeSupport::ActsAsTree を使った例
+# TreeSupport::ArTreeModel を使った例
 #
 require "bundler/setup"
 
@@ -21,7 +21,7 @@ ActiveRecord::Schema.define do
 end
 
 class Node < ActiveRecord::Base
-  acts_as_tree scope: -> { order(:name).where.not(:name => "休憩") }
+  ar_tree_model scope: -> { order(:name).where.not(:name => "休憩") }
 
   def add(name, &block)
     tap do

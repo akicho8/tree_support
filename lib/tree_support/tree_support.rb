@@ -18,7 +18,7 @@
 require "tree_support/treeable"
 require "tree_support/inspector"
 require "tree_support/node"
-require "tree_support/acts_as_tree" if defined?(ActiveRecord)
+require "tree_support/ar_tree_model" if defined?(ActiveRecord)
 require "tree_support/railtie" if defined?(Rails)
 
 # gviz は Object を触るため使わないときは入れないようにする

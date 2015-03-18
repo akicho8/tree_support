@@ -8,7 +8,7 @@ require "active_record"
 
 begin
   require "acts_as_tree"
-  ActiveRecord::Base.include(ActsAsTree)
+  ActiveRecord::Base.include(ArTreeModel)
 end
 
 begin
@@ -71,7 +71,7 @@ root = Node.create!(:name => "*root*").tap do |n|
   end
 end
 
-# Node.extend(ActsAsTree::TreeView)
+# Node.extend(ArTreeModel::TreeView)
 # Node.tree_view(:name)
 
 puts TreeSupport.tree(root){|e|"#{e.name}(#{e.position})"}

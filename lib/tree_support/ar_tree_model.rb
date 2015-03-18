@@ -3,37 +3,37 @@
 # acts_as_tree の代替品
 #
 #   class Node < ActiveRecord::Base
-#     acts_as_tree                                                 # default
-#     acts_as_tree scope: -> { order(:name) }                      # スコープを自分で指定
-#     acts_as_tree scope: -> { order(:id).where(:active => true) } # whereも指定可
+#     ar_tree_model                                                 # default
+#     ar_tree_model scope: -> { order(:name) }                      # スコープを自分で指定
+#     ar_tree_model scope: -> { order(:id).where(:active => true) } # whereも指定可
 #   end
 #
 require "active_support/concern"
 
 module TreeSupport
-  module ActsAsTree
+  module ArTreeModel
     extend ActiveSupport::Concern
 
     included do
     end
 
     module ClassMethods
-      def acts_as_tree(options = {})
-        return if acts_as_tree_defined?
+      def ar_tree_model(options = {})
+        return if ar_tree_model_defined?
 
-        class_attribute :acts_as_tree_configuration
-        self.acts_as_tree_configuration = {
+        class_attribute :ar_tree_model_configuration
+        self.ar_tree_model_configuration = {
           scope: -> { order(:id) },
         }.merge(options)
 
         if block_given?
-          yield acts_as_tree_configuration
+          yield ar_tree_model_configuration
         end
 
         include SingletonMethods
       end
 
-      def acts_as_tree_defined?
+      def ar_tree_model_defined?
         ancestors.include?(SingletonMethods)
       end
     end
@@ -44,7 +44,7 @@ module TreeSupport
       include Stringify
 
       included do
-        scope :tree_default_scope, acts_as_tree_configuration[:scope]
+        scope :tree_default_scope, ar_tree_model_configuration[:scope]
 
         belongs_to :parent, -> { tree_default_scope }, :class_name => name, :foreign_key => :parent_id
         has_many :children, -> { tree_default_scope }, :class_name => name, :foreign_key => :parent_id, :dependent => :destroy, :inverse_of => :parent
@@ -52,8 +52,8 @@ module TreeSupport
       end
 
       module ClassMethods
-        def acts_as_tree?
-          acts_as_tree_defined? # && columns_hash.has_key?(:id)
+        def ar_tree_model?
+          ar_tree_model_defined? # && columns_hash.has_key?(:id)
         end
 
         def root
