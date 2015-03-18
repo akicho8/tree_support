@@ -19,12 +19,12 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.rdoc_options = ["--line-numbers", "--inline-source", "--charset=UTF-8", "--diagram", "--image-format=jpg"]
 
+  s.add_dependency "activesupport"
+
   s.add_development_dependency "rake"
   s.add_development_dependency "test-unit"
   s.add_development_dependency "rails"
   s.add_development_dependency "activerecord"
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "gviz"
-
-  s.add_dependency "activesupport"
 end

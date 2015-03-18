@@ -110,7 +110,7 @@
 
    TreeSupport::Stringify を include する
 
-  : Node.send(:include, TreeSupport::Stringify)
+  : Node.include(TreeSupport::Stringify)
   : puts root.to_s_tree
   : # >> (root)
   : # >> ├─交戦
