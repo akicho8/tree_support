@@ -366,7 +366,7 @@
     Model
 
   : class Node < ActiveRecord::Base
-  :   acts_as_tree
+  :   ar_tree_model
   : end
 
     amerine/acts_as_tree https://github.com/amerine/acts_as_tree との違い
