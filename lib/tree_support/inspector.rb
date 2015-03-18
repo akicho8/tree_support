@@ -22,7 +22,7 @@ module TreeSupport
 
     def initialize(options = {}, &block)
       @options = {
-        :take             => 4096,  # 深さNまで(巨大すぎて木が表示できないとき用)
+        :take             => 256,   # 深さNまで(巨大すぎて木が表示できないとき用)
         :drop             => 0,     # 深さNから(1にするとルートを非表示にできる)
         :root_label       => nil,   # ルートを表示する場合に有効な代替ラベル
         :tab_space        => 4,     # 途中からのインデント幅
@@ -41,7 +41,7 @@ module TreeSupport
     #     parent.children
     #     name
     #
-    def tree(object, locals = {})
+    def tree(object, **locals)
       locals = {
         :depth => [],
       }.merge(locals)
@@ -56,7 +56,7 @@ module TreeSupport
         prefix_char = ""
       end
 
-      indents = locals[:depth].each.with_index.collect{|flag, index|
+      indents = locals[:depth].each.with_index.collect {|flag, index|
         if index > @options[:drop]
           tab = flag ? @options[:tab_visible_char] : ""
           tab.toeuc.ljust(@options[:tab_space]).toutf8

@@ -19,6 +19,7 @@ module TreeSupport
   end
 
   class GraphvizBuilder
+    # Gviz#save だけなぜか使いずらいため
     class GvizEx < SimpleDelegator
       def output(filename)
         filename = Pathname(filename).expand_path
@@ -38,17 +39,17 @@ module TreeSupport
 
     def initialize(options = {}, &block)
       @options = {
-        :take => 4096,
+        :take => 256,
         :drop => 0,
       }.merge(options)
       @block = block
     end
 
     def build(object)
-      gv = GvizEx.new(Gviz.new)
-      gv.global(:rankdir => "LR", :concentrate => "true")
-      visit(gv, object)
-      gv
+      GvizEx.new(Gviz.new).tap do |gv|
+        gv.global(:rankdir => "LR", :concentrate => "true")
+        visit(gv, object)
+      end
     end
 
     private
@@ -63,10 +64,10 @@ module TreeSupport
           attrs[:label] ||= TreeSupport.node_name(object)
           gv.node(node_code(object), attrs)
           if depth.next < @options[:take]
-            gv.route node_code(object) => object.children.collect{|node|node_code(node)}
+            gv.route node_code(object) => object.children.collect {|node| node_code(node) }
           end
         end
-        object.children.each{|node|visit(gv, node, depth.next)}
+        object.children.each {|node| visit(gv, node, depth.next) }
       end
     end
 
