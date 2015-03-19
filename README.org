@@ -9,128 +9,138 @@
 
    parent, children メソッドを持っているオブジェクトを TreeSupport.tree に渡すだけ
 
-  : require "tree_support"
-  : puts TreeSupport.tree(TreeSupport.example)
-  : # >> (root)
-  : # >> ├─交戦
-  : # >> │   ├─攻撃
-  : # >> │   │   ├─剣を振る
-  : # >> │   │   ├─攻撃魔法
-  : # >> │   │   │   ├─召喚A
-  : # >> │   │   │   └─召喚B
-  : # >> │   │   └─縦で剣をはじく
-  : # >> │   └─防御
-  : # >> ├─撤退
-  : # >> │   ├─足止めする
-  : # >> │   │   ├─トラップをしかける
-  : # >> │   │   └─弓矢を放つ
-  : # >> │   └─逃走する
-  : # >> └─休憩
-  : # >>     ├─立ち止まる
-  : # >>     └─回復する
-  : # >>         ├─回復魔法
-  : # >>         └─回復薬を飲む
+#+BEGIN_SRC ruby
+require "tree_support"
+puts TreeSupport.tree(TreeSupport.example)
+# >> (root)
+# >> ├─交戦
+# >> │   ├─攻撃
+# >> │   │   ├─剣を振る
+# >> │   │   ├─攻撃魔法
+# >> │   │   │   ├─召喚A
+# >> │   │   │   └─召喚B
+# >> │   │   └─縦で剣をはじく
+# >> │   └─防御
+# >> ├─撤退
+# >> │   ├─足止めする
+# >> │   │   ├─トラップをしかける
+# >> │   │   └─弓矢を放つ
+# >> │   └─逃走する
+# >> └─休憩
+# >>     ├─立ち止まる
+# >>     └─回復する
+# >>         ├─回復魔法
+# >>         └─回復薬を飲む
+#+END_SRC   
 
 ** 詳しい使い方
 
 *** こんな感じのノードクラスを準備
 
-  : class Node
-  :   attr_accessor :name, :parent, :children
-  : 
-  :   def initialize(name = nil, &block)
-  :     @name = name
-  :     @children = []
-  :     if block_given?
-  :       instance_eval(&block)
-  :     end
-  :   end
-  : 
-  :   def add(*args, &block)
-  :     tap do
-  :       children << self.class.new(*args, &block).tap{|v|v.parent = self}
-  :     end
-  :   end
-  : end
+#+BEGIN_SRC ruby
+class Node
+  attr_accessor :name, :parent, :children
+
+  def initialize(name = nil, &block)
+    @name = name
+    @children = []
+    if block_given?
+      instance_eval(&block)
+    end
+  end
+
+  def add(*args, &block)
+    tap do
+      children << self.class.new(*args, &block).tap{|v|v.parent = self}
+    end
+  end
+end
+#+END_SRC
 
 *** 木を作成
 
-  : root = Node.new("*root*") do
-  :   add "交戦" do
-  :     add "攻撃" do
-  :       add "剣を振る"
-  :       add "攻撃魔法" do
-  :         add "召喚A"
-  :         add "召喚B"
-  :       end
-  :       add "縦で剣をはじく"
-  :     end
-  :     add "防御"
-  :   end
-  :   add "撤退" do
-  :     add "足止めする" do
-  :       add "トラップをしかける"
-  :       add "弓矢を放つ"
-  :     end
-  :     add "逃走する"
-  :   end
-  :   add "休憩" do
-  :     add "立ち止まる"
-  :     add "回復する" do
-  :       add "回復魔法"
-  :       add "回復薬を飲む"
-  :     end
-  :   end
-  : end
+#+BEGIN_SRC ruby
+root = Node.new("*root*") do
+  add "交戦" do
+    add "攻撃" do
+      add "剣を振る"
+      add "攻撃魔法" do
+        add "召喚A"
+        add "召喚B"
+      end
+      add "縦で剣をはじく"
+    end
+    add "防御"
+  end
+  add "撤退" do
+    add "足止めする" do
+      add "トラップをしかける"
+      add "弓矢を放つ"
+    end
+    add "逃走する"
+  end
+  add "休憩" do
+    add "立ち止まる"
+    add "回復する" do
+      add "回復魔法"
+      add "回復薬を飲む"
+    end
+  end
+end
+#+END_SRC
 
 *** 可視化
 
-  : puts TreeSupport.tree(root)
-  : # >> (root)
-  : # >> ├─交戦
-  : # >> │   ├─攻撃
-  : # >> │   │   ├─剣を振る
-  : # >> │   │   ├─攻撃魔法
-  : # >> │   │   │   ├─召喚A
-  : # >> │   │   │   └─召喚B
-  : # >> │   │   └─縦で剣をはじく
-  : # >> │   └─防御
-  : # >> ├─撤退
-  : # >> │   ├─足止めする
-  : # >> │   │   ├─トラップをしかける
-  : # >> │   │   └─弓矢を放つ
-  : # >> │   └─逃走する
-  : # >> └─休憩
-  : # >>     ├─立ち止まる
-  : # >>     └─回復する
-  : # >>         ├─回復魔法
-  : # >>         └─回復薬を飲む
+#+BEGIN_SRC ruby
+puts TreeSupport.tree(root)
+# >> (root)
+# >> ├─交戦
+# >> │   ├─攻撃
+# >> │   │   ├─剣を振る
+# >> │   │   ├─攻撃魔法
+# >> │   │   │   ├─召喚A
+# >> │   │   │   └─召喚B
+# >> │   │   └─縦で剣をはじく
+# >> │   └─防御
+# >> ├─撤退
+# >> │   ├─足止めする
+# >> │   │   ├─トラップをしかける
+# >> │   │   └─弓矢を放つ
+# >> │   └─逃走する
+# >> └─休憩
+# >>     ├─立ち止まる
+# >>     └─回復する
+# >>         ├─回復魔法
+# >>         └─回復薬を飲む
+#+END_SRC
 
 *** TreeSupport.tree を書くのが面倒
 
    TreeSupport::Stringify を include する
 
-  : Node.include(TreeSupport::Stringify)
-  : puts root.to_s_tree
-  : # >> (root)
-  : # >> ├─交戦
-  : # >> │   ├─攻撃
-  : # >> │   │   ├─剣を振る
-  : # >> │   │   ├─攻撃魔法
-  : # >> │   │   │   ├─召喚A
-  : # >> │   │   │   └─召喚B
-  : # >> │   │   └─縦で剣をはじく
-  : # >> │   └─防御
-  : # >> ├─撤退
-  : # >> │   ├─足止めする
-  : # >> │   │   ├─トラップをしかける
-  : # >> │   │   └─弓矢を放つ
-  : # >> │   └─逃走する
-  : # >> └─休憩
-  : # >>     ├─立ち止まる
-  : # >>     └─回復する
-  : # >>         ├─回復魔法
-  : # >>         └─回復薬を飲む
+#+BEGIN_SRC ruby
+Node.include(TreeSupport::Stringify)
+puts root.to_s_tree
+# >> (root)
+# >> ├─交戦
+# >> │   ├─攻撃
+# >> │   │   ├─剣を振る
+# >> │   │   ├─攻撃魔法
+# >> │   │   │   ├─召喚A
+# >> │   │   │   └─召喚B
+# >> │   │   └─縦で剣をはじく
+# >> │   └─防御
+# >> ├─撤退
+# >> │   ├─足止めする
+# >> │   │   ├─トラップをしかける
+# >> │   │   └─弓矢を放つ
+# >> │   └─逃走する
+# >> └─休憩
+# >>     ├─立ち止まる
+# >>     └─回復する
+# >>         ├─回復魔法
+# >>         └─回復薬を飲む
+#+END_SRC
 
 *** ノードのラベルを変更するには？
 
@@ -140,34 +150,40 @@
 
    treeにブロックをつける
 
-  : puts TreeSupport.tree(root){|node|node.object_id}
-  : 70308514816100
-  : ├─70308514815920
-  : │   ├─70308514815780
-  : │   │   ├─70308514815680
-  : │   │   ├─70308514815580
-  : │   │   │   ├─70308514815480
-  : │   │   │   └─70308514815420
-  : │   │   └─70308514815360
-  : │   └─70308514815300
-  : ├─70308514815220
-  : │   ├─70308514815080
-  : │   │   ├─70308514814980
-  : │   │   └─70308514814920
-  : │   └─70308514814860
-  : └─70308514814780
-  :      ├─70308514814680
-  :      └─70308514814580
-  :           ├─70308514814480
-  :           └─70308514814420
+#+BEGIN_SRC ruby
+puts TreeSupport.tree(root){|node|node.object_id}
+70308514816100
+├─70308514815920
+│   ├─70308514815780
+│   │   ├─70308514815680
+│   │   ├─70308514815580
+│   │   │   ├─70308514815480
+│   │   │   └─70308514815420
+│   │   └─70308514815360
+│   └─70308514815300
+├─70308514815220
+│   ├─70308514815080
+│   │   ├─70308514814980
+│   │   └─70308514814920
+│   └─70308514814860
+└─70308514814780
+     ├─70308514814680
+     └─70308514814580
+          ├─70308514814480
+          └─70308514814420
+#+END_SRC
 
 *** Gviz のオブジェクトに変換するには？
 
-  : gv = TreeSupport.graphviz(root)
+#+BEGIN_SRC ruby
+gv = TreeSupport.graphviz(root)
+#+END_SRC
 
 *** それを画像化するには？
 
-  : gv.output("tree.png")
+#+BEGIN_SRC ruby
+gv.output("tree.png")
+#+END_SRC
 
    [[https://raw.github.com/akicho8/tree_support/master/images/tree.png]]
 
@@ -175,14 +191,16 @@
 
    TreeSupport.graphviz のブロックで graphviz の属性をハッシュで返す
 
-  : gv = TreeSupport.graphviz(root){|node|
-  :   if node.name.include?("攻")
-  :     {:fillcolor => "lightblue", :style => "filled"}
-  :   elsif node.name.include?("回復")
-  :     {:fillcolor => "lightpink", :style => "filled"}
-  :   end
-  : }
-  : gv.output("tree_color.png")
+#+BEGIN_SRC ruby
+gv = TreeSupport.graphviz(root){|node|
+  if node.name.include?("攻")
+    {:fillcolor => "lightblue", :style => "filled"}
+  elsif node.name.include?("回復")
+    {:fillcolor => "lightpink", :style => "filled"}
+  end
+}
+gv.output("tree_color.png")
+#+END_SRC
 
    [[https://raw.github.com/akicho8/tree_support/master/images/tree_color.png]]
 
@@ -190,75 +208,87 @@
 
    上の方法と同様に label 値を含んだハッシュを返す
 
-  : gv = TreeSupport.graphviz(root){|node|
-  :   {:label => node.name.chars.first}
-  : }
-  : gv.output("tree_label.png")
+#+BEGIN_SRC ruby
+gv = TreeSupport.graphviz(root){|node|
+  {:label => node.name.chars.first}
+}
+gv.output("tree_label.png")
+#+END_SRC
 
    [[https://raw.github.com/akicho8/tree_support/master/images/tree_label.png]]
 
 *** Graphvizのdot形式を確認するには？
 
-  : puts gv.to_dot
-  : # >> digraph n70146110700700 {
-  : # >>   graph [charset = "UTF-8", rankdir = "LR"];
-  : # >>   n70146110700700 [label = "*root*"];
-  : # >>   n70146110700700 -> {n70146110698600; n70146110691220; n70146110689500;};
-  : # >>   n70146110698600 [label = "交戦"];
-  : # >>   n70146110698600 -> {n70146110698320; n70146110691720;};
-  : # >>   n70146110698320 [label = "攻撃"];
-  : # >>   n70146110698320 -> {n70146110697900; n70146110697240; n70146110692060;};
-  : # >>   n70146110697900 [label = "剣を振る"];
-  : # >>   n70146110697240 [label = "攻撃魔法"];
-  : # >>   n70146110697240 -> {n70146110695080; n70146110694480;};
-  : # >>   n70146110695080 [label = "召喚A"];
-  : # >>   n70146110694480 [label = "召喚B"];
-  : # >>   n70146110692060 [label = "縦で剣をはじく"];
-  : # >>   n70146110691720 [label = "防御"];
-  : # >>   n70146110691220 [label = "撤退"];
-  : # >>   n70146110691220 -> {n70146110690400; n70146110689620;};
-  : # >>   n70146110690400 [label = "足止めする"];
-  : # >>   n70146110690400 -> {n70146110690220; n70146110689820;};
-  : # >>   n70146110690220 [label = "トラップをしかける"];
-  : # >>   n70146110689820 [label = "弓矢を放つ"];
-  : # >>   n70146110689620 [label = "逃走する"];
-  : # >>   n70146110689500 [label = "休憩"];
-  : # >>   n70146110689500 -> {n70146110688500; n70146110687660;};
-  : # >>   n70146110688500 [label = "立ち止まる"];
-  : # >>   n70146110687660 [label = "回復する"];
-  : # >>   n70146110687660 -> {n70146110686920; n70146110686220;};
-  : # >>   n70146110686920 [label = "回復魔法"];
-  : # >>   n70146110686220 [label = "回復薬を飲む"];
-  : # >> }
+#+BEGIN_SRC ruby
+puts gv.to_dot
+# >> digraph n70146110700700 {
+# >>   graph [charset = "UTF-8", rankdir = "LR"];
+# >>   n70146110700700 [label = "*root*"];
+# >>   n70146110700700 -> {n70146110698600; n70146110691220; n70146110689500;};
+# >>   n70146110698600 [label = "交戦"];
+# >>   n70146110698600 -> {n70146110698320; n70146110691720;};
+# >>   n70146110698320 [label = "攻撃"];
+# >>   n70146110698320 -> {n70146110697900; n70146110697240; n70146110692060;};
+# >>   n70146110697900 [label = "剣を振る"];
+# >>   n70146110697240 [label = "攻撃魔法"];
+# >>   n70146110697240 -> {n70146110695080; n70146110694480;};
+# >>   n70146110695080 [label = "召喚A"];
+# >>   n70146110694480 [label = "召喚B"];
+# >>   n70146110692060 [label = "縦で剣をはじく"];
+# >>   n70146110691720 [label = "防御"];
+# >>   n70146110691220 [label = "撤退"];
+# >>   n70146110691220 -> {n70146110690400; n70146110689620;};
+# >>   n70146110690400 [label = "足止めする"];
+# >>   n70146110690400 -> {n70146110690220; n70146110689820;};
+# >>   n70146110690220 [label = "トラップをしかける"];
+# >>   n70146110689820 [label = "弓矢を放つ"];
+# >>   n70146110689620 [label = "逃走する"];
+# >>   n70146110689500 [label = "休憩"];
+# >>   n70146110689500 -> {n70146110688500; n70146110687660;};
+# >>   n70146110688500 [label = "立ち止まる"];
+# >>   n70146110687660 [label = "回復する"];
+# >>   n70146110687660 -> {n70146110686920; n70146110686220;};
+# >>   n70146110686920 [label = "回復魔法"];
+# >>   n70146110686220 [label = "回復薬を飲む"];
+# >> }
+#+END_SRC
 
 *** デバッグ時などですぐ画像変換したものを確認するには？
 
-  : TreeSupport.graph_open(root)
+#+BEGIN_SRC ruby
+TreeSupport.graph_open(root)
+#+END_SRC
 
    次のショートカットに相当
 
-  : TreeSupport.graphviz(root).output("_output.png")
-  : `open _output.png`
+#+BEGIN_SRC ruby
+TreeSupport.graphviz(root).output("_output.png")
+`open _output.png`
+#+END_SRC
 
 *** ノードクラスを自分で作るのが面倒
 
     TreeSupport::Node をそのまま使えばいい。
 
-  : TreeSupport::Node.new("*root*") do
-  :   add "交戦" do
-  :     add "攻撃" do
-  :       add "剣を振る"
-  :       add "攻撃魔法" do
-  :         add "召喚A"
-  :         add "召喚B"
-  :       end
-  :     end
-  :   end
-  : end
+#+BEGIN_SRC ruby
+TreeSupport::Node.new("*root*") do
+  add "交戦" do
+    add "攻撃" do
+      add "剣を振る"
+      add "攻撃魔法" do
+        add "召喚A"
+        add "召喚B"
+      end
+    end
+  end
+end
+#+END_SRC
 
 *** 木を作るのが面倒
 
-  : TreeSupport.example
+#+BEGIN_SRC ruby
+TreeSupport.example
+#+END_SRC
 
     に簡単なサンプルの木が入ってる
 
@@ -266,92 +296,106 @@
 
     TreeSupport::Treeable を include していれば each_node が使える
 
-  : root = TreeSupport.example
-  : root.each_node.with_index{|n, i|p [i, n.name]}
-  : 
-  : # >> [0, "*root*"]
-  : # >> [1, "交戦"]
-  : # >> [2, "攻撃"]
-  : # >> [3, "剣を振る"]
-  : # >> [4, "攻撃魔法"]
-  : # >> [5, "召喚A"]
-  : # >> [6, "召喚B"]
-  : # >> [7, "縦で剣をはじく"]
-  : # >> [8, "防御"]
-  : # >> [9, "撤退"]
-  : # >> [10, "足止めする"]
-  : # >> [11, "トラップをしかける"]
-  : # >> [12, "弓矢を放つ"]
-  : # >> [13, "逃走する"]
-  : # >> [14, "休憩"]
-  : # >> [15, "立ち止まる"]
-  : # >> [16, "回復する"]
-  : # >> [17, "回復魔法"]
-  : # >> [18, "回復薬を飲む"]
+#+BEGIN_SRC ruby
+root = TreeSupport.example
+root.each_node.with_index{|n, i|p [i, n.name]}
+
+# >> [0, "*root*"]
+# >> [1, "交戦"]
+# >> [2, "攻撃"]
+# >> [3, "剣を振る"]
+# >> [4, "攻撃魔法"]
+# >> [5, "召喚A"]
+# >> [6, "召喚B"]
+# >> [7, "縦で剣をはじく"]
+# >> [8, "防御"]
+# >> [9, "撤退"]
+# >> [10, "足止めする"]
+# >> [11, "トラップをしかける"]
+# >> [12, "弓矢を放つ"]
+# >> [13, "逃走する"]
+# >> [14, "休憩"]
+# >> [15, "立ち止まる"]
+# >> [16, "回復する"]
+# >> [17, "回復魔法"]
+# >> [18, "回復薬を飲む"]
+#+END_SRC
 
 *** ルートは表示したくない
 
-  : puts TreeSupport.tree(root, :drop => 1)
-  : # >> 交戦
-  : # >> ├─攻撃
-  : # >> │   ├─剣を振る
-  : # >> │   ├─攻撃魔法
-  : # >> │   │   ├─召喚A
-  : # >> │   │   └─召喚B
-  : # >> │   └─縦で剣をはじく
-  : # >> └─防御
-  : # >> 撤退
-  : # >> ├─足止めする
-  : # >> │   ├─トラップをしかける
-  : # >> │   └─弓矢を放つ
-  : # >> └─逃走する
-  : # >> 休憩
-  : # >> ├─立ち止まる
-  : # >> └─回復する
-  : # >>     ├─回復魔法
-  : # >>     └─回復薬を飲む
+#+BEGIN_SRC ruby
+puts TreeSupport.tree(root, :drop => 1)
+# >> 交戦
+# >> ├─攻撃
+# >> │   ├─剣を振る
+# >> │   ├─攻撃魔法
+# >> │   │   ├─召喚A
+# >> │   │   └─召喚B
+# >> │   └─縦で剣をはじく
+# >> └─防御
+# >> 撤退
+# >> ├─足止めする
+# >> │   ├─トラップをしかける
+# >> │   └─弓矢を放つ
+# >> └─逃走する
+# >> 休憩
+# >> ├─立ち止まる
+# >> └─回復する
+# >>     ├─回復魔法
+# >>     └─回復薬を飲む
+#+END_SRC
 
 *** 木が大きすぎるので深さ3まででいい
 
-  : puts TreeSupport.tree(root, :take => 3)
-  : # >> (root)
-  : # >> ├─交戦
-  : # >> │   ├─攻撃
-  : # >> │   └─防御
-  : # >> ├─撤退
-  : # >> │   ├─足止めする
-  : # >> │   └─逃走する
-  : # >> └─休憩
-  : # >>     ├─立ち止まる
-  : # >>     └─回復する
+#+BEGIN_SRC ruby
+puts TreeSupport.tree(root, :take => 3)
+# >> (root)
+# >> ├─交戦
+# >> │   ├─攻撃
+# >> │   └─防御
+# >> ├─撤退
+# >> │   ├─足止めする
+# >> │   └─逃走する
+# >> └─休憩
+# >>     ├─立ち止まる
+# >>     └─回復する
+#+END_SRC
 
 *** 両方組み合わせると
 
-  : puts TreeSupport.tree(root, :take => 3, :drop => 1)
-  : # >> 交戦
-  : # >> ├─攻撃
-  : # >> └─防御
-  : # >> 撤退
-  : # >> ├─足止めする
-  : # >> └─逃走する
-  : # >> 休憩
-  : # >> ├─立ち止まる
-  : # >> └─回復する
+#+BEGIN_SRC ruby
+puts TreeSupport.tree(root, :take => 3, :drop => 1)
+# >> 交戦
+# >> ├─攻撃
+# >> └─防御
+# >> 撤退
+# >> ├─足止めする
+# >> └─逃走する
+# >> 休憩
+# >> ├─立ち止まる
+# >> └─回復する
+#+END_SRC
 
 *** 画像版も同様のオプションがある
 
-  : gv = TreeSupport.graphviz(root, :drop => 1)
-  : gv.output("drop.png")
+#+BEGIN_SRC ruby
+gv = TreeSupport.graphviz(root, :drop => 1)
+gv.output("drop.png")
+#+END_SRC
 
     [[https://raw.github.com/akicho8/tree_support/master/images/drop.png]]
 
-  : gv = TreeSupport.graphviz(root, :take => 3)
-  : gv.output("take.png")
+#+BEGIN_SRC ruby
+gv = TreeSupport.graphviz(root, :take => 3)
+gv.output("take.png")
+#+END_SRC
 
     [[https://raw.github.com/akicho8/tree_support/master/images/take.png]]
 
-  : gv = TreeSupport.graphviz(root, :take => 3, :drop => 1)
-  : gv.output("take_drop.png")
+#+BEGIN_SRC ruby
+gv = TreeSupport.graphviz(root, :take => 3, :drop => 1)
+gv.output("take_drop.png")
+#+END_SRC
 
     [[https://raw.github.com/akicho8/tree_support/master/images/take_drop.png]]
 
@@ -359,15 +403,19 @@
 
     Migration
 
-  : create_table :nodes do |t|
-  :   t.belongs_to :parent
-  : end
+#+BEGIN_SRC ruby
+create_table :nodes do |t|
+  t.belongs_to :parent
+end
+#+END_SRC
 
     Model
 
-  : class Node < ActiveRecord::Base
-  :   ar_tree_model
-  : end
+#+BEGIN_SRC ruby
+class Node < ActiveRecord::Base
+  ar_tree_model
+end
+#+END_SRC
 
     amerine/acts_as_tree https://github.com/amerine/acts_as_tree との違い
 
