@@ -12,7 +12,7 @@
 #+BEGIN_SRC ruby
 require "tree_support"
 puts TreeSupport.tree(TreeSupport.example)
-# >> (root)
+# >> *root*
 # >> ├─交戦
 # >> │   ├─攻撃
 # >> │   │   ├─剣を振る
@@ -93,7 +93,7 @@ end
 
 #+BEGIN_SRC ruby
 puts TreeSupport.tree(root)
-# >> (root)
+# >> *root*
 # >> ├─交戦
 # >> │   ├─攻撃
 # >> │   │   ├─剣を振る
@@ -121,7 +121,7 @@ puts TreeSupport.tree(root)
 #+BEGIN_SRC ruby
 Node.include(TreeSupport::Stringify)
 puts root.to_s_tree
-# >> (root)
+# >> *root*
 # >> ├─交戦
 # >> │   ├─攻撃
 # >> │   │   ├─剣を振る
@@ -151,26 +151,26 @@ puts root.to_s_tree
    treeにブロックをつける
 
 #+BEGIN_SRC ruby
-puts TreeSupport.tree(root){|node|node.object_id}
-70308514816100
-├─70308514815920
-│   ├─70308514815780
-│   │   ├─70308514815680
-│   │   ├─70308514815580
-│   │   │   ├─70308514815480
-│   │   │   └─70308514815420
-│   │   └─70308514815360
-│   └─70308514815300
-├─70308514815220
-│   ├─70308514815080
-│   │   ├─70308514814980
-│   │   └─70308514814920
-│   └─70308514814860
-└─70308514814780
-     ├─70308514814680
-     └─70308514814580
-          ├─70308514814480
-          └─70308514814420
+puts TreeSupport.tree(root) {|node| node.object_id }
+# >> 70308514816100
+# >> ├─70308514815920
+# >> │   ├─70308514815780
+# >> │   │   ├─70308514815680
+# >> │   │   ├─70308514815580
+# >> │   │   │   ├─70308514815480
+# >> │   │   │   └─70308514815420
+# >> │   │   └─70308514815360
+# >> │   └─70308514815300
+# >> ├─70308514815220
+# >> │   ├─70308514815080
+# >> │   │   ├─70308514814980
+# >> │   │   └─70308514814920
+# >> │   └─70308514814860
+# >> └─70308514814780
+# >>      ├─70308514814680
+# >>      └─70308514814580
+# >>           ├─70308514814480
+# >>           └─70308514814420
 #+END_SRC
 
 *** Gviz のオブジェクトに変換するには？
@@ -192,7 +192,7 @@ gv.output("tree.png")
    TreeSupport.graphviz のブロックで graphviz の属性をハッシュで返す
 
 #+BEGIN_SRC ruby
-gv = TreeSupport.graphviz(root){|node|
+gv = TreeSupport.graphviz(root) {|node|
   if node.name.include?("攻")
     {:fillcolor => "lightblue", :style => "filled"}
   elsif node.name.include?("回復")
@@ -209,7 +209,7 @@ gv.output("tree_color.png")
    上の方法と同様に label 値を含んだハッシュを返す
 
 #+BEGIN_SRC ruby
-gv = TreeSupport.graphviz(root){|node|
+gv = TreeSupport.graphviz(root) {|node|
   {:label => node.name.chars.first}
 }
 gv.output("tree_label.png")
@@ -298,8 +298,7 @@ TreeSupport.example
 
 #+BEGIN_SRC ruby
 root = TreeSupport.example
-root.each_node.with_index{|n, i|p [i, n.name]}
-
+root.each_node.with_index {|n, i| p [i, n.name] }
 # >> [0, "*root*"]
 # >> [1, "交戦"]
 # >> [2, "攻撃"]
@@ -349,7 +348,7 @@ puts TreeSupport.tree(root, :drop => 1)
 
 #+BEGIN_SRC ruby
 puts TreeSupport.tree(root, :take => 3)
-# >> (root)
+# >> *root*
 # >> ├─交戦
 # >> │   ├─攻撃
 # >> │   └─防御
