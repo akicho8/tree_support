@@ -17,15 +17,15 @@ class TestTreeable < Test::Unit::TestCase
   end
 
   test "ancestors" do
-    assert_equal ["a2", "a", "*root*"], @a2.ancestors.collect(&:name) 
+    assert_equal ["a2", "a", "*root*"], @a2.ancestors.collect(&:name)
   end
 
   test "descendants" do
-    assert_equal ["a", "a1", "a2", "x", "a3"], @root.descendants.collect(&:name) 
+    assert_equal ["a", "a1", "a2", "x", "a3"], @root.descendants.collect(&:name)
   end
 
   test "each_node" do
-    assert_equal ["*root*", "a", "a1", "a2", "x", "a3"], @root.each_node.collect(&:name) 
+    assert_equal ["*root*", "a", "a1", "a2", "x", "a3"], @root.each_node.collect(&:name)
   end
 
   test "root" do
@@ -37,7 +37,7 @@ class TestTreeable < Test::Unit::TestCase
   end
 
   test "self_and_siblings" do
-    assert_equal ["a1", "a2", "a3"], @a2.self_and_siblings.collect(&:name) 
+    assert_equal ["a1", "a2", "a3"], @a2.self_and_siblings.collect(&:name)
   end
 
   test "root?" do

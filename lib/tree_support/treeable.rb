@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
-require "active_support/concern"
+require "active_support/core_ext/module/concerning"
 
 module TreeSupport
-  module Treeable
-    extend ActiveSupport::Concern
-
+  concern :Treeable do
     included do
       include Enumerable
     end

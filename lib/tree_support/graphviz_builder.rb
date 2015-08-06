@@ -24,7 +24,7 @@ module TreeSupport
       def output(filename)
         filename = Pathname(filename).expand_path
         FileUtils.makedirs(filename.dirname)
-        save("#{filename.dirname}/#{filename.basename(".*")}", filename.extname.delete(".").to_sym)
+        save("#{filename.dirname}/#{filename.basename(".*")}", filename.extname.delete("."))
       end
 
       # alias to_dot to_s はできない
