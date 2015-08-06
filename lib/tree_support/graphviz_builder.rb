@@ -72,7 +72,7 @@ module TreeSupport
     end
 
     def node_code(object)
-      "n#{object.object_id}".to_sym
+      "n#{object.object_id}"
     end
   end
 end
