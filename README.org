@@ -422,7 +422,7 @@ end
     - Node#ancestors は自分を含む
     - 安全に全削除する Node.safe_destroy_all を追加 (acts_as_list との組み合わせでは Node.destroy_all で事故る)
     - Node.roots は scope で定義
-    - 引数が異なる。:order => :id のしたい場合は :scope => -> { order(:id) } と書く。こうすることで where 条件も渡せるようになる。
+    - 引数が異なる。:order => :id にしたい場合は :scope => -> { order(:id) } と書く。こうすることで where 条件も渡せるようになる。
 
 ** 心配ごと
 
