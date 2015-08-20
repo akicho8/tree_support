@@ -59,3 +59,16 @@ Lint/UnusedBlockArgument:
 Lint/UselessAssignment:
   Exclude:
     # - 'examples/0150_acts_as_tree.rb'
+
+# Offense count: 10
+# Cop supports --auto-correct.
+# Configuration parameters: EnforcedStyleInsidePipes, SupportedStyles.
+Style/SpaceAroundBlockParameters:
+  Exclude:
+    # - 'examples/0130_node_class_example.rb'
+    # - 'examples/0160_acts_as_tree_and_list.rb'
+    # - 'examples/demo.rb'
+    # - 'lib/tree_support/inspector.rb'
+    # - 'lib/tree_support/node.rb'
+    # - 'lib/tree_support/treeable.rb'
+    # - 'test/test_treeable.rb'

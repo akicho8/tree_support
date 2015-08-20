@@ -5,13 +5,13 @@ require "tree_support"
 
 root = TreeSupport.example
 
-p root.each_node.collect.with_index{|n, i|[n.name, i]}
+p root.each_node.collect.with_index {|n, i| [n.name, i]}
 puts root.to_s_tree
 puts TreeSupport.tree(root)
 puts TreeSupport.tree(root, :drop => 1)
 puts TreeSupport.tree(root, :take => 3)
 puts TreeSupport.tree(root, :take => 3, :drop => 1)
-puts TreeSupport.tree(root) {|node, _locals|node.object_id}
+puts TreeSupport.tree(root) {|node, _locals| node.object_id}
 # TreeSupport.graph_open(root)
 
 TreeSupport.graphviz(root) {|node|

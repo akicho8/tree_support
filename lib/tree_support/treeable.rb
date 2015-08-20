@@ -14,7 +14,7 @@ module TreeSupport
     def each_node(&block)
       return enum_for(__method__) unless block_given?
       yield self
-      each{|node|node.each_node(&block)}
+      each {|node| node.each_node(&block)}
     end
 
     def descendants(&block)

@@ -12,7 +12,7 @@ module TreeSupport
   end
 
   def self.node_name(object)
-    object.send(name_methods.find{|e|object.respond_to?(e)} || :to_s)
+    object.send(name_methods.find {|e| object.respond_to?(e)} || :to_s)
   end
 
   class Inspector
@@ -92,7 +92,7 @@ module TreeSupport
 
       locals[:depth].push(flag)
       if locals[:depth].size < @options[:take]
-        buffer << object.children.collect{|node|tree(node, locals)}.join
+        buffer << object.children.collect {|node| tree(node, locals)}.join
       end
       locals[:depth].pop
 

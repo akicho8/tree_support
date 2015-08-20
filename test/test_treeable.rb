@@ -12,8 +12,8 @@ class TestTreeable < Test::Unit::TestCase
         add "a3"
       end
     end
-    @a2 = @root.each_node.find{|e|e.name == "a2"}
-    @leaf = @root.each_node.find{|e|e.name == "x"}
+    @a2 = @root.each_node.find {|e| e.name == "a2"}
+    @leaf = @root.each_node.find {|e| e.name == "x"}
   end
 
   test "ancestors" do
