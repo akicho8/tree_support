@@ -1,0 +1,61 @@
+inherit_from: .rubocop_todo.yml
+
+# Offense count: 1
+Lint/UselessAccessModifier:
+  Exclude:
+
+# Offense count: 2
+# Cop supports --auto-correct.
+# Configuration parameters: EnforcedStyle, SupportedStyles.
+Style/AlignParameters:
+  Exclude:
+
+# Offense count: 2
+# Cop supports --auto-correct.
+# Configuration parameters: EnforcedHashRocketStyle, EnforcedColonStyle, EnforcedLastArgumentHashStyle, SupportedLastArgumentHashStyles.
+Style/AlignHash:
+  Exclude:
+
+# Offense count: 1
+Style/ClassVars:
+  Exclude:
+
+# Offense count: 1
+# Cop supports --auto-correct.
+Style/ColonMethodCall:
+  Exclude:
+
+# Offense count: 2
+# Cop supports --auto-correct.
+# Configuration parameters: Keywords.
+Style/CommentAnnotation:
+  Exclude:
+
+# Offense count: 3
+# Cop supports --auto-correct.
+Style/CommentIndentation:
+  Exclude:
+
+# Offense count: 3
+Style/UnlessElse:
+  Exclude:
+
+# Offense count: 1
+Metrics/PerceivedComplexity:
+  Max: 18
+
+# Offense count: 2
+# Cop supports --auto-correct.
+Style/Alias:
+  Exclude:
+
+# Offense count: 1
+# Cop supports --auto-correct.
+Lint/UnusedBlockArgument:
+  Exclude:
+    # - 'examples/demo.rb'
+
+# Offense count: 1
+Lint/UselessAssignment:
+  Exclude:
+    # - 'examples/0150_acts_as_tree.rb'

@@ -11,10 +11,10 @@ puts TreeSupport.tree(root)
 puts TreeSupport.tree(root, :drop => 1)
 puts TreeSupport.tree(root, :take => 3)
 puts TreeSupport.tree(root, :take => 3, :drop => 1)
-puts TreeSupport.tree(root){|node, locals|node.object_id}
+puts TreeSupport.tree(root) {|node, _locals|node.object_id}
 # TreeSupport.graph_open(root)
 
-TreeSupport.graphviz(root){|node|
+TreeSupport.graphviz(root) {|node|
   if node.name.include?("攻")
     {:fillcolor => "lightblue", :style => "filled"}
   elsif node.name.include?("回復")
@@ -22,7 +22,7 @@ TreeSupport.graphviz(root){|node|
   end
 }.output("../images/tree_color.png")
 
-TreeSupport.graphviz(root){|node|
+TreeSupport.graphviz(root) {|node|
   {:label => node.name.chars.first}
 }.output("../images/tree_label.png")
 

@@ -9,8 +9,8 @@ module TreeSupport
 
     attr_accessor :attributes, :parent, :children
 
-    alias name attributes
-    alias key attributes
+    alias_method :name, :attributes
+    alias_method :key, :attributes
 
     delegate :[], :[]=, :to_h, :to => :attributes
 

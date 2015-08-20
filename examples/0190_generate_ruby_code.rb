@@ -7,10 +7,10 @@ require "tree_support"
 
 def generate(node)
   s = ""
-  unless node.parent
-    s << "TreeSupport::Node.new(#{node.name.inspect})"
-  else
+  if node.parent
     s << "add #{node.name.inspect}"
+  else
+    s << "TreeSupport::Node.new(#{node.name.inspect})"
   end
   unless node.children.empty?
     s << [" do\n", node.children.collect {|node| generate(node) }.join, "end"].join
