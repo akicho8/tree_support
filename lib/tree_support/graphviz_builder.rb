@@ -72,7 +72,7 @@ module TreeSupport
     end
 
     def node_code(object)
-      "n#{object.object_id}"
+      "n#{object.object_id}".to_sym # GC対象にならないため Symbol にしたくないが、Gvizで怒られるため仕方なく to_sym している
     end
   end
 end
