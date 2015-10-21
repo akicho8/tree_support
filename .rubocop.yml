@@ -72,3 +72,6 @@ Style/SpaceAroundBlockParameters:
     # - 'lib/tree_support/node.rb'
     # - 'lib/tree_support/treeable.rb'
     # - 'test/test_treeable.rb'
+
+Lint/Void:
+  Enabled: false

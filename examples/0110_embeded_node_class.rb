@@ -23,5 +23,5 @@ tree = TreeSupport::Node.new(:root) do
   end
 end
 
-tree.each_node.find{|e|e.key == :root}.key # => :root
-tree.each_node.find{|e|e.key == :b}.key    # => :b
+tree.each_node.find{|e| e.key == :root}.key # => :root
+tree.each_node.find{|e| e.key == :b}.key    # => :b

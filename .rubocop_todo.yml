@@ -62,17 +62,7 @@ Style/HashSyntax:
 # Cop supports --auto-correct.
 # Configuration parameters: MaxLineLength.
 Style/IfUnlessModifier:
-  Exclude:
-    - 'examples/0130_node_class_example.rb'
-    - 'examples/0140_active_record.rb'
-    - 'examples/0150_acts_as_tree.rb'
-    - 'examples/0160_acts_as_tree_and_list.rb'
-    - 'examples/0200_tree_support_acts_as_tree.rb'
-    - 'lib/tree_support/ar_tree_model.rb'
-    - 'lib/tree_support/graphviz_builder.rb'
-    - 'lib/tree_support/inspector.rb'
-    - 'lib/tree_support/node.rb'
-    - 'test/test_ar_tree_model.rb'
+  Enabled: false
 
 # Offense count: 14
 # Cop supports --auto-correct.
