@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-require "test_helper"
+require "spec_helper"
 
-class TestTreeSupport < Test::Unit::TestCase
-  test "tree" do
+RSpec.describe "TreeSupport" do
+  it "tree" do
     expected = <<-EOT
 *root*
 ├─交戦
@@ -24,6 +24,6 @@ class TestTreeSupport < Test::Unit::TestCase
         ├─回復魔法
         └─回復薬を飲む
 EOT
-    assert_equal expected, TreeSupport.example.to_s_tree
+    TreeSupport.example.to_s_tree.should == expected
   end
 end

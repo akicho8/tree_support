@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-require "test_helper"
+require "spec_helper"
 
 require "rails"
 require "tree_support/ar_tree_model"
@@ -8,8 +8,8 @@ require "active_record"
 
 Class.new(Rails::Application){config.eager_load = true}.initialize!
 
-class TestArTreeModel < Test::Unit::TestCase
-  setup do
+RSpec.describe "ArTreeModel" do
+  before do
     ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
     ActiveRecord::Migration.verbose = false
 
@@ -64,20 +64,20 @@ class TestArTreeModel < Test::Unit::TestCase
     end
   end
 
-  test "roots" do
-    assert_equal [@node], Node.roots
+  it "roots" do
+    Node.roots.should == [@node]
   end
 
-  test "root" do
-    assert_equal @node, Node.root
+  it "root" do
+    Node.root.should == @node
   end
 
-  test "to_s_tree" do
+  it "to_s_tree" do
     @node.to_s_tree
   end
 
-  test "safe_destroy_all" do
+  it "safe_destroy_all" do
     Node.safe_destroy_all
-    assert_equal 0, Node.count
+    Node.count.should == 0
   end
 end

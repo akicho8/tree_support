@@ -38,7 +38,7 @@ Style/BlockDelimiters:
 # Configuration parameters: EnforcedStyle, SupportedStyles.
 Style/ClassAndModuleChildren:
   Exclude:
-    - 'test/test_helper.rb'
+    - 'test/spec_helper.rb'
 
 # Offense count: 24
 Style/Documentation:
