@@ -17,12 +17,12 @@ module TreeSupport
       each {|node| node.each_node(&block)}
     end
 
-    def descendants(&block)
-      return enum_for(__method__) unless block_given?
-      each do |node|
-        yield node
-        node.descendants(&block)
-      end
+    def descendants
+      flat_map { |node| [node] + node.descendants }
+    end
+
+    def self_and_descendants
+      [self] + descendants
     end
 
     def ancestors
@@ -46,7 +46,7 @@ module TreeSupport
     end
 
     def leaf?
-      children.size.zero?
+      children.empty?
     end
   end
 end

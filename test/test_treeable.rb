@@ -24,6 +24,10 @@ class TestTreeable < Test::Unit::TestCase
     assert_equal ["a", "a1", "a2", "x", "a3"], @root.descendants.collect(&:name)
   end
 
+  test "self_and_descendants" do
+    assert_equal ["*root*", "a", "a1", "a2", "x", "a3"], @root.self_and_descendants.collect(&:name)
+  end
+
   test "each_node" do
     assert_equal ["*root*", "a", "a1", "a2", "x", "a3"], @root.each_node.collect(&:name)
   end
