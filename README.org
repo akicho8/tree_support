@@ -173,6 +173,21 @@ puts TreeSupport.tree(root) {|node| node.object_id }
 # >>           └─70308514814420
 #+END_SRC
 
+*** 木構造にありがちなメソッドたちを使うには？
+
+    TreeSupport::Treeable の include で次のメソッドを追加する
+
+- each
+- each_node
+- descendants
+- self_and_descendants
+- ancestors
+- root
+- siblings
+- self_and_siblings
+- root?
+- leaf?
+
 *** Gviz のオブジェクトに変換するには？
 
 #+BEGIN_SRC ruby
