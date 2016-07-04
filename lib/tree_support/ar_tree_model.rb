@@ -64,6 +64,13 @@ module TreeSupport
         def safe_destroy_all
           roots.collect(&:destroy)
         end
+
+        def destroy_all(*args)
+          if respond_to?(:acts_as_list)
+            ActiveSupport::Deprecation.warn("acts_as_list を使っているときに destroy_all すると id が引けずに事故るので delete_all するか、末端から消していく safe_destroy_all を使ってください")
+          end
+          super
+        end
       end
     end
   end

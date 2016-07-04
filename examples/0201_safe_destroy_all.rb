@@ -53,7 +53,6 @@ puts Node.root.to_s_tree
 Node.destroy_all rescue $!      # => #<ActiveRecord::RecordNotFound: Couldn't find Node with 'id'=2>
 Node.safe_destroy_all
 Node.count                      # => 0
-
 # >> *root*
 # >> └─交戦
 # >>     └─攻撃
