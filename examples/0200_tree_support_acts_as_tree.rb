@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# TreeSupport::ArTreeModel を使った例
+# acts_as_tree の代替ライブラリの TreeSupport::ArTreeModel を使った例
 #
 require "bundler/setup"
 
@@ -64,6 +64,8 @@ Node.create!(:name => "*root*").tap do |n|
 end
 
 puts Node.root.to_s_tree
+Node.destroy_all
+
 # >> *root*
 # >> ├─交戦
 # >> │   ├─攻撃
