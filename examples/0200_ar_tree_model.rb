@@ -8,7 +8,7 @@ require "rails"
 require "active_record"
 require "tree_support"
 
-Class.new(Rails::Application){config.eager_load = false}.initialize! # Railtie を読ませるため
+Class.new(Rails::Application) { config.eager_load = false }.initialize! # ar_tree_model を有効化
 
 ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
 ActiveRecord::Migration.verbose = false
@@ -64,7 +64,7 @@ Node.create!(:name => "*root*").tap do |n|
 end
 
 puts Node.root.to_s_tree
-Node.destroy_all
+Node.destroy_all             # acts_as_list を使っていないので消せる
 
 # >> *root*
 # >> ├─交戦
