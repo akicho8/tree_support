@@ -51,7 +51,7 @@ class Node
 
   def add(*args, &block)
     tap do
-      children << self.class.new(*args, &block).tap {|v| v.parent = self}
+      children << self.class.new(*args, &block).tap {|v| v.parent = self }
     end
   end
 end
@@ -413,7 +413,7 @@ gv.output("take_drop.png")
 
     [[https://raw.github.com/akicho8/tree_support/master/images/take_drop.png]]
 
-*** acts_as_tree 相当を使う
+*** acts_as_tree 相当を使うには？
 
     Migration
 
@@ -431,17 +431,18 @@ class Node < ActiveRecord::Base
 end
 #+END_SRC
 
-    amerine/acts_as_tree https://github.com/amerine/acts_as_tree との違い
+    https://github.com/amerine/acts_as_tree との違い
 
     - シンプル
     - Node#ancestors は自分を含む
-    - 安全に全削除する Node.safe_destroy_all を追加 (acts_as_list との組み合わせでは Node.destroy_all で事故る)
+    - 安全に全削除する safe_destroy_all を追加 (acts_as_list との組み合わせでは destroy_all で事故る)
     - Node.roots は scope で定義
-    - 引数が異なる。:order => :id にしたい場合は :scope => -> { order(:id) } と書く。こうすることで where 条件も渡せるようになる。
+    - 引数が異なる。:order => :id にしたい場合は scope: -> { order(:id) } とする。こうすることで where 条件も渡せる。
 
 *** StaticRecord を対応させるには？
 
-    StaticRecord のモデルであろうと parent, children に応えられればよい。
+    https://github.com/akicho8/static_record
+    StaticRecord のモデルであっても parent, children メソッドがあればいい。
 
 #+BEGIN_SRC ruby
 class Foo
@@ -450,13 +451,13 @@ class Foo
     {:key => :a, :parent => nil},
     {:key => :b, :parent => :a},
     {:key => :c, :parent => :b},
-  ]
+  ], :attr_reader_auto => true
 
   include TreeSupport::Treeable
   include TreeSupport::Stringify
 
   def parent
-    self.class[@attributes[:parent]]
+    self.class[super]
   end
 
   def children

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 require "kconv"
 require "active_support/concern"
 require "active_support/core_ext/module/attribute_accessors" # mattr_accessor
@@ -32,6 +31,7 @@ module TreeSupport
         :branch_char      => "─",
         :debug            => false, # わけがわからなくなったら true にしよう
       }.merge(options)
+
       @block = block
     end
 
@@ -56,9 +56,9 @@ module TreeSupport
         prefix_char = ""
       end
 
-      indents = locals[:depth].each.with_index.collect {|flag, index|
-        if index > @options[:drop]
-          tab = flag ? @options[:tab_visible_char] : ""
+      indents = locals[:depth].each.with_index.collect {|e, i|
+        if i > @options[:drop]
+          tab = e ? @options[:tab_visible_char] : ""
           tab.toeuc.ljust(@options[:tab_space]).toutf8
         end
       }.join

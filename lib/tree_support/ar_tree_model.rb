@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-#
 # acts_as_tree の代替品
 #
 #   class Node < ActiveRecord::Base

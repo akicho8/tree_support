@@ -1,5 +1,4 @@
-# -*- coding: utf-8 -*-
-require 'active_support/core_ext/module/delegation' # Defines Module#delegate.
+require 'active_support/core_ext/module/delegation' # for Module#delegate.
 
 module TreeSupport
   # シンプルなノード(木構造の情報だけが欲しいときアプリ側でわざわざ作るのも面倒なので)

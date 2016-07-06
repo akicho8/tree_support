@@ -1,4 +1,8 @@
-# -*- coding: utf-8 -*-
+# 木構造あるあるメソッドの定義
+#
+# 必要なのは parent, children メソッドだけ
+#
+
 require "active_support/core_ext/module/concerning"
 
 module TreeSupport

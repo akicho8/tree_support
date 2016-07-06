@@ -9,7 +9,7 @@ class Foo
     {:key => :a, :name => "A", :parent => nil},
     {:key => :b, :name => "B", :parent => :a},
     {:key => :c, :name => "C", :parent => :b},
-  ]
+  ], :attr_reader_auto => true
 
   # parent と children に反応できれば構造は何でもよい
   concerning :TreeMethods do
@@ -19,7 +19,7 @@ class Foo
     end
 
     def parent
-      self.class[@attributes[:parent]]
+      self.class[super]
     end
 
     def children

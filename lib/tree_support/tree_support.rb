@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # 木構造可視化ライブラリ
 #
 #   root = TreeSupport::Node.new("ROOT") do

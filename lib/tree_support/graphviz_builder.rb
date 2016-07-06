@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 require "gviz"
 
 # for GvizEx#output
@@ -67,12 +66,13 @@ module TreeSupport
             gv.route node_code(object) => object.children.collect {|node| node_code(node) }
           end
         end
-        object.children.each {|node| visit(gv, node, depth.next) }
+        object.children.each {|e| visit(gv, e, depth.next) }
       end
     end
 
     def node_code(object)
-      "n#{object.object_id}".to_sym # GC対象にならないため Symbol にしたくないが、Gvizで怒られるため仕方なく to_sym している
+      # GC対象にならないためシンボルにしたくないが、Gvizで怒られるため仕方なくシンボル化している
+      :"n#{object.object_id}"
     end
   end
 end
