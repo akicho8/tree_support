@@ -11,7 +11,7 @@ module TreeSupport
       # Ruby 2.1 からこれで to_h が上書きされてしまうので
       # include TreeSupport::Treeable の前に to_h を定義している場合は注意
       if RUBY_VERSION >= "2.1"
-        if respond_to?(:to_h) || true
+        if respond_to?(:to_h)
           warn "include TreeSupport::Treeable によって、すでに定義されていた to_h が上書きされてしまいます。to_h が配列をハッシュ化させる目的でない場合は include TreeSupport::Treeable を to_h を定義する前に実行してください。"
         end
       end
