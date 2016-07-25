@@ -103,9 +103,9 @@ Node.destroy_all rescue $!      # => #<ActiveRecord::RecordNotFound: Couldn't fi
 # ~> /usr/local/var/rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/activerecord-5.0.0/lib/active_record/sanitization.rb:163: warning: too many arguments for format string
 # ~> /usr/local/var/rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/activerecord-5.0.0/lib/active_record/sanitization.rb:163: warning: too many arguments for format string
 # ~> /usr/local/var/rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/activerecord-5.0.0/lib/active_record/sanitization.rb:163: warning: too many arguments for format string
-# ~> !XMP1467597188_88388_167251![1] => ActiveRecord::RecordNotFound #<ActiveRecord::RecordNotFound: Couldn't find Node with 'id'=2>
+# ~> !XMP1469433663_66182_885753![1] => ActiveRecord::RecordNotFound #<ActiveRecord::RecordNotFound: Couldn't find Node with 'id'=2>
 # ~> root
-# ~> _xmp_1467597188_88388_855840
+# ~> _xmp_1469433663_66182_624396
 # >> *root*(1)
 # >> ├─交戦(1)
 # >> │   ├─攻撃(1)

@@ -6,7 +6,7 @@ require "bundler/setup"
 require "tree_support"
 
 root = TreeSupport.example
-root.class.ancestors                  # => [TreeSupport::Node, TreeSupport::Stringify, Enumerable, TreeSupport::Treeable, Object, Kernel, BasicObject]
+root.class.ancestors                  # => [TreeSupport::Node, TreeSupport::Stringify, TreeSupport::Treeable, Object, Kernel, BasicObject]
 root.each_node.with_index {|n, i| p [i, n.name] }
 
 # >> [0, "*root*"]

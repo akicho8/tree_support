@@ -70,10 +70,10 @@ Node.tree_view(:name)
 # puts TreeSupport.tree(root)
 # ~> 	from -:10:in  `<main>'
 # ~> 	from -:10:in  `require'
-# ~> 	from /usr/local/var/rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/acts_as_tree-2.2.0/lib/acts_as_tree.rb:314:in  `<top (required)>'
-# ~> 	from /usr/local/var/rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/acts_as_tree-2.2.0/lib/acts_as_tree.rb:314:in  `require'
-# ~> 	from /usr/local/var/rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/acts_as_tree-2.2.0/lib/acts_as_tree/active_record/acts/tree.rb:1:in  `<top (required)>'
-# ~> 	from /usr/local/var/rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/acts_as_tree-2.2.0/lib/acts_as_tree/active_record/acts/tree.rb:1:in  `require'
+# ~> 	from /usr/local/var/rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/acts_as_tree-2.4.0/lib/acts_as_tree.rb:322:in  `<top (required)>'
+# ~> 	from /usr/local/var/rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/acts_as_tree-2.4.0/lib/acts_as_tree.rb:322:in  `require'
+# ~> 	from /usr/local/var/rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/acts_as_tree-2.4.0/lib/acts_as_tree/active_record/acts/tree.rb:1:in  `<top (required)>'
+# ~> 	from /usr/local/var/rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/acts_as_tree-2.4.0/lib/acts_as_tree/active_record/acts/tree.rb:1:in  `require'
 # >> root
 # >>  |_ *root*
 # >>  |    |_ 交戦

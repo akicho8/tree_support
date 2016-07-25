@@ -3,6 +3,10 @@
 # ActiveRecord のレコードが Enumerable だと to_json が空になる現象
 # to_xml だと問題ない
 #
+# ↓
+#
+# include Enumerable がすべての元凶だった
+#
 require "bundler/setup"
 
 require "rails"
@@ -26,10 +30,11 @@ class Node < ActiveRecord::Base
   ar_tree_model
 end
 
+
 Node.create!(:name => "*root*")
 # 普通にやると動かないので
-Node.first.to_json              # => "[]"
+Node.first.to_json              # => "{\"id\":1,\"parent_id\":null,\"name\":\"*root*\"}"
 # attributes 経由にするか
 Node.first.attributes.to_json   # => "{\"id\":1,\"parent_id\":null,\"name\":\"*root*\"}"
 # いっそのこと xml にする
-Node.first.to_xml               # => "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<node>\n  <id type=\"integer\">1</id>\n  <parent-id type=\"integer\" nil=\"true\"/>\n  <name>*root*</name>\n</node>\n"
+Node.first.to_xml rescue $!     # => #<NoMethodError: undefined method `to_xml' for #<Node id: 1, parent_id: nil, name: "*root*">
