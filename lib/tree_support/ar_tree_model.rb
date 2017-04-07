@@ -44,7 +44,7 @@ module TreeSupport
       included do
         scope :tree_default_scope, ar_tree_model_configuration[:scope]
 
-        belongs_to :parent, -> { tree_default_scope }, :class_name => name, :foreign_key => :parent_id
+        belongs_to :parent, -> { tree_default_scope }, :class_name => name, :foreign_key => :parent_id, :required => false
         has_many :children, -> { tree_default_scope }, :class_name => name, :foreign_key => :parent_id, :dependent => :destroy, :inverse_of => :parent
         scope :roots, -> { tree_default_scope.where(:parent_id => nil) }
       end
