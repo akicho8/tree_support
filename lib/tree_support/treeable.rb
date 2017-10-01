@@ -10,11 +10,11 @@ module TreeSupport
     def each_node(&block)
       return enum_for(__method__) unless block_given?
       yield self
-      children.each {|node| node.each_node(&block)}
+      children.each { |e| e.each_node(&block) }
     end
 
     def descendants
-      children.flat_map { |node| [node] + node.descendants }
+      children.flat_map { |e| [e] + e.descendants }
     end
 
     def self_and_descendants
