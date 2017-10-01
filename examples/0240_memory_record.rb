@@ -1,15 +1,15 @@
-# StaticRecord を Treeable 対応
+# MemoryRecord を Treeable 対応
 require "bundler/setup"
 require "tree_support"
-require "static_record"
+require "memory_record"
 
 class Foo
-  include StaticRecord
-  static_record [
-    {:key => :a, :name => "A", :parent => nil},
-    {:key => :b, :name => "B", :parent => :a},
-    {:key => :c, :name => "C", :parent => :b},
-  ], :attr_reader_auto => true
+  include MemoryRecord
+  memory_record [
+    {key: :a, name: "A", parent: nil},
+    {key: :b, name: "B", parent: :a},
+    {key: :c, name: "C", parent: :b},
+  ]
 
   # parent と children に反応できれば構造は何でもよい
   concerning :TreeMethods do
@@ -22,7 +22,7 @@ class Foo
       self.class[super]
     end
 
-    def children
+    def children # !> character class has duplicated range: /[^\d\w:-]/
       self.class.find_all {|e| e.parent == self }
     end
   end
