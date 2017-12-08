@@ -70,10 +70,17 @@ Node.tree_view(:name)
 # puts TreeSupport.tree(root)
 # ~> 	from -:10:in  `<main>'
 # ~> 	from -:10:in  `require'
-# ~> 	from /usr/local/var/rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/acts_as_tree-2.4.0/lib/acts_as_tree.rb:322:in  `<top (required)>'
-# ~> 	from /usr/local/var/rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/acts_as_tree-2.4.0/lib/acts_as_tree.rb:322:in  `require'
-# ~> 	from /usr/local/var/rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/acts_as_tree-2.4.0/lib/acts_as_tree/active_record/acts/tree.rb:1:in  `<top (required)>'
-# ~> 	from /usr/local/var/rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/acts_as_tree-2.4.0/lib/acts_as_tree/active_record/acts/tree.rb:1:in  `require'
+# ~> 	from /usr/local/var/rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/acts_as_tree-2.4.0/lib/acts_as_tree.rb:322:in  `<top (required)>'
+# ~> 	from /usr/local/var/rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/acts_as_tree-2.4.0/lib/acts_as_tree.rb:322:in  `require'
+# ~> 	from /usr/local/var/rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/acts_as_tree-2.4.0/lib/acts_as_tree/active_record/acts/tree.rb:1:in  `<top (required)>'
+# ~> 	from /usr/local/var/rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/acts_as_tree-2.4.0/lib/acts_as_tree/active_record/acts/tree.rb:1:in  `require'
+# ~> /usr/local/var/rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/activesupport-5.0.0/lib/active_support/core_ext/hash/transform_values.rb:11: warning: method redefined; discarding old transform_values
+# ~> /usr/local/var/rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/activesupport-5.0.0/lib/active_support/core_ext/hash/transform_values.rb:23: warning: method redefined; discarding old transform_values!
+# ~> /usr/local/var/rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/concurrent-ruby-1.0.2/lib/concurrent/map.rb:230: warning: constant ::Fixnum is deprecated
+# ~> /usr/local/var/rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/concurrent-ruby-1.0.2/lib/concurrent/map.rb:230: warning: constant ::Fixnum is deprecated
+# ~> /usr/local/var/rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/concurrent-ruby-1.0.2/lib/concurrent/map.rb:230: warning: constant ::Fixnum is deprecated
+# ~> /usr/local/var/rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/concurrent-ruby-1.0.2/lib/concurrent/map.rb:230: warning: constant ::Fixnum is deprecated
+# ~> /usr/local/var/rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/arel-7.1.0/lib/arel/nodes/casted.rb:14: warning: instance variable @class not initialized
 # >> root
 # >>  |_ *root*
 # >>  |    |_ 交戦

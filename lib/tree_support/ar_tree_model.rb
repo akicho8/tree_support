@@ -15,7 +15,7 @@ module TreeSupport
     included do
     end
 
-    module ClassMethods
+    class_methods do
       def ar_tree_model(options = {})
         return if ar_tree_model_defined?
 
@@ -36,8 +36,7 @@ module TreeSupport
       end
     end
 
-    module SingletonMethods
-      extend ActiveSupport::Concern
+    concern :SingletonMethods do
       include Treeable
       include Stringify
 
@@ -49,7 +48,7 @@ module TreeSupport
         scope :roots, -> { tree_default_scope.where(:parent_id => nil) }
       end
 
-      module ClassMethods
+      class_methods do
         def ar_tree_model?
           ar_tree_model_defined? # && columns_hash.has_key?(:id)
         end

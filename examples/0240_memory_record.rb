@@ -22,7 +22,7 @@ class Foo
       self.class[super]
     end
 
-    def children # !> character class has duplicated range: /[^\d\w:-]/
+    def children
       self.class.find_all {|e| e.parent == self }
     end
   end

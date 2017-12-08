@@ -80,32 +80,40 @@ puts TreeSupport.tree(root) {|e| "#{e.name}(#{e.position})"}
 Node.destroy_all rescue $!      # => #<ActiveRecord::RecordNotFound: Couldn't find Node with 'id'=2>
 # ~> 	from -:10:in  `<main>'
 # ~> 	from -:10:in  `require'
-# ~> 	from /usr/local/var/rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/acts_as_tree-2.4.0/lib/acts_as_tree.rb:322:in  `<top (required)>'
-# ~> 	from /usr/local/var/rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/acts_as_tree-2.4.0/lib/acts_as_tree.rb:322:in  `require'
-# ~> 	from /usr/local/var/rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/acts_as_tree-2.4.0/lib/acts_as_tree/active_record/acts/tree.rb:1:in  `<top (required)>'
-# ~> 	from /usr/local/var/rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/acts_as_tree-2.4.0/lib/acts_as_tree/active_record/acts/tree.rb:1:in  `require'
-# ~> /usr/local/var/rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/activerecord-5.0.0/lib/active_record/sanitization.rb:163: warning: too many arguments for format string
-# ~> /usr/local/var/rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/activerecord-5.0.0/lib/active_record/sanitization.rb:163: warning: too many arguments for format string
-# ~> /usr/local/var/rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/activerecord-5.0.0/lib/active_record/sanitization.rb:163: warning: too many arguments for format string
-# ~> /usr/local/var/rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/activerecord-5.0.0/lib/active_record/sanitization.rb:163: warning: too many arguments for format string
-# ~> /usr/local/var/rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/activerecord-5.0.0/lib/active_record/sanitization.rb:163: warning: too many arguments for format string
-# ~> /usr/local/var/rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/activerecord-5.0.0/lib/active_record/sanitization.rb:163: warning: too many arguments for format string
-# ~> /usr/local/var/rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/activerecord-5.0.0/lib/active_record/sanitization.rb:163: warning: too many arguments for format string
-# ~> /usr/local/var/rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/activerecord-5.0.0/lib/active_record/sanitization.rb:163: warning: too many arguments for format string
-# ~> /usr/local/var/rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/activerecord-5.0.0/lib/active_record/sanitization.rb:163: warning: too many arguments for format string
-# ~> /usr/local/var/rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/activerecord-5.0.0/lib/active_record/sanitization.rb:163: warning: too many arguments for format string
-# ~> /usr/local/var/rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/activerecord-5.0.0/lib/active_record/sanitization.rb:163: warning: too many arguments for format string
-# ~> /usr/local/var/rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/activerecord-5.0.0/lib/active_record/sanitization.rb:163: warning: too many arguments for format string
-# ~> /usr/local/var/rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/activerecord-5.0.0/lib/active_record/sanitization.rb:163: warning: too many arguments for format string
-# ~> /usr/local/var/rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/activerecord-5.0.0/lib/active_record/sanitization.rb:163: warning: too many arguments for format string
-# ~> /usr/local/var/rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/activerecord-5.0.0/lib/active_record/sanitization.rb:163: warning: too many arguments for format string
-# ~> /usr/local/var/rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/activerecord-5.0.0/lib/active_record/sanitization.rb:163: warning: too many arguments for format string
-# ~> /usr/local/var/rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/activerecord-5.0.0/lib/active_record/sanitization.rb:163: warning: too many arguments for format string
-# ~> /usr/local/var/rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/activerecord-5.0.0/lib/active_record/sanitization.rb:163: warning: too many arguments for format string
-# ~> /usr/local/var/rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/activerecord-5.0.0/lib/active_record/sanitization.rb:163: warning: too many arguments for format string
-# ~> !XMP1469433663_66182_885753![1] => ActiveRecord::RecordNotFound #<ActiveRecord::RecordNotFound: Couldn't find Node with 'id'=2>
+# ~> 	from /usr/local/var/rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/acts_as_tree-2.4.0/lib/acts_as_tree.rb:322:in  `<top (required)>'
+# ~> 	from /usr/local/var/rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/acts_as_tree-2.4.0/lib/acts_as_tree.rb:322:in  `require'
+# ~> 	from /usr/local/var/rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/acts_as_tree-2.4.0/lib/acts_as_tree/active_record/acts/tree.rb:1:in  `<top (required)>'
+# ~> 	from /usr/local/var/rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/acts_as_tree-2.4.0/lib/acts_as_tree/active_record/acts/tree.rb:1:in  `require'
+# ~> /usr/local/var/rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/activesupport-5.0.0/lib/active_support/core_ext/hash/transform_values.rb:11: warning: method redefined; discarding old transform_values
+# ~> /usr/local/var/rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/activesupport-5.0.0/lib/active_support/core_ext/hash/transform_values.rb:23: warning: method redefined; discarding old transform_values!
+# ~> /usr/local/var/rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/concurrent-ruby-1.0.2/lib/concurrent/map.rb:230: warning: constant ::Fixnum is deprecated
+# ~> /usr/local/var/rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/concurrent-ruby-1.0.2/lib/concurrent/map.rb:230: warning: constant ::Fixnum is deprecated
+# ~> /usr/local/var/rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/concurrent-ruby-1.0.2/lib/concurrent/map.rb:230: warning: constant ::Fixnum is deprecated
+# ~> /usr/local/var/rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/concurrent-ruby-1.0.2/lib/concurrent/map.rb:230: warning: constant ::Fixnum is deprecated
+# ~> /usr/local/var/rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/arel-7.1.0/lib/arel/nodes/casted.rb:14: warning: instance variable @class not initialized
+# ~> /usr/local/var/rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/activerecord-5.0.0/lib/active_record/sanitization.rb:163: warning: too many arguments for format string
+# ~> /usr/local/var/rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/activerecord-5.0.0/lib/active_record/sanitization.rb:163: warning: too many arguments for format string
+# ~> /usr/local/var/rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/activerecord-5.0.0/lib/active_record/sanitization.rb:163: warning: too many arguments for format string
+# ~> /usr/local/var/rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/activerecord-5.0.0/lib/active_record/sanitization.rb:163: warning: too many arguments for format string
+# ~> /usr/local/var/rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/activerecord-5.0.0/lib/active_record/sanitization.rb:163: warning: too many arguments for format string
+# ~> /usr/local/var/rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/activerecord-5.0.0/lib/active_record/sanitization.rb:163: warning: too many arguments for format string
+# ~> /usr/local/var/rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/activerecord-5.0.0/lib/active_record/sanitization.rb:163: warning: too many arguments for format string
+# ~> /usr/local/var/rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/activerecord-5.0.0/lib/active_record/sanitization.rb:163: warning: too many arguments for format string
+# ~> /usr/local/var/rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/activerecord-5.0.0/lib/active_record/sanitization.rb:163: warning: too many arguments for format string
+# ~> /usr/local/var/rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/activerecord-5.0.0/lib/active_record/sanitization.rb:163: warning: too many arguments for format string
+# ~> /usr/local/var/rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/activerecord-5.0.0/lib/active_record/sanitization.rb:163: warning: too many arguments for format string
+# ~> /usr/local/var/rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/activerecord-5.0.0/lib/active_record/sanitization.rb:163: warning: too many arguments for format string
+# ~> /usr/local/var/rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/activerecord-5.0.0/lib/active_record/sanitization.rb:163: warning: too many arguments for format string
+# ~> /usr/local/var/rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/activerecord-5.0.0/lib/active_record/sanitization.rb:163: warning: too many arguments for format string
+# ~> /usr/local/var/rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/activerecord-5.0.0/lib/active_record/sanitization.rb:163: warning: too many arguments for format string
+# ~> /usr/local/var/rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/activerecord-5.0.0/lib/active_record/sanitization.rb:163: warning: too many arguments for format string
+# ~> /usr/local/var/rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/activerecord-5.0.0/lib/active_record/sanitization.rb:163: warning: too many arguments for format string
+# ~> /usr/local/var/rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/activerecord-5.0.0/lib/active_record/sanitization.rb:163: warning: too many arguments for format string
+# ~> /usr/local/var/rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/activerecord-5.0.0/lib/active_record/sanitization.rb:163: warning: too many arguments for format string
+# ~> /usr/local/var/rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/arel-7.1.0/lib/arel/nodes/casted.rb:14: warning: instance variable @class not initialized
+# ~> !XMP1512718185_3129_317741![1] => ActiveRecord::RecordNotFound #<ActiveRecord::RecordNotFound: Couldn't find Node with 'id'=2>
 # ~> root
-# ~> _xmp_1469433663_66182_624396
+# ~> _xmp_1512718185_3129_339863
 # >> *root*(1)
 # >> ├─交戦(1)
 # >> │   ├─攻撃(1)
