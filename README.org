@@ -2,6 +2,21 @@
 
   [[https://travis-ci.org/akicho8/tree_support.png]]
 
+** Installation
+
+   Install as a standalone gem
+
+#+BEGIN_SRC shell
+$ gem install tree_support
+#+END_SRC
+
+Or install within application using Gemfile
+
+#+BEGIN_SRC shell
+$ bundle add tree_support
+$ bundle install
+#+END_SRC
+
 ** How to use in one line
 
    Just pass the object that has the parent, children method to TreeSupport.tree
