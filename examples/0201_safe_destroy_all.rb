@@ -13,7 +13,7 @@ end
 
 Class.new(Rails::Application) { config.eager_load = false }.initialize! # Activate ar_tree_model
 
-ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
+ActiveRecord::Base.establish_connection(adapter: "sqlite3", database: ":memory:")
 ActiveRecord::Migration.verbose = false
 
 ActiveRecord::Schema.define do
@@ -26,11 +26,11 @@ end
 
 class Node < ActiveRecord::Base
   ar_tree_model
-  acts_as_list :scope => :parent
+  acts_as_list scope: :parent
 
   def add(name, &block)
     tap do
-      child = children.create!(:name => name)
+      child = children.create!(name: name)
       if block_given?
         child.instance_eval(&block)
       end
@@ -38,7 +38,7 @@ class Node < ActiveRecord::Base
   end
 end
 
-Node.create!(:name => "*root*").tap do |n|
+Node.create!(name: "*root*").tap do |n|
   n.instance_eval do
     add "Battle" do
       add "Attack"

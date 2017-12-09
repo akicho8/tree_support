@@ -9,7 +9,7 @@ begin
   ActiveRecord::Base.include(ActsAsTree)
 end
 
-ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
+ActiveRecord::Base.establish_connection(adapter: "sqlite3", database: ":memory:")
 ActiveRecord::Migration.verbose = false
 
 ActiveRecord::Schema.define do
@@ -20,11 +20,11 @@ ActiveRecord::Schema.define do
 end
 
 class Node < ActiveRecord::Base
-  acts_as_tree :order => "name"
+  acts_as_tree order: "name"
 
   def add(name, &block)
     tap do
-      child = children.create!(:name => name)
+      child = children.create!(name: name)
       if block_given?
         child.instance_eval(&block)
       end
@@ -32,7 +32,7 @@ class Node < ActiveRecord::Base
   end
 end
 
-_root = Node.create!(:name => "*root*").tap do |n|
+_root = Node.create!(name: "*root*").tap do |n|
   n.instance_eval do
     add "Battle" do
       add "Attack" do
@@ -66,8 +66,8 @@ Node.extend(ActsAsTree::TreeView)
 Node.tree_view(:name)
 
 # puts TreeSupport.tree(root)
-# ~> 	from -:10:in  `<main>'
-# ~> 	from -:10:in  `require'
+# ~> 	from -:8:in  `<main>'
+# ~> 	from -:8:in  `require'
 # ~> 	from /usr/local/var/rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/acts_as_tree-2.4.0/lib/acts_as_tree.rb:322:in  `<top (required)>'
 # ~> 	from /usr/local/var/rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/acts_as_tree-2.4.0/lib/acts_as_tree.rb:322:in  `require'
 # ~> 	from /usr/local/var/rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/acts_as_tree-2.4.0/lib/acts_as_tree/active_record/acts/tree.rb:1:in  `<top (required)>'
@@ -83,11 +83,11 @@ Node.tree_view(:name)
 # >>  |_ *root*
 # >>  |    |_ Battle
 # >>  |        |_ Attack
-# >>  |            |_ Shake the sword
 # >>  |            |_ Attack magic
 # >>  |                |_ Summoner Monster A
 # >>  |                |_ Summoner Monster B
 # >>  |            |_ Repel sword in length
+# >>  |            |_ Shake the sword
 # >>  |        |_ Defense
 # >>  |    |_ Break
 # >>  |        |_ Recover
@@ -95,7 +95,7 @@ Node.tree_view(:name)
 # >>  |            |_ Recovery magic
 # >>  |        |_ Stop
 # >>  |    |_ Withdraw
+# >>  |        |_ To escape
 # >>  |        |_ To stop
 # >>  |            |_ Place a trap
 # >>  |            |_ Shoot a bow and arrow
-# >>  |        |_ To escape

@@ -10,7 +10,7 @@ node.name                       # => "foo"
 node = TreeSupport::Node.new(:foo)
 node.key                        # => :foo
 
-node = TreeSupport::Node.new(:a => 1, :b => 2)
+node = TreeSupport::Node.new(a: 1, b: 2)
 node[:a]                        # => 1
 node.to_h                       # => {:a=>1, :b=>2}
 
@@ -22,5 +22,5 @@ tree = TreeSupport::Node.new(:root) do
   end
 end
 
-tree.each_node.find{|e| e.key == :root}.key # => :root
-tree.each_node.find{|e| e.key == :b}.key    # => :b
+tree.each_node.find { |e| e.key == :root }.key # => :root
+tree.each_node.find { |e| e.key == :b }.key    # => :b

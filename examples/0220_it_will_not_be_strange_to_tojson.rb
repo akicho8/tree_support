@@ -9,7 +9,7 @@ require "byebug"
 
 Class.new(Rails::Application){config.eager_load = false}.initialize! # In order to read Railtie
 
-ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
+ActiveRecord::Base.establish_connection(adapter: "sqlite3", database: ":memory:")
 ActiveRecord::Migration.verbose = false
 
 ActiveRecord::Schema.define do
@@ -23,5 +23,5 @@ class Node < ActiveRecord::Base
   ar_tree_model
 end
 
-Node.create!(:name => "*root*")
+Node.create!(name: "*root*")
 Node.first.to_json              # => "{\"id\":1,\"parent_id\":null,\"name\":\"*root*\"}"

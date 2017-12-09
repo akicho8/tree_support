@@ -36,17 +36,17 @@ module TreeSupport
       new(*args, &block).build(object)
     end
 
-    def initialize(options = {}, &block)
+    def initialize(**options, &block)
       @options = {
-        :take => 256,
-        :drop => 0,
+        take: 256,
+        drop: 0,
       }.merge(options)
       @block = block
     end
 
     def build(object)
       GvizEx.new(Gviz.new).tap do |gv|
-        gv.global(:rankdir => "LR", :concentrate => "true")
+        gv.global(rankdir: "LR", concentrate: "true")
         visit(gv, object)
       end
     end

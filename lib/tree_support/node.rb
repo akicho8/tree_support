@@ -11,7 +11,7 @@ module TreeSupport
     alias_method :name, :attributes
     alias_method :key, :attributes
 
-    delegate :[], :[]=, :to_h, :to => :attributes
+    delegate :[], :[]=, :to_h, to: :attributes
 
     def initialize(attributes = nil, &block)
       @attributes = attributes
@@ -23,7 +23,9 @@ module TreeSupport
 
     def add(*args, &block)
       tap do
-        children << self.class.new(*args, &block).tap {|v| v.parent = self}
+        children << self.class.new(*args, &block).tap do |v|
+          v.parent = self
+        end
       end
     end
   end
@@ -63,9 +65,9 @@ module TreeSupport
     # Array -> Tree
     #
     # records = [
-    #   {:key => :a, :parent => nil},
-    #   {:key => :b, :parent => :a},
-    #   {:key => :c, :parent => :b},
+    #   {key: :a, parent: nil},
+    #   {key: :b, parent: :a},
+    #   {key: :c, parent: :b},
     # ]
     #
     # puts TreeSupport.records_to_tree(records).to_s_tree
@@ -110,9 +112,9 @@ module TreeSupport
     #
     # p TreeSupport.tree_to_records(tree)
     # [
-    #   {:key => :a, :parent => nil},
-    #   {:key => :b, :parent => :a},
-    #   {:key => :c, :parent => :b},
+    #   {key: :a, parent: nil},
+    #   {key: :b, parent: :a},
+    #   {key: :c, parent: :b},
     # ]
     #
     def tree_to_records(root, key: :key, parent_key: :parent)

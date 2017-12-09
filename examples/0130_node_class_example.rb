@@ -17,7 +17,9 @@ class Node
   # 木を簡単につくるため
   def add(*args, &block)
     tap do
-      children << self.class.new(*args, &block).tap {|v| v.parent = self}
+      children << self.class.new(*args, &block).tap do |v|
+        v.parent = self
+      end
     end
   end
 end

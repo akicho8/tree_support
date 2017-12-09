@@ -2,19 +2,19 @@ require "bundler/setup"
 require "tree_support"
 
 records = [
-  {:key => :a0, :parent => nil},
-  {:key => :a1, :parent => :a0},
-  {:key => :a2, :parent => :a1},
+  {key: :a0, parent: nil},
+  {key: :a1, parent: :a0},
+  {key: :a2, parent: :a1},
 
-  {:key => :b0, :parent => nil},
-  {:key => :b1, :parent => :b0},
-  {:key => :b2, :parent => :b1},
+  {key: :b0, parent: nil},
+  {key: :b1, parent: :b0},
+  {key: :b2, parent: :b1},
 ]
 
 # ---------- Convert with function of library
 if true
   puts TreeSupport.records_to_tree(records).collect(&:to_s_tree)
-  puts TreeSupport.records_to_tree(records, :root_key => :root).to_s_tree
+  puts TreeSupport.records_to_tree(records, root_key: :root).to_s_tree
 end
 
 # ---------- How to write by yourself
@@ -28,7 +28,7 @@ if true
       parent_node.children << node
     end
   }
-  roots = node_hash.each_value.find_all {|e| e.parent == nil }
+  roots = node_hash.each_value.find_all { |e| e.parent == nil }
   puts roots.collect(&:to_s_tree)
 
   # When you want to make one route

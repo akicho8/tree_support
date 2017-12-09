@@ -21,15 +21,15 @@ module TreeSupport
 
     def initialize(**options, &block)
       @options = {
-        :take             => 256,   # Up to depth N (for when the tree can not be displayed because it is huge)
-        :drop             => 0,     # From the depth N (when set to 1 you can hide the route)
-        :root_label       => nil,   # A valid alternative label for displaying the route
-        :tab_space        => 4,     # Indent width from halfway
-        :connect_char     => "├",
-        :tab_visible_char => "│",
-        :edge_char        => "└",
-        :branch_char      => "─",
-        :debug            => false,
+        take: 256,       # Up to depth N (for when the tree can not be displayed because it is huge)
+        drop: 0,         # From the depth N (when set to 1 you can hide the route)
+        root_label: nil, # A valid alternative label for displaying the route
+        tab_space: 4,    # Indent width from halfway
+        connect_char: "├",
+        tab_visible_char: "│",
+        edge_char: "└",
+        branch_char: "─",
+        debug: false,
       }.merge(options)
 
       @block = block
@@ -43,7 +43,7 @@ module TreeSupport
     #
     def tree(object, **locals)
       locals = {
-        :depth => [],
+        depth: [],
       }.merge(locals)
 
       if locals[:depth].size > @options[:drop]
@@ -110,7 +110,7 @@ end
 if $0 == __FILE__
   $LOAD_PATH << ".."
   require "tree_support"
-  puts TreeSupport.example.to_s_tree(:take => 0)
-  puts TreeSupport.example.to_s_tree(:take => 1)
-  puts TreeSupport.example.to_s_tree(:take => 2)
+  puts TreeSupport.example.to_s_tree(take: 0)
+  puts TreeSupport.example.to_s_tree(take: 1)
+  puts TreeSupport.example.to_s_tree(take: 2)
 end

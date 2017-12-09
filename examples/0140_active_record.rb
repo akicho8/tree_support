@@ -5,7 +5,7 @@ require "tree_support"
 require "active_record"
 require "pp"
 
-ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
+ActiveRecord::Base.establish_connection(adapter: "sqlite3", database: ":memory:")
 ActiveRecord::Migration.verbose = false
 
 ActiveRecord::Schema.define do
@@ -16,12 +16,12 @@ ActiveRecord::Schema.define do
 end
 
 class Node < ActiveRecord::Base
-  belongs_to :parent, :class_name => name, :foreign_key => "parent_id"
-  has_many :children, -> { order(:id) }, :class_name => name, :foreign_key => "parent_id"
+  belongs_to :parent, class_name: name, foreign_key: "parent_id"
+  has_many :children, -> { order(:id) }, class_name: name, foreign_key: "parent_id"
 
   def add(name, &block)
     tap do
-      child = children.create!(:name => name)
+      child = children.create!(name: name)
       if block_given?
         child.instance_eval(&block)
       end
@@ -29,7 +29,7 @@ class Node < ActiveRecord::Base
   end
 end
 
-root = Node.create!(:name => "*root*").tap do |n|
+root = Node.create!(name: "*root*").tap do |n|
   n.instance_eval do
     add "Battle" do
       add "Attack" do

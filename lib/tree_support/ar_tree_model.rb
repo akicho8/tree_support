@@ -3,7 +3,7 @@
 #   class Node < ActiveRecord::Base
 #     ar_tree_model                                                 # default
 #     ar_tree_model scope: -> { order(:name) }                      # Designate the scope yourself
-#     ar_tree_model scope: -> { order(:id).where(:active => true) } # You can also specify where
+#     ar_tree_model scope: -> { order(:id).where(active: true) } # You can also specify where
 #   end
 #
 require "active_support/concern"
