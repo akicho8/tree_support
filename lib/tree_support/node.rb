@@ -36,8 +36,8 @@ module TreeSupport
         add "Attack" do
           add "Shake the sword"
           add "Attack magic" do
-            add "Summoner Monster A"
-            add "Summoner Monster B"
+            add "Summoned Beast X"
+            add "Summoned Beast Y"
           end
           add "Repel sword in length"
         end

@@ -38,8 +38,8 @@ _root = Node.create!(name: "*root*").tap do |n|
       add "Attack" do
         add "Shake the sword"
         add "Attack magic" do
-          add "Summoner Monster A"
-          add "Summoner Monster B"
+          add "Summoned Beast X"
+          add "Summoned Beast Y"
         end
         add "Repel sword in length"
       end
@@ -84,8 +84,8 @@ Node.tree_view(:name)
 # >>  |    |_ Battle
 # >>  |        |_ Attack
 # >>  |            |_ Attack magic
-# >>  |                |_ Summoner Monster A
-# >>  |                |_ Summoner Monster B
+# >>  |                |_ Summoned Beast X
+# >>  |                |_ Summoned Beast Y
 # >>  |            |_ Repel sword in length
 # >>  |            |_ Shake the sword
 # >>  |        |_ Defense

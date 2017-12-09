@@ -14,8 +14,8 @@ puts TreeSupport.tree(TreeSupport.example)
 # >> │   ├─Attack
 # >> │   │   ├─Shake the sword
 # >> │   │   ├─Attack magic
-# >> │   │   │   ├─Summoner Monster A
-# >> │   │   │   └─Summoner Monster B
+# >> │   │   │   ├─Summoned Beast X
+# >> │   │   │   └─Summoned Beast Y
 # >> │   │   └─Repel sword in length
 # >> │   └─Defense
 # >> ├─Withdraw
@@ -48,7 +48,7 @@ class Node
 
   def add(*args, &block)
     tap do
-      children << self.class.new(*args, &block).tap {|v| v.parent = self }
+      children << self.class.new(*args, &block).tap { |v| v.parent = self }
     end
   end
 end
@@ -62,8 +62,8 @@ root = Node.new("*root*") do
     add "Attack" do
       add "Shake the sword"
       add "Attack magic" do
-        add "Summoner Monster A"
-        add "Summoner Monster B"
+        add "Summoned Beast X"
+        add "Summoned Beast Y"
       end
       add "Repel sword in length"
     end
@@ -95,8 +95,8 @@ puts TreeSupport.tree(root)
 # >> │   ├─Attack
 # >> │   │   ├─Shake the sword
 # >> │   │   ├─Attack magic
-# >> │   │   │   ├─Summoner Monster A
-# >> │   │   │   └─Summoner Monster B
+# >> │   │   │   ├─Summoned Beast X
+# >> │   │   │   └─Summoned Beast Y
 # >> │   │   └─Repel sword in length
 # >> │   └─Defense
 # >> ├─Withdraw
@@ -123,8 +123,8 @@ puts root.to_s_tree
 # >> │   ├─Attack
 # >> │   │   ├─Shake the sword
 # >> │   │   ├─Attack magic
-# >> │   │   │   ├─Summoner Monster A
-# >> │   │   │   └─Summoner Monster B
+# >> │   │   │   ├─Summoned Beast X
+# >> │   │   │   └─Summoned Beast Y
 # >> │   │   └─Repel sword in length
 # >> │   └─Defense
 # >> ├─Withdraw
@@ -141,14 +141,14 @@ puts root.to_s_tree
 
 *** How do I change the label of a node?
 
-    We look for to_s_tree_name, name, subject, title, to_s defined by TreeSupport.name_methods in that order, so we define the method by considering the priority
+    We look for =to_s_tree_name=, =name=, =subject=, =title=, =to_s= defined by =TreeSupport.name_methods= in that order, so we define the method by considering the priority
 
 *** How do I change labels without defining methods?
 
    Add a block to tree
 
 #+BEGIN_SRC ruby
-puts TreeSupport.tree(root) {|node| node.object_id }
+puts TreeSupport.tree(root) { |node| node.object_id }
 # >> 70308514816100
 # >> ├─70308514815920
 # >> │   ├─70308514815780
@@ -172,7 +172,7 @@ puts TreeSupport.tree(root) {|node| node.object_id }
 
 *** How to use methods that are common in tree structure?
 
-    The following methods become available in include of TreeSupport :: Treeable
+    The following methods become available in include of =TreeSupport::Treeable=
 
 - each
 - each_node
@@ -204,13 +204,13 @@ gv.output("tree.png")
     Return the graphviz attribute as a hash in TreeSupport.graphviz block
 
 #+BEGIN_SRC ruby
-gv = TreeSupport.graphviz(root) {|node|
+gv = TreeSupport.graphviz(root) do |node|
   if node.name.include?("Attack")
     {fillcolor: "lightblue", style: "filled"}
   elsif node.name.include?("Recover")
     {fillcolor: "lightpink", style: "filled"}
   end
-}
+end
 gv.output("tree_color.png")
 #+END_SRC
 
@@ -221,9 +221,9 @@ gv.output("tree_color.png")
     As with the above method, it returns a hash containing the label value
 
 #+BEGIN_SRC ruby
-gv = TreeSupport.graphviz(root) {|node|
+gv = TreeSupport.graphviz(root) do |node|
   {label: node.name.chars.first}
-}
+end
 gv.output("tree_label.png")
 #+END_SRC
 
@@ -244,8 +244,8 @@ puts gv.to_dot
 # >>   n70146110697900 [label = "Shake the sword"];
 # >>   n70146110697240 [label = "Attack magic"];
 # >>   n70146110697240 -> {n70146110695080; n70146110694480;};
-# >>   n70146110695080 [label = "Summoner Monster A"];
-# >>   n70146110694480 [label = "Summoner Monster B"];
+# >>   n70146110695080 [label = "Summoned Beast X"];
+# >>   n70146110694480 [label = "Summoned Beast Y"];
 # >>   n70146110692060 [label = "Repel sword in length"];
 # >>   n70146110691720 [label = "Defense"];
 # >>   n70146110691220 [label = "Withdraw"];
@@ -280,7 +280,7 @@ TreeSupport.graphviz(root).output("_output.png")
 
 *** Troublesome making node classes yourself
 
-    You can use TreeSupport::Node as it is.
+    You can use =TreeSupport::Node= as it is.
 
 #+BEGIN_SRC ruby
 TreeSupport::Node.new("*root*") do
@@ -288,8 +288,8 @@ TreeSupport::Node.new("*root*") do
     add "Attack" do
       add "Shake the sword"
       add "Attack magic" do
-        add "Summoner Monster A"
-        add "Summoner Monster B"
+        add "Summoned Beast X"
+        add "Summoned Beast Y"
       end
     end
   end
@@ -306,18 +306,18 @@ TreeSupport.example
 
 *** How to trace leaves?
 
-    If you include TreeSupport::Treeable you can use each_node
+    If you include =TreeSupport::Treeable= you can use each_node
 
 #+BEGIN_SRC ruby
 root = TreeSupport.example
-root.each_node.with_index {|n, i| p [i, n.name] }
+root.each_node.with_index { |n, i| p [i, n.name] }
 # >> [0, "*root*"]
 # >> [1, "Battle"]
 # >> [2, "Attack"]
 # >> [3, "Shake the sword"]
 # >> [4, "Attack magic"]
-# >> [5, "Summoner Monster A"]
-# >> [6, "Summoner Monster B"]
+# >> [5, "Summoned Beast X"]
+# >> [6, "Summoned Beast Y"]
 # >> [7, "Repel sword in length"]
 # >> [8, "Defense"]
 # >> [9, "Withdraw"]
@@ -340,8 +340,8 @@ puts TreeSupport.tree(root, drop: 1)
 # >> ├─Attack
 # >> │   ├─Shake the sword
 # >> │   ├─Attack magic
-# >> │   │   ├─Summoner Monster A
-# >> │   │   └─Summoner Monster B
+# >> │   │   ├─Summoned Beast X
+# >> │   │   └─Summoned Beast Y
 # >> │   └─Repel sword in length
 # >> └─Defense
 # >> Withdraw
@@ -433,7 +433,7 @@ end
     - simple
     - Safely delete all safe_destroy_all (accident with destroy_all in combination with acts_as_list)
     - Node.roots is defined by scope
-    - Arguments are different. :order => :id if you want to do it scope: -> { order(:id) }. By doing this you can also pass the where condition.
+    - Arguments are different. =:order => :id= if you want to do it =scope: -> { order(:id) }=. By doing this you can also pass the where condition.
 
 *** How do I correspond to memory_record gem?
 
@@ -456,7 +456,7 @@ class Foo
   end
 
   def children
-    self.class.find_all {|e| e.parent == self }
+    self.class.find_all { |e| e.parent == self }
   end
 end
 

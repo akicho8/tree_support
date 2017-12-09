@@ -10,8 +10,8 @@ puts TreeSupport.example.to_s_tree(take: 3, drop: 1)
 # >> --------------------------------------------------------------------------------
 # >> Shake the sword
 # >> Attack magic
-# >> ├─Summoner Monster A
-# >> └─Summoner Monster B
+# >> ├─Summoned Beast X
+# >> └─Summoned Beast Y
 # >> Repel sword in length
 # >> Place a trap
 # >> Shoot a bow and arrow

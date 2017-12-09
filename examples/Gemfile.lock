@@ -1,7 +1,7 @@
 PATH
   remote: ..
   specs:
-    tree_support (0.0.28)
+    tree_support (0.0.1)
       activesupport
 
 GEM

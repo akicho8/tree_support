@@ -9,8 +9,8 @@ Gem::Specification.new do |s|
   s.author       = "akicho8"
   s.email        = "akicho8@gmail.com"
   s.homepage     = "https://github.com/akicho8/tree_support"
-  s.summary      = "tree support library"
-  s.description  = "tree support library"
+  s.summary      = "Tree structure visualization function library"
+  s.description  = "Tree structure visualization function library"
   s.platform     = Gem::Platform::RUBY
 
   s.files        = `git ls-files`.split("\n")

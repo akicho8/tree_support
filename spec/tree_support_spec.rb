@@ -8,8 +8,8 @@ RSpec.describe "TreeSupport" do
 │   ├─Attack
 │   │   ├─Shake the sword
 │   │   ├─Attack magic
-│   │   │   ├─Summoner Monster A
-│   │   │   └─Summoner Monster B
+│   │   │   ├─Summoned Beast X
+│   │   │   └─Summoned Beast Y
 │   │   └─Repel sword in length
 │   └─Defense
 ├─Withdraw

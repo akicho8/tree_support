@@ -39,8 +39,8 @@ Node.create!(name: "*root*").tap do |n|
       add "Attack" do
         add "Shake the sword"
         add "Attack magic" do
-          add "Summoner Monster A"
-          add "Summoner Monster B"
+          add "Summoned Beast X"
+          add "Summoned Beast Y"
         end
         add "Repel sword in length"
       end
@@ -70,8 +70,8 @@ Node.destroy_all             # Because it does not use acts_as_list, it can be e
 # >> ├─Battle
 # >> │   ├─Attack
 # >> │   │   ├─Attack magic
-# >> │   │   │   ├─Summoner Monster A
-# >> │   │   │   └─Summoner Monster B
+# >> │   │   │   ├─Summoned Beast X
+# >> │   │   │   └─Summoned Beast Y
 # >> │   │   ├─Repel sword in length
 # >> │   │   └─Shake the sword
 # >> │   └─Defense
