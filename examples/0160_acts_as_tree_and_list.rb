@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-#
-# acts_as_tree で兄妹の順序を acts_as_list で保持する例
+# Example of holding sibling's order in acts_as_list with acts_as_tree
 #
 require "bundler/setup"
 require "tree_support"
@@ -43,29 +41,29 @@ end
 
 root = Node.create!(:name => "*root*").tap do |n|
   n.instance_eval do
-    add "交戦" do
-      add "攻撃" do
-        add "剣を振る"
-        add "攻撃魔法" do
-          add "召喚A"
-          add "召喚B"
+    add "Battle" do
+      add "Attack" do
+        add "Shake the sword"
+        add "Attack magic" do
+          add "Summoner Monster A"
+          add "Summoner Monster B"
         end
-        add "縦で剣をはじく"
+        add "Repel sword in length"
       end
-      add "防御"
+      add "Defense"
     end
-    add "撤退" do
-      add "足止めする" do
-        add "トラップをしかける"
-        add "弓矢を放つ"
+    add "Withdraw" do
+      add "To stop" do
+        add "Place a trap"
+        add "Shoot a bow and arrow"
       end
-      add "逃走する"
+      add "To escape"
     end
-    add "休憩" do
-      add "立ち止まる"
-      add "回復する" do
-        add "回復魔法"
-        add "回復薬を飲む"
+    add "Break" do
+      add "Stop"
+      add "Recover" do
+        add "Recovery magic"
+        add "Drink recovery medicine"
       end
     end
   end
@@ -115,21 +113,21 @@ Node.destroy_all rescue $!      # => #<ActiveRecord::RecordNotFound: Couldn't fi
 # ~> root
 # ~> _xmp_1512718185_3129_339863
 # >> *root*(1)
-# >> ├─交戦(1)
-# >> │   ├─攻撃(1)
-# >> │   │   ├─剣を振る(1)
-# >> │   │   ├─攻撃魔法(2)
-# >> │   │   │   ├─召喚A(1)
-# >> │   │   │   └─召喚B(2)
-# >> │   │   └─縦で剣をはじく(3)
-# >> │   └─防御(2)
-# >> ├─撤退(2)
-# >> │   ├─足止めする(1)
-# >> │   │   ├─トラップをしかける(1)
-# >> │   │   └─弓矢を放つ(2)
-# >> │   └─逃走する(2)
-# >> └─休憩(3)
-# >>     ├─立ち止まる(1)
-# >>     └─回復する(2)
-# >>         ├─回復魔法(1)
-# >>         └─回復薬を飲む(2)
+# >> ├─Battle(1)
+# >> │   ├─Attack(1)
+# >> │   │   ├─Shake the sword(1)
+# >> │   │   ├─Attack magic(2)
+# >> │   │   │   ├─Summoner Monster A(1)
+# >> │   │   │   └─Summoner Monster B(2)
+# >> │   │   └─Repel sword in length(3)
+# >> │   └─Defense(2)
+# >> ├─Withdraw(2)
+# >> │   ├─To stop(1)
+# >> │   │   ├─Place a trap(1)
+# >> │   │   └─Shoot a bow and arrow(2)
+# >> │   └─To escape(2)
+# >> └─Break(3)
+# >>     ├─Stop(1)
+# >>     └─Recover(2)
+# >>         ├─Recovery magic(1)
+# >>         └─Drink recovery medicine(2)

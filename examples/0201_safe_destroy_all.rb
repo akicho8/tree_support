@@ -1,8 +1,5 @@
-# -*- coding: utf-8 -*-
-#
-# safe_destroy_all が必要な例
-# (acts_as_list は裏でいろいろやるので destroy_all では転ける)
-#
+# An example requiring safe_destroy_all (since acts_as_list is behind, you can roll it with destroy_all)
+
 require "bundler/setup"
 
 require "rails"
@@ -14,7 +11,7 @@ begin
   ActiveRecord::Base.include(ActiveRecord::Acts::List)
 end
 
-Class.new(Rails::Application) { config.eager_load = false }.initialize! # ar_tree_model を有効化
+Class.new(Rails::Application) { config.eager_load = false }.initialize! # Activate ar_tree_model
 
 ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
 ActiveRecord::Migration.verbose = false
@@ -43,8 +40,8 @@ end
 
 Node.create!(:name => "*root*").tap do |n|
   n.instance_eval do
-    add "交戦" do
-      add "攻撃"
+    add "Battle" do
+      add "Attack"
     end
   end
 end
@@ -54,5 +51,5 @@ Node.destroy_all rescue $!      # => #<ActiveRecord::RecordNotFound: Couldn't fi
 Node.safe_destroy_all
 Node.count                      # => 0
 # >> *root*
-# >> └─交戦
-# >>     └─攻撃
+# >> └─Battle
+# >>     └─Attack

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 require "spec_helper"
 
 RSpec.describe "Treeable" do
@@ -18,6 +17,10 @@ RSpec.describe "Treeable" do
 
   it "ancestors" do
     @a2.ancestors.collect(&:name).should == ["a2", "a", "*root*"]
+  end
+
+  it "ancestors_without_self" do
+    @a2.ancestors_without_self.collect(&:name).should == ["a", "*root*"]
   end
 
   it "descendants" do

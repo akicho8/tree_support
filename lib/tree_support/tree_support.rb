@@ -1,4 +1,4 @@
-# 木構造可視化ライブラリ
+# Tree structure visualization library
 #
 #   root = TreeSupport::Node.new("ROOT") do
 #     add "A" do
@@ -20,7 +20,7 @@ require "tree_support/node"
 require "tree_support/ar_tree_model" if defined?(ActiveRecord)
 require "tree_support/railtie" if defined?(Rails)
 
-# gviz は Object を触るため使わないときは入れないようにする
+# Do not put gviz when you do not use it to touch Object
 begin
   require "gviz"
   require "tree_support/graphviz_builder"

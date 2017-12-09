@@ -1,38 +1,38 @@
-* 木構造の可視化汎用ライブラリ
+* Tree structure visualization function library
 
   [[https://travis-ci.org/akicho8/tree_support.png]]
 
-** 1行でわかる使い方
+** How to use in one line
 
-   parent, children メソッドを持っているオブジェクトを TreeSupport.tree に渡すだけ
+   Just pass the object that has the parent, children method to TreeSupport.tree
 
 #+BEGIN_SRC ruby
 require "tree_support"
 puts TreeSupport.tree(TreeSupport.example)
 # >> *root*
-# >> ├─交戦
-# >> │   ├─攻撃
-# >> │   │   ├─剣を振る
-# >> │   │   ├─攻撃魔法
-# >> │   │   │   ├─召喚A
-# >> │   │   │   └─召喚B
-# >> │   │   └─縦で剣をはじく
-# >> │   └─防御
-# >> ├─撤退
-# >> │   ├─足止めする
-# >> │   │   ├─トラップをしかける
-# >> │   │   └─弓矢を放つ
-# >> │   └─逃走する
-# >> └─休憩
-# >>     ├─立ち止まる
-# >>     └─回復する
-# >>         ├─回復魔法
-# >>         └─回復薬を飲む
+# >> ├─Battle
+# >> │   ├─Attack
+# >> │   │   ├─Shake the sword
+# >> │   │   ├─Attack magic
+# >> │   │   │   ├─Summoner Monster A
+# >> │   │   │   └─Summoner Monster B
+# >> │   │   └─Repel sword in length
+# >> │   └─Defense
+# >> ├─Withdraw
+# >> │   ├─To stop
+# >> │   │   ├─Place a trap
+# >> │   │   └─Shoot a bow and arrow
+# >> │   └─To escape
+# >> └─Break
+# >>     ├─Stop
+# >>     └─Recover
+# >>         ├─Recovery magic
+# >>         └─Drink recovery medicine
 #+END_SRC
 
-** 詳しい使い方
+** Detailed usage
 
-*** こんな感じのノードクラスを準備
+*** Prepare a node class like this
 
 #+BEGIN_SRC ruby
 class Node
@@ -54,98 +54,98 @@ class Node
 end
 #+END_SRC
 
-*** 木を作成
+*** Create a tree
 
 #+BEGIN_SRC ruby
 root = Node.new("*root*") do
-  add "交戦" do
-    add "攻撃" do
-      add "剣を振る"
-      add "攻撃魔法" do
-        add "召喚A"
-        add "召喚B"
+  add "Battle" do
+    add "Attack" do
+      add "Shake the sword"
+      add "Attack magic" do
+        add "Summoner Monster A"
+        add "Summoner Monster B"
       end
-      add "縦で剣をはじく"
+      add "Repel sword in length"
     end
-    add "防御"
+    add "Defense"
   end
-  add "撤退" do
-    add "足止めする" do
-      add "トラップをしかける"
-      add "弓矢を放つ"
+  add "Withdraw" do
+    add "To stop" do
+      add "Place a trap"
+      add "Shoot a bow and arrow"
     end
-    add "逃走する"
+    add "To escape"
   end
-  add "休憩" do
-    add "立ち止まる"
-    add "回復する" do
-      add "回復魔法"
-      add "回復薬を飲む"
+  add "Break" do
+    add "Stop"
+    add "Recover" do
+      add "Recovery magic"
+      add "Drink recovery medicine"
     end
   end
 end
 #+END_SRC
 
-*** 可視化
+*** Visualization
 
 #+BEGIN_SRC ruby
 puts TreeSupport.tree(root)
 # >> *root*
-# >> ├─交戦
-# >> │   ├─攻撃
-# >> │   │   ├─剣を振る
-# >> │   │   ├─攻撃魔法
-# >> │   │   │   ├─召喚A
-# >> │   │   │   └─召喚B
-# >> │   │   └─縦で剣をはじく
-# >> │   └─防御
-# >> ├─撤退
-# >> │   ├─足止めする
-# >> │   │   ├─トラップをしかける
-# >> │   │   └─弓矢を放つ
-# >> │   └─逃走する
-# >> └─休憩
-# >>     ├─立ち止まる
-# >>     └─回復する
-# >>         ├─回復魔法
-# >>         └─回復薬を飲む
+# >> ├─Battle
+# >> │   ├─Attack
+# >> │   │   ├─Shake the sword
+# >> │   │   ├─Attack magic
+# >> │   │   │   ├─Summoner Monster A
+# >> │   │   │   └─Summoner Monster B
+# >> │   │   └─Repel sword in length
+# >> │   └─Defense
+# >> ├─Withdraw
+# >> │   ├─To stop
+# >> │   │   ├─Place a trap
+# >> │   │   └─Shoot a bow and arrow
+# >> │   └─To escape
+# >> └─Break
+# >>     ├─Stop
+# >>     └─Recover
+# >>         ├─Recovery magic
+# >>         └─Drink recovery medicine
 #+END_SRC
 
-*** TreeSupport.tree を書くのが面倒
+*** Troublesome writing TreeSupport.tree
 
-   TreeSupport::Stringify を include する
+   Include TreeSupport::Stringify
 
 #+BEGIN_SRC ruby
 Node.include(TreeSupport::Stringify)
 puts root.to_s_tree
 # >> *root*
-# >> ├─交戦
-# >> │   ├─攻撃
-# >> │   │   ├─剣を振る
-# >> │   │   ├─攻撃魔法
-# >> │   │   │   ├─召喚A
-# >> │   │   │   └─召喚B
-# >> │   │   └─縦で剣をはじく
-# >> │   └─防御
-# >> ├─撤退
-# >> │   ├─足止めする
-# >> │   │   ├─トラップをしかける
-# >> │   │   └─弓矢を放つ
-# >> │   └─逃走する
-# >> └─休憩
-# >>     ├─立ち止まる
-# >>     └─回復する
-# >>         ├─回復魔法
-# >>         └─回復薬を飲む
+# >> ├─Battle
+# >> │   ├─Attack
+# >> │   │   ├─Shake the sword
+# >> │   │   ├─Attack magic
+# >> │   │   │   ├─Summoner Monster A
+# >> │   │   │   └─Summoner Monster B
+# >> │   │   └─Repel sword in length
+# >> │   └─Defense
+# >> ├─Withdraw
+# >> │   ├─To stop
+# >> │   │   ├─Place a trap
+# >> │   │   └─Shoot a bow and arrow
+# >> │   └─To escape
+# >> └─Break
+# >>     ├─Stop
+# >>     └─Recover
+# >>         ├─Recovery magic
+# >>         └─Drink recovery medicine
 #+END_SRC
 
-*** ノードのラベルを変更するには？
+*** How do I change the label of a node?
 
-    TreeSupport.name_methods で定義している to_s_tree_name, name, subject, title, to_s の順に探すので優先度を考えてメソッドを定義する
+    We look for to_s_tree_name, name, subject, title, to_s defined by TreeSupport.name_methods in that order, so we define the method by considering the priority
 
-*** メソッドを定義することなくラベルを変更するには？
+*** How do I change labels without defining methods?
 
-   treeにブロックをつける
+   Add a block to tree
 
 #+BEGIN_SRC ruby
 puts TreeSupport.tree(root) {|node| node.object_id }
@@ -170,9 +170,9 @@ puts TreeSupport.tree(root) {|node| node.object_id }
 # >>           └─70308514814420
 #+END_SRC
 
-*** 木構造にありがちなメソッドたちを使うには？
+*** How to use methods that are common in tree structure?
 
-    TreeSupport::Treeable の include で次のメソッドを追加する
+    The following methods become available in include of TreeSupport :: Treeable
 
 - each
 - each_node
@@ -185,13 +185,13 @@ puts TreeSupport.tree(root) {|node| node.object_id }
 - root?
 - leaf?
 
-*** Gviz のオブジェクトに変換するには？
+*** How to convert to Gviz object?
 
 #+BEGIN_SRC ruby
 gv = TreeSupport.graphviz(root)
 #+END_SRC
 
-*** それを画像化するには？
+*** How to image it?
 
 #+BEGIN_SRC ruby
 gv.output("tree.png")
@@ -199,16 +199,16 @@ gv.output("tree.png")
 
    [[https://raw.github.com/akicho8/tree_support/master/images/tree.png]]
 
-*** 特定のノードの色を変更するには？
+*** How do I change the color of a particular node?
 
-   TreeSupport.graphviz のブロックで graphviz の属性をハッシュで返す
+    Return the graphviz attribute as a hash in TreeSupport.graphviz block
 
 #+BEGIN_SRC ruby
 gv = TreeSupport.graphviz(root) {|node|
-  if node.name.include?("攻")
-    {:fillcolor => "lightblue", :style => "filled"}
-  elsif node.name.include?("回復")
-    {:fillcolor => "lightpink", :style => "filled"}
+  if node.name.include?("Attack")
+    {fillcolor: "lightblue", style: "filled"}
+  elsif node.name.include?("Recover")
+    {fillcolor: "lightpink", style: "filled"}
   end
 }
 gv.output("tree_color.png")
@@ -216,20 +216,20 @@ gv.output("tree_color.png")
 
    [[https://raw.github.com/akicho8/tree_support/master/images/tree_color.png]]
 
-*** 特定のノードのラベルを変更するには？
+*** How do I change the label of a particular node?
 
-   上の方法と同様に label 値を含んだハッシュを返す
+    As with the above method, it returns a hash containing the label value
 
 #+BEGIN_SRC ruby
 gv = TreeSupport.graphviz(root) {|node|
-  {:label => node.name.chars.first}
+  {label: node.name.chars.first}
 }
 gv.output("tree_label.png")
 #+END_SRC
 
    [[https://raw.github.com/akicho8/tree_support/master/images/tree_label.png]]
 
-*** Graphvizのdot形式を確認するには？
+*** How can I check the dot format of Graphviz?
 
 #+BEGIN_SRC ruby
 puts gv.to_dot
@@ -237,180 +237,180 @@ puts gv.to_dot
 # >>   graph [charset = "UTF-8", rankdir = "LR"];
 # >>   n70146110700700 [label = "*root*"];
 # >>   n70146110700700 -> {n70146110698600; n70146110691220; n70146110689500;};
-# >>   n70146110698600 [label = "交戦"];
+# >>   n70146110698600 [label = "Battle"];
 # >>   n70146110698600 -> {n70146110698320; n70146110691720;};
-# >>   n70146110698320 [label = "攻撃"];
+# >>   n70146110698320 [label = "Attack"];
 # >>   n70146110698320 -> {n70146110697900; n70146110697240; n70146110692060;};
-# >>   n70146110697900 [label = "剣を振る"];
-# >>   n70146110697240 [label = "攻撃魔法"];
+# >>   n70146110697900 [label = "Shake the sword"];
+# >>   n70146110697240 [label = "Attack magic"];
 # >>   n70146110697240 -> {n70146110695080; n70146110694480;};
-# >>   n70146110695080 [label = "召喚A"];
-# >>   n70146110694480 [label = "召喚B"];
-# >>   n70146110692060 [label = "縦で剣をはじく"];
-# >>   n70146110691720 [label = "防御"];
-# >>   n70146110691220 [label = "撤退"];
+# >>   n70146110695080 [label = "Summoner Monster A"];
+# >>   n70146110694480 [label = "Summoner Monster B"];
+# >>   n70146110692060 [label = "Repel sword in length"];
+# >>   n70146110691720 [label = "Defense"];
+# >>   n70146110691220 [label = "Withdraw"];
 # >>   n70146110691220 -> {n70146110690400; n70146110689620;};
-# >>   n70146110690400 [label = "足止めする"];
+# >>   n70146110690400 [label = "To stop"];
 # >>   n70146110690400 -> {n70146110690220; n70146110689820;};
-# >>   n70146110690220 [label = "トラップをしかける"];
-# >>   n70146110689820 [label = "弓矢を放つ"];
-# >>   n70146110689620 [label = "逃走する"];
-# >>   n70146110689500 [label = "休憩"];
+# >>   n70146110690220 [label = "Place a trap"];
+# >>   n70146110689820 [label = "Shoot a bow and arrow"];
+# >>   n70146110689620 [label = "To escape"];
+# >>   n70146110689500 [label = "Break"];
 # >>   n70146110689500 -> {n70146110688500; n70146110687660;};
-# >>   n70146110688500 [label = "立ち止まる"];
-# >>   n70146110687660 [label = "回復する"];
+# >>   n70146110688500 [label = "Stop"];
+# >>   n70146110687660 [label = "Recover"];
 # >>   n70146110687660 -> {n70146110686920; n70146110686220;};
-# >>   n70146110686920 [label = "回復魔法"];
-# >>   n70146110686220 [label = "回復薬を飲む"];
+# >>   n70146110686920 [label = "Recovery magic"];
+# >>   n70146110686220 [label = "Drink recovery medicine"];
 # >> }
 #+END_SRC
 
-*** デバッグ時などですぐ画像変換したものを確認するには？
+*** How can I check the image conversion immediately when debugging?
 
 #+BEGIN_SRC ruby
 TreeSupport.graph_open(root)
 #+END_SRC
 
-   次のショートカットに相当
+    Equivalent to the next shortcut
 
 #+BEGIN_SRC ruby
 TreeSupport.graphviz(root).output("_output.png")
 `open _output.png`
 #+END_SRC
 
-*** ノードクラスを自分で作るのが面倒
+*** Troublesome making node classes yourself
 
-    TreeSupport::Node をそのまま使えばいい。
+    You can use TreeSupport::Node as it is.
 
 #+BEGIN_SRC ruby
 TreeSupport::Node.new("*root*") do
-  add "交戦" do
-    add "攻撃" do
-      add "剣を振る"
-      add "攻撃魔法" do
-        add "召喚A"
-        add "召喚B"
+  add "Battle" do
+    add "Attack" do
+      add "Shake the sword"
+      add "Attack magic" do
+        add "Summoner Monster A"
+        add "Summoner Monster B"
       end
     end
   end
 end
 #+END_SRC
 
-*** 木を作るのが面倒
+*** Troublesome making trees
 
 #+BEGIN_SRC ruby
 TreeSupport.example
 #+END_SRC
 
-    に簡単なサンプルの木が入ってる
+    There is a simple sample tree
 
-*** 葉を辿るには？
+*** How to trace leaves?
 
-    TreeSupport::Treeable を include していれば each_node が使える
+    If you include TreeSupport::Treeable you can use each_node
 
 #+BEGIN_SRC ruby
 root = TreeSupport.example
 root.each_node.with_index {|n, i| p [i, n.name] }
 # >> [0, "*root*"]
-# >> [1, "交戦"]
-# >> [2, "攻撃"]
-# >> [3, "剣を振る"]
-# >> [4, "攻撃魔法"]
-# >> [5, "召喚A"]
-# >> [6, "召喚B"]
-# >> [7, "縦で剣をはじく"]
-# >> [8, "防御"]
-# >> [9, "撤退"]
-# >> [10, "足止めする"]
-# >> [11, "トラップをしかける"]
-# >> [12, "弓矢を放つ"]
-# >> [13, "逃走する"]
-# >> [14, "休憩"]
-# >> [15, "立ち止まる"]
-# >> [16, "回復する"]
-# >> [17, "回復魔法"]
-# >> [18, "回復薬を飲む"]
+# >> [1, "Battle"]
+# >> [2, "Attack"]
+# >> [3, "Shake the sword"]
+# >> [4, "Attack magic"]
+# >> [5, "Summoner Monster A"]
+# >> [6, "Summoner Monster B"]
+# >> [7, "Repel sword in length"]
+# >> [8, "Defense"]
+# >> [9, "Withdraw"]
+# >> [10, "To stop"]
+# >> [11, "Place a trap"]
+# >> [12, "Shoot a bow and arrow"]
+# >> [13, "To escape"]
+# >> [14, "Break"]
+# >> [15, "Stop"]
+# >> [16, "Recover"]
+# >> [17, "Recovery magic"]
+# >> [18, "Drink recovery medicine"]
 #+END_SRC
 
-*** ルートは表示したくない
+*** I do not want to display the root
 
 #+BEGIN_SRC ruby
-puts TreeSupport.tree(root, :drop => 1)
-# >> 交戦
-# >> ├─攻撃
-# >> │   ├─剣を振る
-# >> │   ├─攻撃魔法
-# >> │   │   ├─召喚A
-# >> │   │   └─召喚B
-# >> │   └─縦で剣をはじく
-# >> └─防御
-# >> 撤退
-# >> ├─足止めする
-# >> │   ├─トラップをしかける
-# >> │   └─弓矢を放つ
-# >> └─逃走する
-# >> 休憩
-# >> ├─立ち止まる
-# >> └─回復する
-# >>     ├─回復魔法
-# >>     └─回復薬を飲む
+puts TreeSupport.tree(root, drop: 1)
+# >> Battle
+# >> ├─Attack
+# >> │   ├─Shake the sword
+# >> │   ├─Attack magic
+# >> │   │   ├─Summoner Monster A
+# >> │   │   └─Summoner Monster B
+# >> │   └─Repel sword in length
+# >> └─Defense
+# >> Withdraw
+# >> ├─To stop
+# >> │   ├─Place a trap
+# >> │   └─Shoot a bow and arrow
+# >> └─To escape
+# >> Break
+# >> ├─Stop
+# >> └─Recover
+# >>     ├─Recovery magic
+# >>     └─Drink recovery medicine
 #+END_SRC
 
-*** 木が大きすぎるので深さ3まででいい
+*** Since the trees are too big, it is enough up to the depth 3
 
 #+BEGIN_SRC ruby
-puts TreeSupport.tree(root, :take => 3)
+puts TreeSupport.tree(root, take: 3)
 # >> *root*
-# >> ├─交戦
-# >> │   ├─攻撃
-# >> │   └─防御
-# >> ├─撤退
-# >> │   ├─足止めする
-# >> │   └─逃走する
-# >> └─休憩
-# >>     ├─立ち止まる
-# >>     └─回復する
+# >> ├─Battle
+# >> │   ├─Attack
+# >> │   └─Defense
+# >> ├─Withdraw
+# >> │   ├─To stop
+# >> │   └─To escape
+# >> └─Break
+# >>     ├─Stop
+# >>     └─Recover
 #+END_SRC
 
-*** 両方組み合わせると
+*** When you combine both
 
 #+BEGIN_SRC ruby
-puts TreeSupport.tree(root, :take => 3, :drop => 1)
-# >> 交戦
-# >> ├─攻撃
-# >> └─防御
-# >> 撤退
-# >> ├─足止めする
-# >> └─逃走する
-# >> 休憩
-# >> ├─立ち止まる
-# >> └─回復する
+puts TreeSupport.tree(root, take: 3, drop: 1)
+# >> Battle
+# >> ├─Attack
+# >> └─Defense
+# >> Withdraw
+# >> ├─To stop
+# >> └─To escape
+# >> Break
+# >> ├─Stop
+# >> └─Recover
 #+END_SRC
 
-*** 画像版も同様のオプションがある
+*** Image version also has similar options
 
 #+BEGIN_SRC ruby
-gv = TreeSupport.graphviz(root, :drop => 1)
+gv = TreeSupport.graphviz(root, drop: 1)
 gv.output("drop.png")
 #+END_SRC
 
     [[https://raw.github.com/akicho8/tree_support/master/images/drop.png]]
 
 #+BEGIN_SRC ruby
-gv = TreeSupport.graphviz(root, :take => 3)
+gv = TreeSupport.graphviz(root, take: 3)
 gv.output("take.png")
 #+END_SRC
 
     [[https://raw.github.com/akicho8/tree_support/master/images/take.png]]
 
 #+BEGIN_SRC ruby
-gv = TreeSupport.graphviz(root, :take => 3, :drop => 1)
+gv = TreeSupport.graphviz(root, take: 3, drop: 1)
 gv.output("take_drop.png")
 #+END_SRC
 
     [[https://raw.github.com/akicho8/tree_support/master/images/take_drop.png]]
 
-*** acts_as_tree 相当を使うには？
+*** How to use acts_as_tree equivalent?
 
     Migration
 
@@ -428,25 +428,24 @@ class Node < ActiveRecord::Base
 end
 #+END_SRC
 
-    https://github.com/amerine/acts_as_tree との違い
+    Difference from https://github.com/amerine/acts_as_tree
 
-    - シンプル
-    - Node#ancestors は自分を含む
-    - 安全に全削除する safe_destroy_all を追加 (acts_as_list との組み合わせでは destroy_all で事故る)
-    - Node.roots は scope で定義
-    - 引数が異なる。:order => :id にしたい場合は scope: -> { order(:id) } とする。こうすることで where 条件も渡せる。
+    - simple
+    - Safely delete all safe_destroy_all (accident with destroy_all in combination with acts_as_list)
+    - Node.roots is defined by scope
+    - Arguments are different. :order => :id if you want to do it scope: -> { order(:id) }. By doing this you can also pass the where condition.
 
-*** MemoryRecord gem を対応させるには？
+*** How do I correspond to memory_record gem?
 
-    普通のクラスと同様に parent, children メソッドがあればいい
+    Just as with ordinary classes, we need parent and children methods
 
 #+BEGIN_SRC ruby
 class Foo
   include MemoryRecord
   static_record [
-    {:key => :a, :parent => nil},
-    {:key => :b, :parent => :a},
-    {:key => :c, :parent => :b},
+    {key: :a, parent: nil},
+    {key: :b, parent: :a},
+    {key: :c, parent: :b},
   ]
 
   include TreeSupport::Treeable
@@ -467,6 +466,6 @@ puts Foo.find_all(&:root?).collect(&:to_s_tree)
 # >>     └─C
 #+END_SRC
 
-** 心配ごと
+** With concern
 
-   - Gviz が標準クラスを拡張しているので Rails (ActiveSupport) 等と組み合わせたときの将来の干渉が心配
+   - Since Gviz extends the standard class, concerns about future interference when combined with Rails (Active Support) etc.

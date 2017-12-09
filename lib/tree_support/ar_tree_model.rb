@@ -1,9 +1,9 @@
-# acts_as_tree の代替品
+# acts_as_tree replacement
 #
 #   class Node < ActiveRecord::Base
 #     ar_tree_model                                                 # default
-#     ar_tree_model scope: -> { order(:name) }                      # スコープを自分で指定
-#     ar_tree_model scope: -> { order(:id).where(:active => true) } # whereも指定可
+#     ar_tree_model scope: -> { order(:name) }                      # Designate the scope yourself
+#     ar_tree_model scope: -> { order(:id).where(:active => true) } # You can also specify where
 #   end
 #
 require "active_support/concern"
@@ -43,9 +43,9 @@ module TreeSupport
       included do
         scope :tree_default_scope, ar_tree_model_configuration[:scope]
 
-        belongs_to :parent, -> { tree_default_scope }, :class_name => name, :foreign_key => :parent_id, :required => false
-        has_many :children, -> { tree_default_scope }, :class_name => name, :foreign_key => :parent_id, :dependent => :destroy, :inverse_of => :parent
-        scope :roots, -> { tree_default_scope.where(:parent_id => nil) }
+        belongs_to :parent, -> { tree_default_scope }, class_name: name, foreign_key: :parent_id, required: false
+        has_many :children, -> { tree_default_scope }, class_name: name, foreign_key: :parent_id, dependent: :destroy, inverse_of: :parent
+        scope :roots, -> { tree_default_scope.where(parent_id: nil) }
       end
 
       class_methods do
@@ -57,14 +57,14 @@ module TreeSupport
           roots.first
         end
 
-        # acts_as_list との組み合わせでは destroy_all で事故るため、葉から順に消していかないといけない
+        # In combination with acts_as_list accident in destroy_all, we have to erase from the leaves in order
         def safe_destroy_all
           roots.collect(&:destroy)
         end
 
         def destroy_all(*args)
           if respond_to?(:acts_as_list)
-            ActiveSupport::Deprecation.warn("acts_as_list を使っているときに destroy_all すると id が引けずに事故るので delete_all するか、末端から消していく safe_destroy_all を使ってください")
+            ActiveSupport::Deprecation.warn("When you use acts_as_list destroy_all do not get id failed to accidentally delete_all Please use safe_destroy_all to erase from the end")
           end
           super
         end

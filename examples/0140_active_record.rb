@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-#
-# ActiveRecord のみを使った木構造の可視化
+# Visualization of tree structure using only ActiveRecord
 #
 require "bundler/setup"
 require "tree_support"
@@ -33,29 +31,29 @@ end
 
 root = Node.create!(:name => "*root*").tap do |n|
   n.instance_eval do
-    add "交戦" do
-      add "攻撃" do
-        add "剣を振る"
-        add "攻撃魔法" do
-          add "召喚A"
-          add "召喚B"
+    add "Battle" do
+      add "Attack" do
+        add "Shake the sword"
+        add "Attack magic" do
+          add "Summoner Monster A"
+          add "Summoner Monster B"
         end
-        add "縦で剣をはじく"
+        add "Repel sword in length"
       end
-      add "防御"
+      add "Defense"
     end
-    add "撤退" do
-      add "足止めする" do
-        add "トラップをしかける"
-        add "弓矢を放つ"
+    add "Withdraw" do
+      add "To stop" do
+        add "Place a trap"
+        add "Shoot a bow and arrow"
       end
-      add "逃走する"
+      add "To escape"
     end
-    add "休憩" do
-      add "立ち止まる"
-      add "回復する" do
-        add "回復魔法"
-        add "回復薬を飲む"
+    add "Break" do
+      add "Stop"
+      add "Recover" do
+        add "Recovery magic"
+        add "Drink recovery medicine"
       end
     end
   end
@@ -63,21 +61,21 @@ end
 
 puts TreeSupport.tree(root)
 # >> *root*
-# >> ├─交戦
-# >> │   ├─攻撃
-# >> │   │   ├─剣を振る
-# >> │   │   ├─攻撃魔法
-# >> │   │   │   ├─召喚A
-# >> │   │   │   └─召喚B
-# >> │   │   └─縦で剣をはじく
-# >> │   └─防御
-# >> ├─撤退
-# >> │   ├─足止めする
-# >> │   │   ├─トラップをしかける
-# >> │   │   └─弓矢を放つ
-# >> │   └─逃走する
-# >> └─休憩
-# >>     ├─立ち止まる
-# >>     └─回復する
-# >>         ├─回復魔法
-# >>         └─回復薬を飲む
+# >> ├─Battle
+# >> │   ├─Attack
+# >> │   │   ├─Shake the sword
+# >> │   │   ├─Attack magic
+# >> │   │   │   ├─Summoner Monster A
+# >> │   │   │   └─Summoner Monster B
+# >> │   │   └─Repel sword in length
+# >> │   └─Defense
+# >> ├─Withdraw
+# >> │   ├─To stop
+# >> │   │   ├─Place a trap
+# >> │   │   └─Shoot a bow and arrow
+# >> │   └─To escape
+# >> └─Break
+# >>     ├─Stop
+# >>     └─Recover
+# >>         ├─Recovery magic
+# >>         └─Drink recovery medicine

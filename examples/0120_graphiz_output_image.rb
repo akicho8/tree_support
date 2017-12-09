@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-#
-# 画像変換
+# Image conversion
 #
 require "bundler/setup"
 require "tree_support"

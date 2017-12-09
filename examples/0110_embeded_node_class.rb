@@ -1,6 +1,5 @@
-# -*- coding: utf-8 -*-
 #
-# ちょっとした木構造を表現したいときに組み込みの TreeSupport::Node は汎用的に使える
+# Built-in TreeSupport::Node can be used generically when you want to express a little tree structure
 #
 require "bundler/setup"
 require "tree_support"

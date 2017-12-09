@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# acts_as_tree の代替ライブラリの TreeSupport::ArTreeModel を使った例
+# An example using TreeSupport::ArTreeModel of alternate library of acts_as_tree
 #
 require "bundler/setup"
 
@@ -8,9 +8,9 @@ require "rails"
 require "active_record"
 require "tree_support"
 
-Class.new(Rails::Application) { config.eager_load = false }.initialize! # ar_tree_model を有効化
+Class.new(Rails::Application) { config.eager_load = false }.initialize! # Activate ar_tree_model
 
-ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :database => ":memory:")
+ActiveRecord::Base.establish_connection(adapter: "sqlite3", database: ":memory:")
 ActiveRecord::Migration.verbose = false
 
 ActiveRecord::Schema.define do
@@ -21,11 +21,11 @@ ActiveRecord::Schema.define do
 end
 
 class Node < ActiveRecord::Base
-  ar_tree_model scope: -> { order(:name).where.not(:name => "休憩") }
+  ar_tree_model scope: -> { order(:name).where.not(name: "Break") }
 
   def add(name, &block)
     tap do
-      child = children.create!(:name => name)
+      child = children.create!(name: name)
       if block_given?
         child.instance_eval(&block)
       end
@@ -33,50 +33,50 @@ class Node < ActiveRecord::Base
   end
 end
 
-Node.create!(:name => "*root*").tap do |n|
+Node.create!(name: "*root*").tap do |n|
   n.instance_eval do
-    add "交戦" do
-      add "攻撃" do
-        add "剣を振る"
-        add "攻撃魔法" do
-          add "召喚A"
-          add "召喚B"
+    add "Battle" do
+      add "Attack" do
+        add "Shake the sword"
+        add "Attack magic" do
+          add "Summoner Monster A"
+          add "Summoner Monster B"
         end
-        add "縦で剣をはじく"
+        add "Repel sword in length"
       end
-      add "防御"
+      add "Defense"
     end
-    add "撤退" do
-      add "足止めする" do
-        add "トラップをしかける"
-        add "弓矢を放つ"
+    add "Withdraw" do
+      add "To stop" do
+        add "Place a trap"
+        add "Shoot a bow and arrow"
       end
-      add "逃走する"
+      add "To escape"
     end
-    add "休憩" do
-      add "立ち止まる"
-      add "回復する" do
-        add "回復魔法"
-        add "回復薬を飲む"
+    add "Break" do
+      add "Stop"
+      add "Recover" do
+        add "Recovery magic"
+        add "Drink recovery medicine"
       end
     end
   end
 end
 
 puts Node.root.to_s_tree
-Node.destroy_all             # acts_as_list を使っていないので消せる
+Node.destroy_all             # Because it does not use acts_as_list, it can be erased
 
 # >> *root*
-# >> ├─交戦
-# >> │   ├─攻撃
-# >> │   │   ├─剣を振る
-# >> │   │   ├─攻撃魔法
-# >> │   │   │   ├─召喚A
-# >> │   │   │   └─召喚B
-# >> │   │   └─縦で剣をはじく
-# >> │   └─防御
-# >> └─撤退
-# >>     ├─足止めする
-# >>     │   ├─トラップをしかける
-# >>     │   └─弓矢を放つ
-# >>     └─逃走する
+# >> ├─Battle
+# >> │   ├─Attack
+# >> │   │   ├─Attack magic
+# >> │   │   │   ├─Summoner Monster A
+# >> │   │   │   └─Summoner Monster B
+# >> │   │   ├─Repel sword in length
+# >> │   │   └─Shake the sword
+# >> │   └─Defense
+# >> └─Withdraw
+# >>     ├─To escape
+# >>     └─To stop
+# >>         ├─Place a trap
+# >>         └─Shoot a bow and arrow

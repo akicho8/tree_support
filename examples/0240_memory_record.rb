@@ -1,4 +1,4 @@
-# MemoryRecord を Treeable 対応
+# Example of combining with MemoryRecord
 require "bundler/setup"
 require "tree_support"
 require "memory_record"
@@ -11,7 +11,7 @@ class Foo
     {key: :c, name: "C", parent: :b},
   ]
 
-  # parent と children に反応できれば構造は何でもよい
+  # Any structure can be used as long as it can respond to parent and children
   concerning :TreeMethods do
     included do
       include TreeSupport::Treeable

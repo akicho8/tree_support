@@ -18,7 +18,7 @@ module TreeSupport
   end
 
   class GraphvizBuilder
-    # Gviz#save だけなぜか使いずらいため
+    # For Gviz#save only for some reason
     class GvizEx < SimpleDelegator
       def output(filename)
         filename = Pathname(filename).expand_path
@@ -26,7 +26,7 @@ module TreeSupport
         save("#{filename.dirname}/#{filename.basename(".*")}", filename.extname.delete("."))
       end
 
-      # alias to_dot to_s はできない
+      # alias to_dot to_s can not
       def to_dot
         to_s
       end
@@ -71,7 +71,7 @@ module TreeSupport
     end
 
     def node_code(object)
-      # GC対象にならないためシンボルにしたくないが、Gvizで怒られるため仕方なくシンボル化している
+      # I do not want to be a symbol because it is not subject to GC, but because I get angry with Gviz it is a symbolic symbol
       :"n#{object.object_id}"
     end
   end

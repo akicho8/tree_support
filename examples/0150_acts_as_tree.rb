@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-#
-# acts_as_tree を使った例
+# Example using acts_as_tree
 #
 require "bundler/setup"
 require "tree_support"
@@ -36,29 +34,29 @@ end
 
 _root = Node.create!(:name => "*root*").tap do |n|
   n.instance_eval do
-    add "交戦" do
-      add "攻撃" do
-        add "剣を振る"
-        add "攻撃魔法" do
-          add "召喚A"
-          add "召喚B"
+    add "Battle" do
+      add "Attack" do
+        add "Shake the sword"
+        add "Attack magic" do
+          add "Summoner Monster A"
+          add "Summoner Monster B"
         end
-        add "縦で剣をはじく"
+        add "Repel sword in length"
       end
-      add "防御"
+      add "Defense"
     end
-    add "撤退" do
-      add "足止めする" do
-        add "トラップをしかける"
-        add "弓矢を放つ"
+    add "Withdraw" do
+      add "To stop" do
+        add "Place a trap"
+        add "Shoot a bow and arrow"
       end
-      add "逃走する"
+      add "To escape"
     end
-    add "休憩" do
-      add "立ち止まる"
-      add "回復する" do
-        add "回復魔法"
-        add "回復薬を飲む"
+    add "Break" do
+      add "Stop"
+      add "Recover" do
+        add "Recovery magic"
+        add "Drink recovery medicine"
       end
     end
   end
@@ -83,21 +81,21 @@ Node.tree_view(:name)
 # ~> /usr/local/var/rbenv/versions/2.4.1/lib/ruby/gems/2.4.0/gems/arel-7.1.0/lib/arel/nodes/casted.rb:14: warning: instance variable @class not initialized
 # >> root
 # >>  |_ *root*
-# >>  |    |_ 交戦
-# >>  |        |_ 攻撃
-# >>  |            |_ 剣を振る
-# >>  |            |_ 攻撃魔法
-# >>  |                |_ 召喚A
-# >>  |                |_ 召喚B
-# >>  |            |_ 縦で剣をはじく
-# >>  |        |_ 防御
-# >>  |    |_ 休憩
-# >>  |        |_ 回復する
-# >>  |            |_ 回復薬を飲む
-# >>  |            |_ 回復魔法
-# >>  |        |_ 立ち止まる
-# >>  |    |_ 撤退
-# >>  |        |_ 足止めする
-# >>  |            |_ トラップをしかける
-# >>  |            |_ 弓矢を放つ
-# >>  |        |_ 逃走する
+# >>  |    |_ Battle
+# >>  |        |_ Attack
+# >>  |            |_ Shake the sword
+# >>  |            |_ Attack magic
+# >>  |                |_ Summoner Monster A
+# >>  |                |_ Summoner Monster B
+# >>  |            |_ Repel sword in length
+# >>  |        |_ Defense
+# >>  |    |_ Break
+# >>  |        |_ Recover
+# >>  |            |_ Drink recovery medicine
+# >>  |            |_ Recovery magic
+# >>  |        |_ Stop
+# >>  |    |_ Withdraw
+# >>  |        |_ To stop
+# >>  |            |_ Place a trap
+# >>  |            |_ Shoot a bow and arrow
+# >>  |        |_ To escape

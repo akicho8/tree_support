@@ -1,6 +1,6 @@
-# 木構造あるあるメソッドの定義
+# Definition of methods that are common in tree-structured interfaces
 #
-# 必要なのは parent, children メソッドだけ
+# All you need is parent and children methods
 #
 
 require "active_support/core_ext/module/concerning"
@@ -23,6 +23,10 @@ module TreeSupport
 
     def ancestors
       [self] + (parent ? parent.ancestors : [])
+    end
+
+    def ancestors_without_self
+      ancestors.drop(1)
     end
 
     def root

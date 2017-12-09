@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# TreeSupport::Node の木を ActiveRecord の木に置き換えるイディオム
+# Idiom replacing TreeSupport::Node's tree with ActiveRecord's tree
 #
 require "bundler/setup"
 require "tree_support"
@@ -21,12 +21,12 @@ class Node < ActiveRecord::Base
   has_many :children, :class_name => name, :foreign_key => :parent_id
 end
 
-# 方法1. シンプルだけどユニークキー相当が必須になってしまう
+# METHOD 1. It is simple but unique key equivalent becomes essential
 Node.destroy_all
 TreeSupport.example.each_node do |node|
-  obj = Node.find_or_initialize_by(:name => node.name) # 更新するために find_or にしている
+  obj = Node.find_or_initialize_by(:name => node.name) # I'm doing find_or to update
   if node.parent
-    obj.parent = Node.find_by(:name => node.parent.name) # ← ユニークキーがないとここで引くのが難しい
+    obj.parent = Node.find_by(:name => node.parent.name) # It is difficult to draw here without a unique key
   else
     obj.parent = nil
   end
@@ -35,7 +35,7 @@ end
 root = Node.find_by(:name => TreeSupport.example.name)
 puts TreeSupport.tree(root)
 
-# 方法2. 子が作られるときは親がかならず存在することを利用して方法1を改良
+# METHOD 2. Improve method 1 by making sure that parents are always present when children are made
 Node.destroy_all
 stock = {}
 TreeSupport.example.each_node do |node|
@@ -51,7 +51,7 @@ end
 root = Node.find_by(:name => TreeSupport.example.name)
 puts TreeSupport.tree(root)
 
-# 方法3. 再帰にするとユニークキーは不要。だけど create! が二箇所なのがちょっと。更新が難しい(？)
+# Method 3. Unnecessary to use a unique key when recursive. However, it is a bit that create! Is two places. Update is difficult (?)
 Node.destroy_all
 def create_recursion(root, node)
   sub = root.children.create!(:name => node.name)
@@ -62,59 +62,59 @@ TreeSupport.example.children.each {|node| create_recursion(root, node)}
 puts TreeSupport.tree(root)
 
 # >> *root*
-# >> ├─交戦
-# >> │   ├─攻撃
-# >> │   │   ├─剣を振る
-# >> │   │   ├─攻撃魔法
-# >> │   │   │   ├─召喚A
-# >> │   │   │   └─召喚B
-# >> │   │   └─縦で剣をはじく
-# >> │   └─防御
-# >> ├─撤退
-# >> │   ├─足止めする
-# >> │   │   ├─トラップをしかける
-# >> │   │   └─弓矢を放つ
-# >> │   └─逃走する
-# >> └─休憩
-# >>     ├─立ち止まる
-# >>     └─回復する
-# >>         ├─回復魔法
-# >>         └─回復薬を飲む
+# >> ├─Battle
+# >> │   ├─Attack
+# >> │   │   ├─Shake the sword
+# >> │   │   ├─Attack magic
+# >> │   │   │   ├─Summoner Monster A
+# >> │   │   │   └─Summoner Monster B
+# >> │   │   └─Repel sword in length
+# >> │   └─Defense
+# >> ├─Withdraw
+# >> │   ├─To stop
+# >> │   │   ├─Place a trap
+# >> │   │   └─Shoot a bow and arrow
+# >> │   └─To escape
+# >> └─Break
+# >>     ├─Stop
+# >>     └─Recover
+# >>         ├─Recovery magic
+# >>         └─Drink recovery medicine
 # >> *root*
-# >> ├─交戦
-# >> │   ├─攻撃
-# >> │   │   ├─剣を振る
-# >> │   │   ├─攻撃魔法
-# >> │   │   │   ├─召喚A
-# >> │   │   │   └─召喚B
-# >> │   │   └─縦で剣をはじく
-# >> │   └─防御
-# >> ├─撤退
-# >> │   ├─足止めする
-# >> │   │   ├─トラップをしかける
-# >> │   │   └─弓矢を放つ
-# >> │   └─逃走する
-# >> └─休憩
-# >>     ├─立ち止まる
-# >>     └─回復する
-# >>         ├─回復魔法
-# >>         └─回復薬を飲む
+# >> ├─Battle
+# >> │   ├─Attack
+# >> │   │   ├─Shake the sword
+# >> │   │   ├─Attack magic
+# >> │   │   │   ├─Summoner Monster A
+# >> │   │   │   └─Summoner Monster B
+# >> │   │   └─Repel sword in length
+# >> │   └─Defense
+# >> ├─Withdraw
+# >> │   ├─To stop
+# >> │   │   ├─Place a trap
+# >> │   │   └─Shoot a bow and arrow
+# >> │   └─To escape
+# >> └─Break
+# >>     ├─Stop
+# >>     └─Recover
+# >>         ├─Recovery magic
+# >>         └─Drink recovery medicine
 # >> *root*
-# >> ├─交戦
-# >> │   ├─攻撃
-# >> │   │   ├─剣を振る
-# >> │   │   ├─攻撃魔法
-# >> │   │   │   ├─召喚A
-# >> │   │   │   └─召喚B
-# >> │   │   └─縦で剣をはじく
-# >> │   └─防御
-# >> ├─撤退
-# >> │   ├─足止めする
-# >> │   │   ├─トラップをしかける
-# >> │   │   └─弓矢を放つ
-# >> │   └─逃走する
-# >> └─休憩
-# >>     ├─立ち止まる
-# >>     └─回復する
-# >>         ├─回復魔法
-# >>         └─回復薬を飲む
+# >> ├─Battle
+# >> │   ├─Attack
+# >> │   │   ├─Shake the sword
+# >> │   │   ├─Attack magic
+# >> │   │   │   ├─Summoner Monster A
+# >> │   │   │   └─Summoner Monster B
+# >> │   │   └─Repel sword in length
+# >> │   └─Defense
+# >> ├─Withdraw
+# >> │   ├─To stop
+# >> │   │   ├─Place a trap
+# >> │   │   └─Shoot a bow and arrow
+# >> │   └─To escape
+# >> └─Break
+# >>     ├─Stop
+# >>     └─Recover
+# >>         ├─Recovery magic
+# >>         └─Drink recovery medicine

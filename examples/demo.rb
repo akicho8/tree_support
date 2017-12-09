@@ -1,5 +1,4 @@
-# -*- coding: utf-8 -*-
-# ../images/* の出力
+# output ../images/*
 require "bundler/setup"
 require "tree_support"
 
@@ -15,9 +14,9 @@ puts TreeSupport.tree(root) {|node, _locals| node.object_id}
 # TreeSupport.graph_open(root)
 
 TreeSupport.graphviz(root) {|node|
-  if node.name.include?("攻")
+  if node.name.include?("Attack")
     {:fillcolor => "lightblue", :style => "filled"}
-  elsif node.name.include?("回復")
+  elsif node.name.include?("Recover")
     {:fillcolor => "lightpink", :style => "filled"}
   end
 }.output("../images/tree_color.png")
@@ -30,82 +29,82 @@ TreeSupport.graphviz(root).output("../images/tree.png")
 TreeSupport.graphviz(root, :take => 3).output("../images/take.png")
 TreeSupport.graphviz(root, :drop => 1).output("../images/drop.png")
 TreeSupport.graphviz(root, :take => 3, :drop => 1).output("../images/take_drop.png")
-# >> [["*root*", 0], ["交戦", 1], ["攻撃", 2], ["剣を振る", 3], ["攻撃魔法", 4], ["召喚A", 5], ["召喚B", 6], ["縦で剣をはじく", 7], ["防御", 8], ["撤退", 9], ["足止めする", 10], ["トラップをしかける", 11], ["弓矢を放つ", 12], ["逃走する", 13], ["休憩", 14], ["立ち止まる", 15], ["回復する", 16], ["回復魔法", 17], ["回復薬を飲む", 18]]
+# >> [["*root*", 0], ["Battle", 1], ["Attack", 2], ["Shake the sword", 3], ["Attack magic", 4], ["Summoner Monster A", 5], ["Summoner Monster B", 6], ["Repel sword in length", 7], ["Defense", 8], ["Withdraw", 9], ["To stop", 10], ["Place a trap", 11], ["Shoot a bow and arrow", 12], ["To escape", 13], ["Break", 14], ["Stop", 15], ["Recover", 16], ["Recovery magic", 17], ["Drink recovery medicine", 18]]
 # >> *root*
-# >> ├─交戦
-# >> │   ├─攻撃
-# >> │   │   ├─剣を振る
-# >> │   │   ├─攻撃魔法
-# >> │   │   │   ├─召喚A
-# >> │   │   │   └─召喚B
-# >> │   │   └─縦で剣をはじく
-# >> │   └─防御
-# >> ├─撤退
-# >> │   ├─足止めする
-# >> │   │   ├─トラップをしかける
-# >> │   │   └─弓矢を放つ
-# >> │   └─逃走する
-# >> └─休憩
-# >>     ├─立ち止まる
-# >>     └─回復する
-# >>         ├─回復魔法
-# >>         └─回復薬を飲む
+# >> ├─Battle
+# >> │   ├─Attack
+# >> │   │   ├─Shake the sword
+# >> │   │   ├─Attack magic
+# >> │   │   │   ├─Summoner Monster A
+# >> │   │   │   └─Summoner Monster B
+# >> │   │   └─Repel sword in length
+# >> │   └─Defense
+# >> ├─Withdraw
+# >> │   ├─To stop
+# >> │   │   ├─Place a trap
+# >> │   │   └─Shoot a bow and arrow
+# >> │   └─To escape
+# >> └─Break
+# >>     ├─Stop
+# >>     └─Recover
+# >>         ├─Recovery magic
+# >>         └─Drink recovery medicine
 # >> *root*
-# >> ├─交戦
-# >> │   ├─攻撃
-# >> │   │   ├─剣を振る
-# >> │   │   ├─攻撃魔法
-# >> │   │   │   ├─召喚A
-# >> │   │   │   └─召喚B
-# >> │   │   └─縦で剣をはじく
-# >> │   └─防御
-# >> ├─撤退
-# >> │   ├─足止めする
-# >> │   │   ├─トラップをしかける
-# >> │   │   └─弓矢を放つ
-# >> │   └─逃走する
-# >> └─休憩
-# >>     ├─立ち止まる
-# >>     └─回復する
-# >>         ├─回復魔法
-# >>         └─回復薬を飲む
-# >> 交戦
-# >> ├─攻撃
-# >> │   ├─剣を振る
-# >> │   ├─攻撃魔法
-# >> │   │   ├─召喚A
-# >> │   │   └─召喚B
-# >> │   └─縦で剣をはじく
-# >> └─防御
-# >> 撤退
-# >> ├─足止めする
-# >> │   ├─トラップをしかける
-# >> │   └─弓矢を放つ
-# >> └─逃走する
-# >> 休憩
-# >> ├─立ち止まる
-# >> └─回復する
-# >>     ├─回復魔法
-# >>     └─回復薬を飲む
+# >> ├─Battle
+# >> │   ├─Attack
+# >> │   │   ├─Shake the sword
+# >> │   │   ├─Attack magic
+# >> │   │   │   ├─Summoner Monster A
+# >> │   │   │   └─Summoner Monster B
+# >> │   │   └─Repel sword in length
+# >> │   └─Defense
+# >> ├─Withdraw
+# >> │   ├─To stop
+# >> │   │   ├─Place a trap
+# >> │   │   └─Shoot a bow and arrow
+# >> │   └─To escape
+# >> └─Break
+# >>     ├─Stop
+# >>     └─Recover
+# >>         ├─Recovery magic
+# >>         └─Drink recovery medicine
+# >> Battle
+# >> ├─Attack
+# >> │   ├─Shake the sword
+# >> │   ├─Attack magic
+# >> │   │   ├─Summoner Monster A
+# >> │   │   └─Summoner Monster B
+# >> │   └─Repel sword in length
+# >> └─Defense
+# >> Withdraw
+# >> ├─To stop
+# >> │   ├─Place a trap
+# >> │   └─Shoot a bow and arrow
+# >> └─To escape
+# >> Break
+# >> ├─Stop
+# >> └─Recover
+# >>     ├─Recovery magic
+# >>     └─Drink recovery medicine
 # >> *root*
-# >> ├─交戦
-# >> │   ├─攻撃
-# >> │   └─防御
-# >> ├─撤退
-# >> │   ├─足止めする
-# >> │   └─逃走する
-# >> └─休憩
-# >>     ├─立ち止まる
-# >>     └─回復する
-# >> 交戦
-# >> ├─攻撃
-# >> └─防御
-# >> 撤退
-# >> ├─足止めする
-# >> └─逃走する
-# >> 休憩
-# >> ├─立ち止まる
-# >> └─回復する
+# >> ├─Battle
+# >> │   ├─Attack
+# >> │   └─Defense
+# >> ├─Withdraw
+# >> │   ├─To stop
+# >> │   └─To escape
+# >> └─Break
+# >>     ├─Stop
+# >>     └─Recover
+# >> Battle
+# >> ├─Attack
+# >> └─Defense
+# >> Withdraw
+# >> ├─To stop
+# >> └─To escape
+# >> Break
+# >> ├─Stop
+# >> └─Recover
 # >> 70330517629360
 # >> ├─70330517617140
 # >> │   ├─70330517612220

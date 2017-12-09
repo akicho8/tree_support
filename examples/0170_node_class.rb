@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-#
-# Treeable モジュールが入っていると each_node が使える
+# each_node can be used if Treeable module is included
 #
 require "bundler/setup"
 require "tree_support"
@@ -10,21 +8,21 @@ root.class.ancestors                  # => [TreeSupport::Node, TreeSupport::Stri
 root.each_node.with_index {|n, i| p [i, n.name] }
 
 # >> [0, "*root*"]
-# >> [1, "交戦"]
-# >> [2, "攻撃"]
-# >> [3, "剣を振る"]
-# >> [4, "攻撃魔法"]
-# >> [5, "召喚A"]
-# >> [6, "召喚B"]
-# >> [7, "縦で剣をはじく"]
-# >> [8, "防御"]
-# >> [9, "撤退"]
-# >> [10, "足止めする"]
-# >> [11, "トラップをしかける"]
-# >> [12, "弓矢を放つ"]
-# >> [13, "逃走する"]
-# >> [14, "休憩"]
-# >> [15, "立ち止まる"]
-# >> [16, "回復する"]
-# >> [17, "回復魔法"]
-# >> [18, "回復薬を飲む"]
+# >> [1, "Battle"]
+# >> [2, "Attack"]
+# >> [3, "Shake the sword"]
+# >> [4, "Attack magic"]
+# >> [5, "Summoner Monster A"]
+# >> [6, "Summoner Monster B"]
+# >> [7, "Repel sword in length"]
+# >> [8, "Defense"]
+# >> [9, "Withdraw"]
+# >> [10, "To stop"]
+# >> [11, "Place a trap"]
+# >> [12, "Shoot a bow and arrow"]
+# >> [13, "To escape"]
+# >> [14, "Break"]
+# >> [15, "Stop"]
+# >> [16, "Recover"]
+# >> [17, "Recovery magic"]
+# >> [18, "Drink recovery medicine"]

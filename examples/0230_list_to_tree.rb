@@ -11,13 +11,13 @@ records = [
   {:key => :b2, :parent => :b1},
 ]
 
-# ---------- ライブラリの機能で変換
+# ---------- Convert with function of library
 if true
   puts TreeSupport.records_to_tree(records).collect(&:to_s_tree)
   puts TreeSupport.records_to_tree(records, :root_key => :root).to_s_tree
 end
 
-# ---------- 自力で書く方法
+# ---------- How to write by yourself
 if true
   source_hash = records.inject({}) { |a, e| a.merge(e[:key] => e) }
   node_hash = records.inject({}) { |a, e| a.merge(e[:key] => TreeSupport::Node.new(e[:key])) }
@@ -31,7 +31,7 @@ if true
   roots = node_hash.each_value.find_all {|e| e.parent == nil }
   puts roots.collect(&:to_s_tree)
 
-  # ルートを一つにしたいとき
+  # When you want to make one route
   root = TreeSupport::Node.new(:root)
   roots.each do |e|
     e.parent = root

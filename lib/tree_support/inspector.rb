@@ -19,17 +19,17 @@ module TreeSupport
       new(*args, &block).tree(object)
     end
 
-    def initialize(options = {}, &block)
+    def initialize(**options, &block)
       @options = {
-        :take             => 256,   # 深さNまで(巨大すぎて木が表示できないとき用)
-        :drop             => 0,     # 深さNから(1にするとルートを非表示にできる)
-        :root_label       => nil,   # ルートを表示する場合に有効な代替ラベル
-        :tab_space        => 4,     # 途中からのインデント幅
+        :take             => 256,   # Up to depth N (for when the tree can not be displayed because it is huge)
+        :drop             => 0,     # From the depth N (when set to 1 you can hide the route)
+        :root_label       => nil,   # A valid alternative label for displaying the route
+        :tab_space        => 4,     # Indent width from halfway
         :connect_char     => "├",
         :tab_visible_char => "│",
         :edge_char        => "└",
         :branch_char      => "─",
-        :debug            => false, # わけがわからなくなったら true にしよう
+        :debug            => false,
       }.merge(options)
 
       @block = block
@@ -66,7 +66,7 @@ module TreeSupport
       if @block
         label = @block.call(object, locals)
       else
-        if locals[:depth].empty? && @options[:root_label] # ルートかつ代替ラベルがあれば変更
+        if locals[:depth].empty? && @options[:root_label] # Change if there is root and alternative label
           label = @options[:root_label]
         else
           label = TreeSupport.node_name(object)
