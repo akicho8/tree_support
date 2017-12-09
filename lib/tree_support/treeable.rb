@@ -7,6 +7,18 @@ require "active_support/core_ext/module/concerning"
 
 module TreeSupport
   concern :Treeable do
+    def root
+      parent ? parent.root : self
+    end
+
+    def root?
+      !parent
+    end
+
+    def leaf?
+      children.empty?
+    end
+
     def each_node(&block)
       return enum_for(__method__) unless block_given?
       yield self
@@ -22,15 +34,11 @@ module TreeSupport
     end
 
     def ancestors
-      [self] + (parent ? parent.ancestors : [])
+      self_and_ancestors - [self]
     end
 
-    def ancestors_without_self
-      ancestors.drop(1)
-    end
-
-    def root
-      parent ? parent.root : self
+    def self_and_ancestors
+      [self] + (parent ? parent.self_and_ancestors : [])
     end
 
     def siblings
@@ -39,14 +47,6 @@ module TreeSupport
 
     def self_and_siblings
       parent ? parent.children : []
-    end
-
-    def root?
-      !parent
-    end
-
-    def leaf?
-      children.empty?
     end
   end
 end

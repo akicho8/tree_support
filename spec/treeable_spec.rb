@@ -15,36 +15,8 @@ RSpec.describe "Treeable" do
     @leaf = @root.each_node.find {|e| e.name == "x"}
   end
 
-  it "ancestors" do
-    @a2.ancestors.collect(&:name).should == ["a2", "a", "*root*"]
-  end
-
-  it "ancestors_without_self" do
-    @a2.ancestors_without_self.collect(&:name).should == ["a", "*root*"]
-  end
-
-  it "descendants" do
-    @root.descendants.collect(&:name).should == ["a", "a1", "a2", "x", "a3"]
-  end
-
-  it "self_and_descendants" do
-    @root.self_and_descendants.collect(&:name).should == ["*root*", "a", "a1", "a2", "x", "a3"]
-  end
-
-  it "each_node" do
-    @root.each_node.collect(&:name).should == ["*root*", "a", "a1", "a2", "x", "a3"]
-  end
-
   it "root" do
     @a2.root.name.should == "*root*"
-  end
-
-  it "siblings" do
-    @a2.siblings.collect(&:name).should == ["a1", "a3"]
-  end
-
-  it "self_and_siblings" do
-    @a2.self_and_siblings.collect(&:name).should == ["a1", "a2", "a3"]
   end
 
   it "root?" do
@@ -55,5 +27,33 @@ RSpec.describe "Treeable" do
   it "leaf?" do
     @root.leaf?.should == false
     @leaf.leaf?.should == true
+  end
+
+  it "each_node" do
+    @root.each_node.collect(&:name).should == ["*root*", "a", "a1", "a2", "x", "a3"]
+  end
+
+  it "descendants" do
+    @root.descendants.collect(&:name).should == ["a", "a1", "a2", "x", "a3"]
+  end
+
+  it "self_and_descendants" do
+    @root.self_and_descendants.collect(&:name).should == ["*root*", "a", "a1", "a2", "x", "a3"]
+  end
+
+  it "ancestors" do
+    @a2.ancestors.collect(&:name).should == ["a", "*root*"]
+  end
+
+  it "self_and_ancestors" do
+    @a2.self_and_ancestors.collect(&:name).should == ["a2", "a", "*root*"]
+  end
+
+  it "siblings" do
+    @a2.siblings.collect(&:name).should == ["a1", "a3"]
+  end
+
+  it "self_and_siblings" do
+    @a2.self_and_siblings.collect(&:name).should == ["a1", "a2", "a3"]
   end
 end
