@@ -19,7 +19,7 @@ $ bundle install
 
 ** How to use in one line
 
-   Just pass the object that has the parent, children method to TreeSupport.tree
+   Just pass the object that has the parent, children method to =TreeSupport.tree=
 
 #+BEGIN_SRC ruby
 require "tree_support"
@@ -128,7 +128,7 @@ puts TreeSupport.tree(root)
 
 *** Troublesome writing TreeSupport.tree
 
-   Include TreeSupport::Stringify
+    =include TreeSupport::Stringify=
 
 #+BEGIN_SRC ruby
 Node.include(TreeSupport::Stringify)
@@ -189,16 +189,17 @@ puts TreeSupport.tree(root) { |node| node.object_id }
 
     The following methods become available in include of =TreeSupport::Treeable=
 
+- root
+- root?
+- leaf?
 - each
 - each_node
 - descendants
 - self_and_descendants
 - ancestors
-- root
+- self_and_ancestors
 - siblings
 - self_and_siblings
-- root?
-- leaf?
 
 *** How to convert to Gviz object?
 
