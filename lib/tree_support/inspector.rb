@@ -35,9 +35,9 @@ module TreeSupport
       @block = block
     end
 
-    # 木構造の可視化
+    # Visualization of tree structure
     #
-    #   必要なメソッド
+    #   Required method
     #     parent.children
     #     name
     #
