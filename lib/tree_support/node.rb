@@ -70,11 +70,16 @@ module TreeSupport
     #   {key: :c, parent: :b},
     # ]
     #
-    # puts TreeSupport.records_to_tree(records).to_s_tree
-    # a
-    # └─b
-    #      └─c
-    #          └─d
+    # puts TreeSupport.records_to_tree(records, root_key: :root).to_s_tree
+    # >> root
+    # >> └─a
+    # >>     ├─b
+    # >>     ├─c
+    #
+    # puts TreeSupport.records_to_tree(records).first.to_s_tree
+    # >> a
+    # >> ├─b
+    # >> ├─c
     #
     # Be sure to have one route
     #
