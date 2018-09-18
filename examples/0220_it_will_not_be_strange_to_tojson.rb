@@ -24,4 +24,4 @@ class Node < ActiveRecord::Base
 end
 
 Node.create!(name: "*root*")
-Node.first.to_json              # => "{\"id\":1,\"parent_id\":null,\"name\":\"*root*\"}"
+Node.first.as_json              # => {"id"=>1, "parent_id"=>nil, "name"=>"*root*"}

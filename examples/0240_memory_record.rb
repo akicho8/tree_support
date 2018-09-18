@@ -3,7 +3,7 @@ require "bundler/setup"
 require "tree_support"
 require "memory_record"
 
-class Foo
+class TreeModel
   include MemoryRecord
   memory_record [
     {key: :a, name: "A", parent: nil},
@@ -28,7 +28,7 @@ class Foo
   end
 end
 
-puts Foo.find_all(&:root?).collect(&:to_s_tree)
+puts TreeModel.find_all(&:root?).collect(&:to_s_tree)
 # >> A
 # >> └─B
 # >>     └─C

@@ -52,10 +52,10 @@ root = Node.new("*root*") do
   end
 end
 
-# TreeSupport.tree に渡すオブジェクトは は parent.children と name に応答できさえすればいい
+# The object passed to TreeSupport.tree needs only to respond to parent.children and name
 puts TreeSupport.tree(root)
 
-# オブジェクトに文字列化するメソッドを入れるには？
+# How do I put a method to stringify an object?
 Node.include(TreeSupport::Stringify)
 puts root.to_s_tree
 # >> *root*
