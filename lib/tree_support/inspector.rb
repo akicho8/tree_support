@@ -19,7 +19,7 @@ module TreeSupport
       new(*args, &block).tree(object)
     end
 
-    def initialize(**options, &block)
+    def initialize(options = {}, &block)
       @options = {
         take: 256,       # Up to depth N (for when the tree can not be displayed because it is huge)
         drop: 0,         # From the depth N (when set to 1 you can hide the route)
@@ -41,7 +41,7 @@ module TreeSupport
     #     parent.children
     #     name
     #
-    def tree(object, **locals)
+    def tree(object, locals = {})
       locals = {
         depth: [],
       }.merge(locals)
